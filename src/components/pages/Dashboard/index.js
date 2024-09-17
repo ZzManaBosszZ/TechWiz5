@@ -1,12 +1,13 @@
 import Layout from "../../layouts";
 function Home() {
 
+
     return (
         <>
             <Layout title="Home Page">
                 <section class="main-banner">
                     <div class="banner-slider">
-                        <div class="banner-slide-box overlay back-image" style={{ backgroundImage: "url(assets/images/banner-slide-1.jpg)"}}>
+                        <div class="banner-slide-box overlay back-image" style={{ backgroundImage: "url(assets/images/banner-slide-1.jpg)" }}>
                             <div class="sec-wp">
                                 <div class="container">
                                     <div class="row">
@@ -20,7 +21,7 @@ function Home() {
                                 </div>
                             </div>
                         </div>
-                        <div class="banner-slide-box overlay back-image" style={{ backgroundImage: "url(assets/images/banner-slide-2.jpg)"}}>
+                        <div class="banner-slide-box overlay back-image" style={{ backgroundImage: "url(assets/images/banner-slide-2.jpg)" }}>
                             <div class="sec-wp">
                                 <div class="container">
                                     <div class="row">
@@ -34,7 +35,7 @@ function Home() {
                                 </div>
                             </div>
                         </div>
-                        <div class="banner-slide-box overlay back-image" style={{ backgroundImage: "url(assets/images/banner-slide-3.jpg)"}}>
+                        <div class="banner-slide-box overlay back-image" style={{ backgroundImage: "url(assets/images/banner-slide-3.jpg)" }}>
                             <div class="sec-wp">
                                 <div class="container">
                                     <div class="row">
@@ -62,7 +63,7 @@ function Home() {
                                             <div class="input-col wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
                                                 <span class="form-control-span where-wrap">
                                                     <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
-                                                    <input type="text" class="form-input" placeholder="Where To?"/>
+                                                    <input type="text" class="form-input" placeholder="Where To?" />
                                                 </span>
                                             </div>
                                             <div class="input-col wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.3s">
@@ -116,7 +117,7 @@ function Home() {
 
                 <section class="main-about common-sec">
                     <div class="logo-icon">
-                        <img src="assets/images/logo-icon.svg" alt="logo-icon"/>
+                        <img src="assets/images/logo-icon.svg" alt="logo-icon" />
                     </div>
                     <div class="sec-wp">
                         <div class="container">
@@ -124,10 +125,10 @@ function Home() {
                                 <div class="col-lg-6">
                                     <div class="about-image-wp">
                                         <div class="about-image-box big wow right-animation" data-wow-duration="1s" data-wow-delay="0.1s">
-                                            <div class="about-image back-image" style={{backgroundImage: "url(assets/images/about-big-image.jpg)"}}></div>
+                                            <div class="about-image back-image" style={{ backgroundImage: "url(assets/images/about-big-image.jpg)" }}></div>
                                         </div>
                                         <div class="about-image-box small wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
-                                            <div class="about-image back-image" style={{ backgroundImage: "url(assets/images/about-small-image.jpg)"}}></div>
+                                            <div class="about-image back-image" style={{ backgroundImage: "url(assets/images/about-small-image.jpg)" }}></div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +152,7 @@ function Home() {
                 </section>
 
 
-                <section class="main-destination common-sec back-image" style={{backgroundImage: "url(assets/images/wave-design.jpg)"}}>
+                <section class="main-destination common-sec back-image" style={{ backgroundImage: "url(assets/images/wave-design.jpg)" }}>
                     <div class="sec-wp">
                         <div class="container">
                             <div class="row">
@@ -169,7 +170,7 @@ function Home() {
                                     <div class="destination-box">
                                         <a href="destination-detail.html">
                                             <div class="destination-box-image-wp">
-                                                <div class="destination-box-image back-image" style={{backgroundImage: "url(assets/images/destination-img1.jpg)"}}></div>
+                                                <div class="destination-box-image back-image" style={{ backgroundImage: "url(assets/images/destination-img1.jpg)" }}></div>
                                             </div>
                                             <div class="destination-box-content">
                                                 <div class="destination-box-content-inner">
@@ -183,7 +184,7 @@ function Home() {
                                             <div class="destination-box">
                                                 <a href="destination-detail.html">
                                                     <div class="destination-box-image-wp">
-                                                        <div class="destination-box-image back-image" style={{backgroundImage: "url(assets/images/destination-img2.jpg)"}}></div>
+                                                        <div class="destination-box-image back-image" style={{ backgroundImage: "url(assets/images/destination-img2.jpg)" }}></div>
                                                     </div>
                                                     <div class="destination-box-content">
                                                         <div class="destination-box-content-inner">
@@ -197,7 +198,7 @@ function Home() {
                                             <div class="destination-box">
                                                 <a href="destination-detail.html">
                                                     <div class="destination-box-image-wp">
-                                                        <div class="destination-box-image back-image" style={{backgroundImage: "url(assets/images/destination-img3.jpg)"}}></div>
+                                                        <div class="destination-box-image back-image" style={{ backgroundImage: "url(assets/images/destination-img3.jpg)" }}></div>
                                                     </div>
                                                     <div class="destination-box-content">
                                                         <div class="destination-box-content-inner">
@@ -213,7 +214,7 @@ function Home() {
                                     <div class="destination-box big-height">
                                         <a href="destination-detail.html">
                                             <div class="destination-box-image-wp">
-                                                <div class="destination-box-image back-image" style={{backgroundImage: "url(assets/images/destination-img4.jpg)"}}></div>
+                                                <div class="destination-box-image back-image" style={{ backgroundImage: "url(assets/images/destination-img4.jpg)" }}></div>
                                             </div>
                                             <div class="destination-box-content">
                                                 <div class="destination-box-content-inner">
@@ -258,7 +259,7 @@ function Home() {
                                     <div class="tour-offer-box">
                                         <a href="tour-detail.html">
                                             <div class="tour-offer-box-image-wp">
-                                                <div class="tour-offer-box-image back-image" style={{backgroundImage: "url(assets/images/offer-img1.jpg);"}}>
+                                                <div class="tour-offer-box-image back-image" style={{ backgroundImage: "url(assets/images/offer-img1.jpg)" }}>
                                                     <span class="discount-label">22% off</span>
                                                 </div>
                                             </div>
@@ -273,7 +274,7 @@ function Home() {
                                     <div class="tour-offer-box">
                                         <a href="tour-detail.html">
                                             <div class="tour-offer-box-image-wp">
-                                                <div class="tour-offer-box-image back-image" style={{backgroundImage: "url(assets/images/offer-img2.jpg);"}}>
+                                                <div class="tour-offer-box-image back-image" style={{ backgroundImage: "url(assets/images/offer-img2.jpg)" }}>
                                                     <span class="discount-label">15% off</span>
                                                 </div>
                                             </div>
@@ -288,7 +289,7 @@ function Home() {
                                     <div class="tour-offer-box">
                                         <a href="tour-detail.html">
                                             <div class="tour-offer-box-image-wp">
-                                                <div class="tour-offer-box-image back-image" style={{backgroundImage: "url(assets/images/offer-img3.jpg)"}}>
+                                                <div class="tour-offer-box-image back-image" style={{ backgroundImage: "url(assets/images/offer-img3.jpg)" }}>
                                                     <span class="discount-label">38% off</span>
                                                 </div>
                                             </div>
@@ -303,7 +304,7 @@ function Home() {
                                     <div class="tour-offer-box">
                                         <a href="tour-detail.html">
                                             <div class="tour-offer-box-image-wp">
-                                                <div class="tour-offer-box-image back-image" style={{backgroundImage: "url(assets/images/offer-img4.jpg)"}}>
+                                                <div class="tour-offer-box-image back-image" style={{ backgroundImage: "url(assets/images/offer-img4.jpg)" }}>
                                                     <span class="discount-label">32% off</span>
                                                 </div>
                                             </div>
@@ -318,7 +319,7 @@ function Home() {
                                     <div class="tour-offer-box">
                                         <a href="tour-detail.html">
                                             <div class="tour-offer-box-image-wp">
-                                                <div class="tour-offer-box-image back-image" style={{backgroundImage: "url(assets/images/offer-img5.jpg);"}}>
+                                                <div class="tour-offer-box-image back-image" style={{ backgroundImage: "url(assets/images/offer-img5.jpg)" }}>
                                                     <span class="discount-label">15% off</span>
                                                 </div>
                                             </div>
@@ -335,10 +336,10 @@ function Home() {
                 </section>
 
 
-                <section class="main-highlight overlay back-image wow fadeup-animation" style={{backgroundImage: "url(assets/images/highlight-image.jpg)"}} data-wow-duration="1s" data-wow-delay="0.1s">
+                <section class="main-highlight overlay back-image wow fadeup-animation" style={{ backgroundImage: "url(assets/images/highlight-image.jpg)" }} data-wow-duration="1s" data-wow-delay="0.1s">
                     <div class="highlight-bg-video">
                         <video loop muted autoplay>
-                            <source src="assets/images/highlight-video.mp4" type="video/mp4"/>
+                            <source src="assets/images/highlight-video.mp4" type="video/mp4" />
                         </video>
                     </div>
                     <div class="sec-wp">
@@ -356,7 +357,7 @@ function Home() {
                 </section>
 
 
-                <section class="main-tour bg-f6 back-image" style={{backgroundImage: "url(assets/images/white-map.png)"}}>
+                <section class="main-tour bg-f6 back-image" style={{ backgroundImage: "url(assets/images/white-map.png)" }}>
                     <div class="tour-services">
                         <div class="container">
                             <div class="tour-services-row wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.3s">
@@ -364,7 +365,7 @@ function Home() {
                                     <div class="col-lg-4">
                                         <div class="tour-service-box">
                                             <div class="tour-service-icon">
-                                                <img src="assets/images/tour-service-icon1.svg" alt="tour-service-icon1"/>
+                                                <img src="assets/images/tour-service-icon1.svg" alt="tour-service-icon1" />
                                             </div>
                                             <div class="tour-service-content">
                                                 <h4 class="h4-title">700+ DESTINATIONS</h4>
@@ -375,7 +376,7 @@ function Home() {
                                     <div class="col-lg-4">
                                         <div class="tour-service-box">
                                             <div class="tour-service-icon">
-                                                <img src="assets/images/tour-service-icon2.svg" alt="tour-service-icon2"/>
+                                                <img src="assets/images/tour-service-icon2.svg" alt="tour-service-icon2" />
                                             </div>
                                             <div class="tour-service-content">
                                                 <h4 class="h4-title">BEST PRICE GUARANTEE</h4>
@@ -386,7 +387,7 @@ function Home() {
                                     <div class="col-lg-4">
                                         <div class="tour-service-box">
                                             <div class="tour-service-icon">
-                                                <img src="assets/images/tour-service-icon3.svg" alt="tour-service-icon3"/>
+                                                <img src="assets/images/tour-service-icon3.svg" alt="tour-service-icon3" />
                                             </div>
                                             <div class="tour-service-content">
                                                 <h4 class="h4-title">TOP NOTCH SUPPORT</h4>
@@ -413,7 +414,7 @@ function Home() {
                             <div class="row tour-slider wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
                                 <div class="col-lg-4">
                                     <div class="tour-box">
-                                        <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image1.jpg)"}}></div>
+                                        <div class="tour-box-image back-image" style={{ backgroundImage: "url(assets/images/tour-box-image1.jpg)" }}></div>
                                         <div class="tour-box-content">
                                             <div class="tour-box-label">
                                                 <div class="tour-box-inner-label">
@@ -465,7 +466,7 @@ function Home() {
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="tour-box">
-                                        <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image2.jpg)"}}><span class="discount-label">15% off</span></div>
+                                        <div class="tour-box-image back-image" style={{ backgroundImage: "url(assets/images/tour-box-image2.jpg)" }}><span class="discount-label">15% off</span></div>
                                         <div class="tour-box-content">
                                             <div class="tour-box-label">
                                                 <div class="tour-box-inner-label">
@@ -517,7 +518,7 @@ function Home() {
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="tour-box">
-                                        <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image3.jpg);"}}><span class="discount-label">38% off</span></div>
+                                        <div class="tour-box-image back-image" style={{ backgroundImage: "url(assets/images/tour-box-image3.jpg)" }}><span class="discount-label">38% off</span></div>
                                         <div class="tour-box-content">
                                             <div class="tour-box-label">
                                                 <div class="tour-box-inner-label">
@@ -569,7 +570,7 @@ function Home() {
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="tour-box">
-                                        <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image4.jpg)"}}></div>
+                                        <div class="tour-box-image back-image" style={{ backgroundImage: "url(assets/images/tour-box-image4.jpg)" }}></div>
                                         <div class="tour-box-content">
                                             <div class="tour-box-label">
                                                 <div class="tour-box-inner-label">
@@ -626,7 +627,7 @@ function Home() {
 
             </Layout>
         </>
-    );
+    )
 }
 
-export default Home;
+export default Home

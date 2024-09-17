@@ -1,6 +1,7 @@
 function Footer() {
     return (
-        <footer class="site-footer back-image overlay" style="background-image: url(assets/images/footer-back.jpg);">
+        <>
+        <footer class="site-footer back-image overlay" style={{backgroundImage: "url(assets/images/footer-back.jpg)"}}>
             <div class="sec-wp">
                 <div class="container">
                     <div class="top-footer common-sec">
@@ -117,6 +118,8 @@ function Footer() {
                 </div>
             </div>
         </footer>
+        <a href="javascript:void(0);" title="Back To Top" id="scrollToTop" class="scrolltop"> <i class="default fas fa-long-arrow-alt-up"></i> <i class="hover fas fa-long-arrow-alt-up"></i> </a>
+        </>
     );
 }
 
