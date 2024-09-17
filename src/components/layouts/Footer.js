@@ -39,15 +39,15 @@ function Footer() {
                                         <ul>
                                             <li>
                                                 <span className="contact-label">Call Us</span>
-                                                <a href="tel:1234567890">+123 456 7890</a>
+                                                <a href="tel:1234567890">+84 367640262</a>
                                             </li>
                                             <li>
                                                 <span className="contact-label">Email for Us</span>
-                                                <a href="https://html.geekcodelab.com/cdn-cgi/l/email-protection#10787f7c79747169607c717e7e75626350777d71797c3e737f7d"><span className="__cf_email__" data-cfemail="58303734313c392128343936363d2a2b183f35393134763b3735">[email&#160;protected]</span></a>
+                                                <a href="https://html.geekcodelab.com/cdn-cgi/l/email-protection#10787f7c79747169607c717e7e75626350777d71797c3e737f7d"><span className="__cf_email__" data-cfemail="58303734313c392128343936363d2a2b183f35393134763b3735">holidayplanners@gmail.com</span></a>
                                             </li>
                                             <li>
                                                 <span className="contact-label">Location</span>
-                                                <a href="javascript:void(0);">Main Street, Victoria 8007.</a>
+                                                <a href="javascript:void(0);">8 Ton That Thuyet, My Dinh, Cau Giay, Ha Noi, Viet Nam</a>
                                             </li>
                                             <li className="social-icons">
                                                 <span className="contact-label">Follow us</span>

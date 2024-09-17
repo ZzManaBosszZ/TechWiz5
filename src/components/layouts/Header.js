@@ -17,7 +17,7 @@ function Header() {
         };
         loadProfile();
     }, []);
-    
+
     return (
         <header className="site-header">
             <div className="top-header">
@@ -34,7 +34,7 @@ function Header() {
                                 <li>
                                     <a href="tel:1234567890" title="+123 456 7890">
                                         <span className="icon"><i className="fas fa-phone-alt"></i></span>
-                                        <span className="text">+123 456 7890</span>
+                                        <span className="text">+84 367640262</span>
                                     </a>
                                 </li>
                             </ul>
@@ -77,29 +77,8 @@ function Header() {
                                     </div>
                                     <div className="search-wp">
                                         <div className="search-icon">
-                                            <i className="fas fa-search"></i>
+                                            <i className="fas fa-user"></i>
                                             <i className="fas fa-times"></i>
-                                        </div>
-                                        <div className="search-overlay">
-                                            <div className="search-overlay-inner">
-                                                <div className="logo-icon">
-                                                    <img src="assets/images/logo-icon-white.svg" alt="logo-icon-white" />
-                                                </div>
-                                                <div className="container">
-                                                    <div className="row">
-                                                        <div className="col-10 m-auto">
-                                                            <div className="search-inner-box">
-                                                                <form>
-                                                                    <span className="form-control-span search-wrap">
-                                                                        <input type="text" className="form-input" placeholder="Search" />
-                                                                        <button type="submit" className="sm-btn"><i className="fas fa-search"></i></button>
-                                                                    </span>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div className="main-navigation">
@@ -203,6 +182,6 @@ function Header() {
                 </div>
             </div>
         </header>
-    );
+    )
 }
 export default Header;
