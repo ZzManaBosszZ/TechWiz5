@@ -19,41 +19,41 @@ function Header() {
     }, []);
     
     return (
-        <header class="site-header">
-            <div class="top-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <ul class="contact-list-item">
+        <header className="site-header">
+            <div className="top-header">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-8">
+                            <ul className="contact-list-item">
                                 <li>
-                                    <a href="https://html.geekcodelab.com/cdn-cgi/l/email-protection#442c2b282d20253d3428252a2a213637042329252d286a272b29" title="holidayplanners@gmail.com">
-                                        <span class="icon"><i class="far fa-envelope"></i></span>
-                                        <span class="text"><span class="__cf_email__" data-cfemail="a8c0c7c4c1ccc9d1d8c4c9c6c6cddadbe8cfc5c9c1c486cbc7c5">[email&#160;protected]</span></span>
+                                    <a href="" title="holidayplanners@gmail.com">
+                                        <span className="icon"><i className="far fa-envelope"></i></span>
+                                        <span className="text"><span className="__cf_email__" data-cfemail="">holidayplanners@gmail.com</span></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="tel:1234567890" title="+123 456 7890">
-                                        <span class="icon"><i class="fas fa-phone-alt"></i></span>
-                                        <span class="text">+123 456 7890</span>
+                                        <span className="icon"><i className="fas fa-phone-alt"></i></span>
+                                        <span className="text">+123 456 7890</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-4">
-                            <ul class="header-social">
+                        <div className="col-lg-4">
+                            <ul className="header-social">
                                 <li>
                                     <a href="javascript:void(0);" title="Follow us on Facebook">
-                                        <span class="icon"><i class="fab fa-facebook-f"></i></span>
+                                        <span className="icon"><i className="fab fa-facebook-f"></i></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);" title="Follow us on Instagram">
-                                        <span class="icon"><i class="fab fa-instagram"></i></span>
+                                        <span className="icon"><i className="fab fa-instagram"></i></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);" title="Follow us on Twitter">
-                                        <span class="icon"><i class="fab fa-twitter"></i></span>
+                                        <span className="icon"><i className="fab fa-twitter"></i></span>
                                     </a>
                                 </li>
                             </ul>
@@ -61,38 +61,38 @@ function Header() {
                     </div>
                 </div>
             </div>
-            <div class="bottom-header">
-                <div class="container">
-                    <div class="bottom-header-inner">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="site-branding">
+            <div className="bottom-header">
+                <div className="container">
+                    <div className="bottom-header-inner">
+                        <div className="row">
+                            <div className="col-lg-4">
+                                <div className="site-branding">
                                     <a href="index-2.html" title="Travel & Tour"><img src="assets/images/logo.png" alt="Logo" /></a>
                                 </div>
                             </div>
-                            <div class="col-lg-8">
-                                <div class="header-menu-side">
-                                    <div class="header-reserve-btn for-des">
-                                        <a href="tour.html" class="sec-btn" title="Reserve"><span>Reserve</span></a>
+                            <div className="col-lg-8">
+                                <div className="header-menu-side">
+                                    <div className="header-reserve-btn for-des">
+                                        <a href="tour.html" className="sec-btn" title="Reserve"><span>Begin Your Trip</span></a>
                                     </div>
-                                    <div class="search-wp">
-                                        <div class="search-icon">
-                                            <i class="fas fa-search"></i>
-                                            <i class="fas fa-times"></i>
+                                    <div className="search-wp">
+                                        <div className="search-icon">
+                                            <i className="fas fa-search"></i>
+                                            <i className="fas fa-times"></i>
                                         </div>
-                                        <div class="search-overlay">
-                                            <div class="search-overlay-inner">
-                                                <div class="logo-icon">
+                                        <div className="search-overlay">
+                                            <div className="search-overlay-inner">
+                                                <div className="logo-icon">
                                                     <img src="assets/images/logo-icon-white.svg" alt="logo-icon-white" />
                                                 </div>
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-10 m-auto">
-                                                            <div class="search-inner-box">
+                                                <div className="container">
+                                                    <div className="row">
+                                                        <div className="col-10 m-auto">
+                                                            <div className="search-inner-box">
                                                                 <form>
-                                                                    <span class="form-control-span search-wrap">
-                                                                        <input type="text" class="form-input" placeholder="Search" />
-                                                                        <button type="submit" class="sm-btn"><i class="fas fa-search"></i></button>
+                                                                    <span className="form-control-span search-wrap">
+                                                                        <input type="text" className="form-input" placeholder="Search" />
+                                                                        <button type="submit" className="sm-btn"><i className="fas fa-search"></i></button>
                                                                     </span>
                                                                 </form>
                                                             </div>
@@ -102,39 +102,39 @@ function Header() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="main-navigation">
-                                        <button type="button" class="navigation-btn">
-                                            <span class="first"></span>
-                                            <span class="second"></span>
-                                            <span class="third"></span>
+                                    <div className="main-navigation">
+                                        <button type="button" className="navigation-btn">
+                                            <span className="first"></span>
+                                            <span className="second"></span>
+                                            <span className="third"></span>
                                         </button>
-                                        <div class="full-menu">
-                                            <div class="logo-icon">
+                                        <div className="full-menu">
+                                            <div className="logo-icon">
                                                 <img src="assets/images/logo-icon-white.svg" alt="logo-icon-white" />
                                             </div>
-                                            <div class="container">
-                                                <div class="full-menu-logo-row">
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="site-branding">
+                                            <div className="container">
+                                                <div className="full-menu-logo-row">
+                                                    <div className="row">
+                                                        <div className="col-lg-4">
+                                                            <div className="site-branding">
                                                                 <a href="index-2.html" title="Travel & Tour"><img src="assets/images/white-logo.png" alt="Logo" /></a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-lg-5">
-                                                        <div class="menu-container">
+                                                <div className="row">
+                                                    <div className="col-lg-5">
+                                                        <div className="menu-container">
                                                             <ul>
-                                                                <li class="active">
+                                                                <li className="active">
                                                                     <a href="index-2.html">Home</a>
                                                                 </li>
                                                                 <li>
                                                                     <a href="about.html">About</a>
                                                                 </li>
-                                                                <li class="dropdown-items">
+                                                                <li className="dropdown-items">
                                                                     <a href="javascript:void(0);">Destination</a>
-                                                                    <ul class="sub-menu">
+                                                                    <ul className="sub-menu">
                                                                         <li>
                                                                             <a href="destination.html">Destination</a>
                                                                         </li>
@@ -143,9 +143,9 @@ function Header() {
                                                                         </li>
                                                                     </ul>
                                                                 </li>
-                                                                <li class="dropdown-items">
+                                                                <li className="dropdown-items">
                                                                     <a href="javascript:void(0);">Tour</a>
-                                                                    <ul class="sub-menu">
+                                                                    <ul className="sub-menu">
                                                                         <li>
                                                                             <a href="tour.html">Tour</a>
                                                                         </li>
@@ -154,9 +154,9 @@ function Header() {
                                                                         </li>
                                                                     </ul>
                                                                 </li>
-                                                                <li class="dropdown-items">
+                                                                <li className="dropdown-items">
                                                                     <a href="javascript:void(0);">Blog</a>
-                                                                    <ul class="sub-menu">
+                                                                    <ul className="sub-menu">
                                                                         <li>
                                                                             <a href="blog.html">Blog</a>
                                                                         </li>
@@ -171,22 +171,22 @@ function Header() {
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="full-menu-social">
+                                                    <div className="col-lg-6">
+                                                        <div className="full-menu-social">
                                                             <ul>
                                                                 <li>
                                                                     <a href="javascript:void(0);" title="Follow us on Facebook">
-                                                                        <span class="icon"><i class="fab fa-facebook-f"></i></span>
+                                                                        <span className="icon"><i className="fab fa-facebook-f"></i></span>
                                                                     </a>
                                                                 </li>
                                                                 <li>
                                                                     <a href="javascript:void(0);" title="Follow us on Instagram">
-                                                                        <span class="icon"><i class="fab fa-instagram"></i></span>
+                                                                        <span className="icon"><i className="fab fa-instagram"></i></span>
                                                                     </a>
                                                                 </li>
                                                                 <li>
                                                                     <a href="javascript:void(0);" title="Follow us on Twitter">
-                                                                        <span class="icon"><i class="fab fa-twitter"></i></span>
+                                                                        <span className="icon"><i className="fab fa-twitter"></i></span>
                                                                     </a>
                                                                 </li>
                                                             </ul>
