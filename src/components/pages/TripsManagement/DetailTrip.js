@@ -172,16 +172,16 @@ function TripDetail() {
                                                 </div>
                                                 <div class="row no-gutters tour-gallery-slider">
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image1.jpg" style={{backgroundImage: "url(assets/images/tour-gallery-slide-image1.jpg)"}}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image1.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image1.jpg)" }}></div>
                                                     </div>
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image2.jpg" style={{backgroundImage: "url(assets/images/tour-gallery-slide-image2.jpg)"}}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image2.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image2.jpg)" }}></div>
                                                     </div>
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image3.jpg" style={{backgroundImage: "url(assets/images/tour-gallery-slide-image3.jpg)"}}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image3.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image3.jpg)" }}></div>
                                                     </div>
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image4.jpg" style={{backgroundImage: "url(assets/images/tour-gallery-slide-image4.jpg)"}}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image4.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image4.jpg)" }}></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,7 +239,7 @@ function TripDetail() {
                                             <div class="tab-box location-tab-box">
                                                 <h2 class="h2-title"><span>Tour Location</span></h2>
                                                 <div class="tour-location mb-30">
-                                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15280118.507895455!2d73.72914987943841!3d20.771144269653607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1608024603420!5m2!1sen!2sin" width="100" height="450" style={{border: "none !important;"}} allowfullscreen aria-hidden="false" tabindex="0"></iframe>
+                                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15280118.507895455!2d73.72914987943841!3d20.771144269653607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1608024603420!5m2!1sen!2sin" width="100" height="450" style={{ border: "none !important;" }} allowfullscreen aria-hidden="false" tabindex="0"></iframe>
                                                 </div>
                                                 <div class="history-text">
                                                     <h2 class="h2-title"><span>History Of The City</span></h2>
@@ -257,22 +257,22 @@ function TripDetail() {
                                                 <div class="memories-gallery">
                                                     <div class="row">
                                                         <div class="col-lg-7">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image1.jpg" style={{backgroundImage: "url(assets/images/memories-gallery-image1.jpg)"}}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image1.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image1.jpg)" }}></div>
                                                         </div>
                                                         <div class="col-lg-5">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image2.jpg" style={{backgroundImage: "url(assets/images/memories-gallery-image2.jpg)"}}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image2.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image2.jpg)" }}></div>
                                                         </div>
                                                         <div class="col-lg-5">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image3.jpg" style={{backgroundImage: "url(assets/images/memories-gallery-image3.jpg)"}}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image3.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image3.jpg)" }}></div>
                                                         </div>
                                                         <div class="col-lg-7">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image4.jpg" style={{backgroundImage: "url(assets/images/memories-gallery-image4.jpg)"}}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image4.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image4.jpg)" }}></div>
                                                         </div>
                                                         <div class="col-lg-7">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image5.jpg" style={{backgroundImage: "url(assets/images/memories-gallery-image5.jpg)"}}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image5.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image5.jpg)" }}></div>
                                                         </div>
                                                         <div class="col-lg-5">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image6.jpg" style={{backgroundImage: "url(assets/images/memories-gallery-image6.jpg)"}}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image6.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image6.jpg)" }}></div>
                                                         </div>
                                                     </div>
                                                 </div>
