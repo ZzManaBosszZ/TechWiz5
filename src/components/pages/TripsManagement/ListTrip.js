@@ -3,7 +3,7 @@ import Layout from "../../layouts";
 function ListTrip() {
     return (
         <Layout>
-            <section class="main-banner inner-banner overlay back-image" style={{backgroundImage: "url(assets/images/tour-banner.jpg)"}}>
+            <section class="main-banner inner-banner overlay back-image" style={{ backgroundImage: "url(assets/images/tour-banner.jpg)" }}>
                 <div class="sec-wp">
                     <div class="container">
                         <div class="row">
@@ -32,12 +32,9 @@ function ListTrip() {
                                             <div class="col-lg-4">
                                                 <span class="form-control-span release-wrap">
                                                     <select class="form-input">
-                                                        <option selected>Release Date</option>
+                                                        <option selected>Create Date</option>
                                                         <option>Tour Date</option>
                                                         <option>Title</option>
-                                                        <option>Price</option>
-                                                        <option>Popularity</option>
-                                                        <option>Rating</option>
                                                         <option>Duration</option>
                                                     </select>
                                                     <span class="arrow"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
@@ -57,17 +54,18 @@ function ListTrip() {
                                 </div>
                                 <div class="tour-filter-result wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.3s">
                                     <div class="row">
+                                        
                                         <div class="col-lg-6 col-md-6">
                                             <div class="tour-box">
-                                                <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image1.jpg)"}}></div>
+                                                <div class="tour-box-image back-image" style={{ backgroundImage: "url(assets/images/tour-box-image1.jpg)" }}></div>
                                                 <div class="tour-box-content">
                                                     <div class="tour-box-label">
                                                         <div class="tour-box-inner-label">
-                                                            <h4 class="h4-title">Italy</h4>
+                                                            <h4 class="h4-title">Italy(Destination)</h4>
                                                         </div>
                                                     </div>
                                                     <div class="tour-box-title">
-                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform</h4>
+                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform(TripName)</h4>
                                                     </div>
                                                     <div class="tour-box-description">
                                                         <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
@@ -81,7 +79,7 @@ function ListTrip() {
                                                                     </div>
                                                                     <div class="tour-info-content">
                                                                         <h5 class="h6-title">Duration</h5>
-                                                                        <p>2 days</p>
+                                                                        <p>2 days(Enddate-startdate)</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -109,267 +107,10 @@ function ListTrip() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="tour-box">
-                                                <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image2.jpg)"}}><span class="discount-label">15% off</span></div>
-                                                <div class="tour-box-content">
-                                                    <div class="tour-box-label">
-                                                        <div class="tour-box-inner-label">
-                                                            <h4 class="h4-title">Greece</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-title">
-                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform</h4>
-                                                    </div>
-                                                    <div class="tour-box-description">
-                                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-                                                    </div>
-                                                    <div class="tour-info-box">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-clock"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Duration</h5>
-                                                                        <p>6 days 3 hours</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-user-friends"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Group Size</h5>
-                                                                        <p>15+ People</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-bottom">
-                                                        <div class="tour-price">
-                                                            <h3 class="h3-title">$2500</h3>
-                                                        </div>
-                                                        <div class="book-now-button">
-                                                            <a href="tour-detail.html" title="Book Now" class="sec-btn"><span>Book Now</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="tour-box">
-                                                <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image4.jpg)"}}></div>
-                                                <div class="tour-box-content">
-                                                    <div class="tour-box-label">
-                                                        <div class="tour-box-inner-label">
-                                                            <h4 class="h4-title">Switzerland</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-title">
-                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform</h4>
-                                                    </div>
-                                                    <div class="tour-box-description">
-                                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-                                                    </div>
-                                                    <div class="tour-info-box">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-clock"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Duration</h5>
-                                                                        <p>7 days 8 hours</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-user-friends"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Group Size</h5>
-                                                                        <p>50+ People</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-bottom">
-                                                        <div class="tour-price">
-                                                            <h3 class="h3-title">$750</h3>
-                                                        </div>
-                                                        <div class="book-now-button">
-                                                            <a href="tour-detail.html" title="Book Now" class="sec-btn"><span>Book Now</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="tour-box">
-                                                <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image1.jpg)"}}></div>
-                                                <div class="tour-box-content">
-                                                    <div class="tour-box-label">
-                                                        <div class="tour-box-inner-label">
-                                                            <h4 class="h4-title">Italy</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-title">
-                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform</h4>
-                                                    </div>
-                                                    <div class="tour-box-description">
-                                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-                                                    </div>
-                                                    <div class="tour-info-box">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-clock"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Duration</h5>
-                                                                        <p>2 days</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-user-friends"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Group Size</h5>
-                                                                        <p>6 People</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-bottom">
-                                                        <div class="tour-price">
-                                                            <h3 class="h3-title">$1200</h3>
-                                                        </div>
-                                                        <div class="book-now-button">
-                                                            <a href="tour-detail.html" title="Book Now" class="sec-btn"><span>Book Now</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="tour-box">
-                                                <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image2.jpg)"}}><span class="discount-label">15% off</span></div>
-                                                <div class="tour-box-content">
-                                                    <div class="tour-box-label">
-                                                        <div class="tour-box-inner-label">
-                                                            <h4 class="h4-title">Greece</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-title">
-                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform</h4>
-                                                    </div>
-                                                    <div class="tour-box-description">
-                                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-                                                    </div>
-                                                    <div class="tour-info-box">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-clock"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Duration</h5>
-                                                                        <p>6 days 3 hours</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-user-friends"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Group Size</h5>
-                                                                        <p>15+ People</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-bottom">
-                                                        <div class="tour-price">
-                                                            <h3 class="h3-title">$2500</h3>
-                                                        </div>
-                                                        <div class="book-now-button">
-                                                            <a href="tour-detail.html" title="Book Now" class="sec-btn"><span>Book Now</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="tour-box">
-                                                <div class="tour-box-image back-image" style={{backgroundImage: "url(assets/images/tour-box-image4.jpg)"}}></div>
-                                                <div class="tour-box-content">
-                                                    <div class="tour-box-label">
-                                                        <div class="tour-box-inner-label">
-                                                            <h4 class="h4-title">Switzerland</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-title">
-                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform</h4>
-                                                    </div>
-                                                    <div class="tour-box-description">
-                                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-                                                    </div>
-                                                    <div class="tour-info-box">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-clock"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Duration</h5>
-                                                                        <p>7 days 8 hours</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-user-friends"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Group Size</h5>
-                                                                        <p>50+ People</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-bottom">
-                                                        <div class="tour-price">
-                                                            <h3 class="h3-title">$750</h3>
-                                                        </div>
-                                                        <div class="book-now-button">
-                                                            <a href="tour-detail.html" title="Book Now" class="sec-btn"><span>Book Now</span></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
+
+                                    {/* Paginate */}
                                     <div class="row">
                                         <div class="col-12">
                                             <ul class="pagination">
@@ -398,13 +139,13 @@ function ListTrip() {
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-search"></i></span>
-                                                        <input type="text" placeholder="Search Tour" class="form-input"/>
+                                                        <input type="text" placeholder="Search Tour" class="form-input" />
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
-                                                        <input type="text" placeholder="Where To?" class="form-input"/>
+                                                        <input type="text" placeholder="Where To?" class="form-input" />
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
@@ -444,36 +185,36 @@ function ListTrip() {
                                                 <div class="col-lg-6 col-sm-6">
                                                     <label class="label-input">Min Price</label>
                                                     <span class="form-control-span no-icon no-arrow">
-                                                        <input type="number" class="form-input" placeholder="1"/>
+                                                        <input type="number" class="form-input" placeholder="1" />
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-6 col-sm-6">
                                                     <label class="label-input">Max Price</label>
                                                     <span class="form-control-span no-icon no-arrow">
-                                                        <input type="number" class="form-input" placeholder="100"/>
+                                                        <input type="number" class="form-input" placeholder="100" />
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="checkbox-list">
                                                         <div class="checkbox-item">
-                                                            <input type="checkbox" id="cultural" name="cultural" value="cultural"/>
-                                                                <label for="cultural" class="check-box-label">Cultural</label>
+                                                            <input type="checkbox" id="cultural" name="cultural" value="cultural" />
+                                                            <label for="cultural" class="check-box-label">Cultural</label>
                                                         </div>
                                                         <div class="checkbox-item">
-                                                            <input type="checkbox" id="adventure" name="adventure" value="adventure"/>
-                                                                <label for="adventure" class="check-box-label">Adventure</label>
+                                                            <input type="checkbox" id="adventure" name="adventure" value="adventure" />
+                                                            <label for="adventure" class="check-box-label">Adventure</label>
                                                         </div>
                                                         <div class="checkbox-item">
-                                                            <input type="checkbox" id="historical" name="historical" value="historical"/>
-                                                                <label for="historical" class="check-box-label">Historical</label>
+                                                            <input type="checkbox" id="historical" name="historical" value="historical" />
+                                                            <label for="historical" class="check-box-label">Historical</label>
                                                         </div>
                                                         <div class="checkbox-item">
-                                                            <input type="checkbox" id="seaside" name="seaside" value="seaside"/>
-                                                                <label for="seaside" class="check-box-label">Seaside</label>
+                                                            <input type="checkbox" id="seaside" name="seaside" value="seaside" />
+                                                            <label for="seaside" class="check-box-label">Seaside</label>
                                                         </div>
                                                         <div class="checkbox-item">
-                                                            <input type="checkbox" id="discovery" name="discovery" value="discovery"/>
-                                                                <label for="discovery" class="check-box-label">Discovery</label>
+                                                            <input type="checkbox" id="discovery" name="discovery" value="discovery" />
+                                                            <label for="discovery" class="check-box-label">Discovery</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -495,7 +236,7 @@ function ListTrip() {
                                         <li><i class="fas fa-angle-right"></i>Hand-picked Tours & Activities</li>
                                     </ul>
                                 </div>
-                                <div class="widget get-a-questions back-image wow fadeup-animation" style={{backgroundImage: "url(assets/images/get-a-questions-back.jpg)"}} data-wow-duration="1s" data-wow-delay="0.3s">
+                                <div class="widget get-a-questions back-image wow fadeup-animation" style={{ backgroundImage: "url(assets/images/get-a-questions-back.jpg)" }} data-wow-duration="1s" data-wow-delay="0.3s">
                                     <div class="line-title">
                                         <h4 class="h4-title">Get a Question?</h4>
                                     </div>
