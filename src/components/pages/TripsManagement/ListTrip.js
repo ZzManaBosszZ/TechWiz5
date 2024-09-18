@@ -244,6 +244,7 @@ function ListTrip() {
                             </div>
                         </div>
 
+                        {/* Search */}
                         <div class="col-lg-4">
                             <div class="right-side">
                                 <div class="widget wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
