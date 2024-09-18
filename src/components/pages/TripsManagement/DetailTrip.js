@@ -17,7 +17,6 @@ function TripDetail() {
                 </div>
             </section>
 
-
             <section class="main-tour-detail pb-70">
                 <div class="container">
                     <div class="row">
