@@ -2991,7 +2991,7 @@ blockquote p {
 }
 
 .tour-price-wp .tour-price {
-    width: 85px;
+    width: 100px;
     height: 85px;
     background-color: var(--yellow-color);
     border-radius: 50%;
