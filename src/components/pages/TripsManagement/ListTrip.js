@@ -1,6 +1,93 @@
 import Layout from "../../layouts";
+import { useState, useEffect } from "react";
+import api from "../../../services/api";
+import url from "../../../services/url";
+import { getAccessToken } from "../../../utils/auth";
+import Reason from "../../layouts/Reason";
+import { Link } from "react-router-dom";
+import config from "../../../config";
 
 function ListTrip() {
+
+    const [trips, setTrips] = useState([]);
+    const [sortBy, setSortBy] = useState("Budget");
+    const [sortOrder, setSortOrder] = useState("Descending");
+
+
+
+    //show list data
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const response = await api.get(url.TRIP.LIST_BY_USER, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+                setTrips(response.data.data);
+                // console.log(response.data.data);
+            } catch (error) { }
+        };
+        loadData();
+    }, []);
+
+    //search, filter
+    const [searchName, setSearchName] = useState("");
+    const [searchDestination, setSearchDestination] = useState("");
+    const [createdDate, setCreatedDate] = useState("");
+    const handleSearchNameChange = (e) => {
+        setSearchName(e.target.value);
+    };
+    const handleSearchDestinationChange = (e) => {
+        setSearchDestination(e.target.value);
+    };
+    const handleCreatedDateChange = (e) => {
+        setCreatedDate(e.target.value);
+    };
+    const filteredTrips = trips.filter((item) => {
+        const nameMatch = item.tripName.toLowerCase().includes(searchName.toLowerCase());
+        const destinationMatch = item.destination.toLowerCase().includes(searchDestination.toLowerCase());
+        const createdDateMatch = createdDate ? new Date(item.createdDate) >= new Date(createdDate) : true;
+        return nameMatch && destinationMatch && createdDateMatch;
+    });
+
+    const sortedTrips = [...filteredTrips].sort((a, b) => {
+        let comparison = 0;
+        if (sortBy === "Budget") {
+            comparison = a.budget - b.budget; // So sánh ngân sách
+        } else if (sortBy === "Trip Start Date") {
+            comparison = new Date(b.startDate) - new Date(a.startDate);
+        } else if (sortBy === "Title") {
+            comparison = a.tripName.localeCompare(b.tripName);
+        } else if (sortBy === "Duration") {
+            const durationA = (new Date(a.endDate) - new Date(a.startDate)) / (1000 * 60 * 60 * 24);
+            const durationB = (new Date(b.endDate) - new Date(b.startDate)) / (1000 * 60 * 60 * 24);
+            comparison = durationB - durationA;
+        }
+        return sortOrder === "Descending" ? comparison : -comparison;
+    });
+    
+
+    const images = [
+        "url(assets/images/tour-box-image1.jpg)",
+        "url(assets/images/tour-box-image2.jpg)",
+        "url(assets/images/tour-box-image3.jpg)"
+        // Thêm các URL ảnh khác nếu cần
+    ];
+
+    const getRandomImage = () => {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        return images[randomIndex];
+    };
+
+    //paginate
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 1; // Number of items per page
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedTrips = sortedTrips.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(sortedTrips.length / itemsPerPage);
+
     return (
         <Layout>
             <section class="main-banner inner-banner overlay back-image" style={{ backgroundImage: "url(assets/images/tour-banner.jpg)" }}>
@@ -17,105 +104,117 @@ function ListTrip() {
                 </div>
             </section>
 
-
             <section class="main-tour-list pb-70">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="left-side">
-                                <div class="tour-filter mb-30 wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
+                                {/* Sort */}
+                                <div className="tour-filter mb-30 wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
                                     <form>
-                                        <div class="row no-gutters">
-                                            <div class="col-lg-4">
-                                                <label class="form-input filter-label">Sort by :</label>
+                                        <div className="row no-gutters">
+                                            <div className="col-lg-4">
+                                                <label className="form-input filter-label">Sort by :</label>
                                             </div>
-                                            <div class="col-lg-4">
-                                                <span class="form-control-span release-wrap">
-                                                    <select class="form-input">
-                                                        <option selected>Create Date</option>
-                                                        <option>Tour Date</option>
-                                                        <option>Title</option>
-                                                        <option>Duration</option>
+                                            <div className="col-lg-4">
+                                                <span className="form-control-span release-wrap">
+                                                    <select className="form-input" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                                        <option value="Budget">Budget</option>
+                                                        <option value="Trip Start Date">Start Date</option>
+                                                        <option value="Title">Trip Name</option>
+                                                        <option value="Duration">Duration</option>
                                                     </select>
-                                                    <span class="arrow"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
+                                                    <span className="arrow"><i className="fas fa-caret-down" aria-hidden="true"></i></span>
                                                 </span>
                                             </div>
-                                            <div class="col-lg-4">
-                                                <span class="form-control-span order-wrap">
-                                                    <select class="form-input">
-                                                        <option>Ascending</option>
-                                                        <option selected>Descending</option>
+                                            <div className="col-lg-4">
+                                                <span className="form-control-span order-wrap">
+                                                    <select className="form-input" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                                                        <option value="Ascending">Ascending</option>
+                                                        <option value="Descending">Descending</option>
                                                     </select>
-                                                    <span class="arrow"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
+                                                    <span className="arrow"><i className="fas fa-caret-down" aria-hidden="true"></i></span>
                                                 </span>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="tour-filter-result wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.3s">
-                                    <div class="row">
 
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="tour-box">
-                                                <div class="tour-box-image back-image" style={{ backgroundImage: "url(assets/images/tour-box-image1.jpg)" }}></div>
-                                                <div class="tour-box-content">
-                                                    <div class="tour-box-label">
-                                                        <div class="tour-box-inner-label">
-                                                            <h4 class="h4-title">Italy(Destination)</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-title">
-                                                        <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform(TripName)</h4>
-                                                    </div>
-                                                    <div class="tour-info-box">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-clock"></i>
+                                {/* user trip expense track list */}
+                                <div className="tour-filter-result wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.3s">
+                                    <div className="row">
+                                        {paginatedTrips.map((trip) => {
+                                            const startDate = new Date(trip.startDate);
+                                            const endDate = new Date(trip.endDate);
+                                            const duration = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)); // Số ngày giữa startDate và endDate
+                                            return (
+                                                <div className="col-lg-6 col-md-6" key={trip.id}>
+                                                    <div className="tour-box">
+                                                        <div className="tour-box-image back-image" style={{ backgroundImage: getRandomImage() }}></div>
+                                                        <div className="tour-box-content">
+                                                            <div className="tour-box-label">
+                                                                <div className="tour-box-inner-label">
+                                                                    <h4 className="h4-title">{trip.destination}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div className="tour-box-title">
+                                                                <h4 className="h4-title">{trip.tripName}</h4>
+                                                            </div>
+                                                            <div className="tour-info-box">
+                                                                <div className="row">
+                                                                    <div className="col-6">
+                                                                        <div className="tour-info">
+                                                                            <div className="tour-info-icon">
+                                                                                <i className="fas fa-clock"></i>
+                                                                            </div>
+                                                                            <div className="tour-info-content">
+                                                                                <h5 className="h6-title">Duration</h5>
+                                                                                <p>{duration} days</p>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Duration</h5>
-                                                                        <p>2 days(Enddate-startdate)</p>
+                                                                    <div className="col-6">
+                                                                        <div className="tour-info">
+                                                                            <div className="tour-info-icon">
+                                                                                <i className="fas fa-user-friends"></i>
+                                                                            </div>
+                                                                            <div className="tour-info-content">
+                                                                                <h5 className="h6-title">Group Size</h5>
+                                                                                <p>{trip.groupSize} People</p>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
-                                                                <div class="tour-info">
-                                                                    <div class="tour-info-icon">
-                                                                        <i class="fas fa-user-friends"></i>
-                                                                    </div>
-                                                                    <div class="tour-info-content">
-                                                                        <h5 class="h6-title">Group Size</h5>
-                                                                        <p>6 People(Group_size)</p>
-                                                                    </div>
+                                                            <div className="tour-box-bottom">
+                                                                <div className="tour-price">
+                                                                    <h3 className="h3-title">${trip.budget}</h3>
+                                                                </div>
+                                                                <div className="book-now-button">
+                                                                    <Link to={`/trip/${trip.id}`} title="View Details" className="sec-btn"><span>View Details</span></Link>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-box-bottom">
-                                                        <div class="tour-price">
-                                                            <h3 class="h3-title">$1200</h3>
-                                                        </div>
-                                                        <div class="book-now-button">
-                                                            <a href="tour-detail.html" title="Watch Now" class="sec-btn"><span>Watch Now</span></a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
+                                            );
+                                        })}
                                     </div>
 
-                                    {/* Paginate */}
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <ul class="pagination">
-                                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0);" aria-label="Next">
-                                                        <i class="fas fa-angle-right"></i>
+                                    {/* Pagination */}
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <ul className="pagination">
+                                                {Array.from({ length: totalPages }, (_, index) => (
+                                                    <li className={`page-item ${index + 1 === currentPage ? 'active' : ''}`} key={index}>
+                                                        <a className="page-link" onClick={() => handlePageChange(index + 1)}>
+                                                            {index + 1}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                                <li className="page-item">
+                                                    <a className="page-link" aria-label="Next" onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}>
+                                                        <i className="fas fa-angle-right"></i>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -124,6 +223,7 @@ function ListTrip() {
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-4">
                             <div class="right-side">
                                 <div class="widget wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
@@ -197,22 +297,6 @@ function ListTrip() {
                                                             <input type="checkbox" id="cultural" name="cultural" value="cultural" />
                                                             <label for="cultural" class="check-box-label">Cultural</label>
                                                         </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" id="adventure" name="adventure" value="adventure" />
-                                                            <label for="adventure" class="check-box-label">Adventure</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" id="historical" name="historical" value="historical" />
-                                                            <label for="historical" class="check-box-label">Historical</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" id="seaside" name="seaside" value="seaside" />
-                                                            <label for="seaside" class="check-box-label">Seaside</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" id="discovery" name="discovery" value="discovery" />
-                                                            <label for="discovery" class="check-box-label">Discovery</label>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
@@ -222,35 +306,7 @@ function ListTrip() {
                                         </form>
                                     </div>
                                 </div>
-                                <div class="widget why-book-with-us wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
-                                    <div class="line-title">
-                                        <h4 class="h4-title">Why Choose Us?</h4>
-                                    </div>
-                                    <ul class="book-with-list">
-                                        <li><i class="fas fa-angle-right"></i>Free to use</li>
-                                        <li><i class="fas fa-angle-right"></i>Customer care available 24/7</li>
-                                        <li><i class="fas fa-angle-right"></i>Free Travel Insureance</li>
-                                        <li><i class="fas fa-angle-right"></i>Hand-picked Tours & Activities</li>
-                                    </ul>
-                                </div>
-                                <div class="widget get-a-questions back-image wow fadeup-animation" style={{ backgroundImage: "url(assets/images/get-a-questions-back.jpg)" }} data-wow-duration="1s" data-wow-delay="0.3s">
-                                    <div class="line-title">
-                                        <h4 class="h4-title">Get a Question?</h4>
-                                    </div>
-                                    <p>Do not hesitage to give us a call. We are an expert team and we are happy to talk to you.</p>
-                                    <ul class="gaq-list-item">
-                                        <li>
-                                            <a href="https://html.geekcodelab.com/cdn-cgi/l/email-protection#69010605000d081019050807070c1b1a290e04080005470a0604" title="holidayplanners@gmail.com">
-                                                <i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="e28a8d8e8b86839b928e838c8c879091a2858f838b8ecc818d8f">holidayplanners@gmail.com</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="tel:1234567890" title="+123 456 7890">
-                                                <i class="fas fa-phone-alt"></i> +84 367640262
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <Reason />
                             </div>
                         </div>
                     </div>

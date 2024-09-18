@@ -7,6 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import config from '../../../config';
+import Select from 'react-select';
 
 function TripCreate() {
 
@@ -110,7 +111,7 @@ function TripCreate() {
     const showGroupSize = formData.endDate !== '';
     const showBudget = formData.groupSize > 0;
     const showCategories = formData.budget > 0;
-    const showButton = formData.budget.length > 0;
+    const showButton = formData.categoriesId.length > 0;
 
     return (
         <Layout>
@@ -238,28 +239,60 @@ function TripCreate() {
                                                                 <label htmlFor="categoriesId">Travel Type</label>
                                                                 <span className="form-control-span categories-wrap">
                                                                     <span className="icon"><i className="fas fa-tags"></i></span>
-                                                                    <select
+                                                                    <Select
+                                                                        isMulti
                                                                         name="categoriesId"
-                                                                        className="form-input"
-                                                                        multiple
-                                                                        value={formData.categoriesId}
-                                                                        onChange={(e) => {
-                                                                            const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-                                                                            setFormData(prevData => ({ ...prevData, categoriesId: selectedOptions }));
+                                                                        className="form-input"  // Giữ lại class của bạn
+                                                                        classNamePrefix="react-select"  // Prefix class để dễ tùy chỉnh CSS
+                                                                        value={formData.categoriesId.map(id => ({
+                                                                            value: id,
+                                                                            label: categories.find(category => category.id === id)?.name || ''
+                                                                        }))}
+                                                                        onChange={(selectedOptions) => {
+                                                                            const selectedIds = selectedOptions.map(option => option.value);
+                                                                            setFormData(prevData => ({ ...prevData, categoriesId: selectedIds }));
                                                                         }}
-                                                                    >
-                                                                        {categories.map(category => (
-                                                                            <option key={category.id} value={category.id}>{category.name}</option>
-                                                                        ))}
-                                                                    </select>
+                                                                        options={categories.map(category => ({
+                                                                            value: category.id,
+                                                                            label: category.name
+                                                                        }))}
+                                                                        styles={{
+                                                                            control: (base) => ({
+                                                                                ...base,
+                                                                                border: 'none',  // Loại bỏ border mặc định của React Select
+                                                                                boxShadow: 'none',  // Loại bỏ shadow để không làm hỏng giao diện
+                                                                                minHeight: 'unset',  // Đặt chiều cao để khớp với input của bạn
+                                                                                height: 'auto',  // Điều chỉnh chiều cao auto để nằm vừa trong form
+                                                                                paddingTop: '0', // Loại bỏ khoảng cách trên
+                                                                                paddingBottom: '0', // Loại bỏ khoảng cách dưới
+                                                                            }),
+                                                                            valueContainer: (base) => ({
+                                                                                ...base,
+                                                                                padding: '0',  // Bỏ padding để khớp với thiết kế form của bạn
+                                                                            }),
+                                                                            input: (base) => ({
+                                                                                ...base,
+                                                                                margin: '0',  // Đảm bảo không có margin để khớp form
+                                                                            }),
+                                                                            indicatorsContainer: (base) => ({
+                                                                                ...base,
+                                                                                display: 'none',  // Loại bỏ các icon mặc định nếu bạn không muốn chúng
+                                                                            }),
+                                                                            menu: (base) => ({
+                                                                                ...base,
+                                                                                zIndex: 9999  // Đảm bảo menu dropdown không bị ẩn dưới các thành phần khác
+                                                                            })
+                                                                        }}
+                                                                    />
                                                                     <span className="arrow"><i className="fas fa-caret-down"></i></span>
                                                                 </span>
                                                             </div>
                                                         )}
 
-                                                        {/* Nút Find Now */}
+                                                        {/* Nút Submit */}
                                                         {showButton && (
                                                             <div className="input-col button-col wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.6s">
+                                                                <label>&nbsp;</label>
                                                                 <span className="form-control-span button-wrap">
                                                                     <button className="sec-btn"><span>Begin Your Trip Expense Track</span></button>
                                                                 </span>
