@@ -8,6 +8,9 @@ import {
 import config from "../../../config/index";
 import api from "../../../services/api";
 import url from "../../../services/url";
+import "../../css/login.css";
+
+
 
 function Login() {
   const navigate = useNavigate();
@@ -99,149 +102,54 @@ function Login() {
     }
   };
   return (
-    <body
-      className="hold-transition theme-primary bg-img"
-      style={{ backgroundImage: "url(../images/auth-bg/bg-1.jpg)" }}
-    >
-      <div className="container h-p100">
-        <div className="row align-items-center justify-content-md-center h-p100">
-          <div className="col-12">
-            <div className="row justify-content-center no-gutters">
-              <div className="col-lg-5 col-md-5 col-12">
-                <div className="bg-white rounded30 shadow-lg">
-                  <div className="content-top-agile p-20 pb-0">
-                    <h2 className="text-primary">Let's Get Started</h2>
-                    <p className="mb-0">Sign in to continue to Restran.</p>
-                  </div>
-                  <div className="p-40">
-                    <form onSubmit={handleLogin}>
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent">
-                              <i className="ti-user"></i>
-                            </span>
-                          </div>
-                          <input
-                            type="email"
-                            name="email"
-                            className={`form-control pl-15 bg-transparent ${
-                              formErrors.email ? "is-invalid" : ""
-                            }`}
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            autoFocus
-                          />
-                          {formErrors.email && (
-                            <div className="invalid-feedback">
-                              {formErrors.email}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent">
-                              <i className="ti-lock"></i>
-                            </span>
-                          </div>
-                          <input
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            className={`form-control pl-15 bg-transparent ${
-                              formErrors.password ? "is-invalid" : ""
-                            }`}
-                            placeholder="Password"
-                            value={formData.password}
-                            onChange={handleChange}
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text bg-transparent view-password"
-                              onClick={handleTogglePassword}
-                            >
-                              {!showPassword ? (
-                                <i className="fa fa-eye-slash"></i>
-                              ) : (
-                                <i className="fa fa-eye"></i>
-                              )}
-                            </span>
-                          </div>
-                          {formErrors.password && (
-                            <div className="invalid-feedback">
-                              {formErrors.password}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-6">
-                          <div className="checkbox">
-                            <input type="checkbox" id="basic_checkbox_1" />
-                            <label for="basic_checkbox_1">Remember Me</label>
-                          </div>
-                        </div>
+    <body>
+      <div class="login">
+         {/* <img src="src/components/img/partners-logo2.png" alt="login image" class="login__img"/> */}
 
-                        <div className="col-6">
-                          <div className="fog-pwd text-right">
-                            <Link
-                              to={config.routes.forgot_password}
-                              className="hover-warning"
-                            >
-                              <i className="icon icon-locked"></i> Forgot pwd?
-                            </Link>
-                            <br />
-                          </div>
-                        </div>
+         <form action="" class="login__form">
+            <h1 class="login__title">Login</h1>
 
-                        <div className="col-12 text-center">
-                          <button
-                            type="submit"
-                            value="Login"
-                            valueSubmit="Login..."
-                            handleEvent={handleLogin}
-                            className="btn btn-danger mt-10"
-                          >
-                            SIGN IN
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                    <div className="text-center">
-                      <p className="mt-15 mb-0">
-                        Don't have an account?{" "}
-                        <a
-                          href="auth_register.html"
-                          className="text-warning ml-5"
-                        >
-                          Sign Up
-                        </a>
-                      </p>
-                    </div>
+            <div class="login__content">
+               <div class="login__box">
+                  <i class="ri-user-3-line login__icon"></i>
+
+                  <div class="login__box-input">
+                     <input type="email" required class="login__input" id="login-email" placeholder=" "/>
+                     <label for="login-email" class="login__label">Email</label>
                   </div>
-                </div>
-                <div className="text-center">
-                  <p className="mt-20 text-white">- Sign With -</p>
-                  <p className="gap-items-2 mb-20">
-                    <a className="btn btn-social-icon btn-round btn-facebook">
-                      <i className="fa fa-facebook"></i>
-                    </a>
-                    <a className="btn btn-social-icon btn-round btn-twitter">
-                      <i className="fa fa-twitter"></i>
-                    </a>
-                    <a className="btn btn-social-icon btn-round btn-instagram">
-                      <i className="fa fa-instagram"></i>
-                    </a>
-                  </p>
-                </div>
-              </div>
+               </div>
+
+               <div class="login__box">
+                  <i class="ri-lock-2-line login__icon"></i>
+
+                  <div class="login__box-input">
+                     <input type="password" required class="login__input" id="login-pass" placeholder=" "/>
+                     <label for="login-pass" class="login__label">Password</label>
+                     <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
+
+            <div class="login__check">
+               <div class="login__check-group">
+                  <input type="checkbox" class="login__check-input" id="login-check"/>
+                  <label for="login-check" class="login__check-label">Remember me</label>
+               </div>
+
+               <a href="#" class="login__forgot">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login__button">Login</button>
+
+            <p class="login__register">
+               Don't have an account? <a href="#">Register</a>
+            </p>
+         </form>
       </div>
-    </body>
+      
+
+      <script src="assets/js/main.js"></script>
+   </body>
   );
 }
 
