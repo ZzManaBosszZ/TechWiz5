@@ -9,7 +9,7 @@ function TripDetail() {
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="banner-content wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
-                                    <h1 class="h1-title">Italy</h1>
+                                    <h1 class="h1-title">Italy(Destination)</h1>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ function TripDetail() {
                                     <div class="tab-content wow fadeup-animation" id="myTabContent" data-wow-duration="1s" data-wow-delay="0.2s">
                                         <div class="tab-pane fade show active" id="information" role="tabpanel" aria-labelledby="information-tab">
                                             <div class="tab-box information-tab-box">
-                                                <span class="discount-label">22% Off</span>
+                                                {/* <span class="discount-label">22% Off</span> */}
                                                 <div class="row">
                                                     <div class="col-xl-9 col-lg-9">
                                                         <div class="tour-title">
@@ -53,8 +53,8 @@ function TripDetail() {
                                                     <div class="col-xl-3 col-lg-3">
                                                         <div class="tour-price-wp">
                                                             <div class="tour-price">
-                                                                <h3 class="h3-title">$1200</h3>
-                                                                <p>Per Person</p>
+                                                                <h3 class="h3-title">$120000</h3>
+                                                                <p>Budget</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -634,7 +634,7 @@ function TripDetail() {
                             <div class="right-side">
                                 <div class="widget wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
                                     <div class="line-title">
-                                        <h4 class="h4-title">Book This Tour</h4>
+                                        <h4 class="h4-title">User Information</h4>
                                     </div>
                                     <div class="find-tour-form">
                                         <form>
@@ -653,52 +653,20 @@ function TripDetail() {
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
-                                                        <span class="icon"><i class="fas fa-envelope"></i></span>
-                                                        <input type="email" placeholder="Confirm Email *" class="form-input" required />
-                                                    </span>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <span class="form-control-span">
-                                                        <span class="icon"><i class="fas fa-phone"></i></span>
-                                                        <input type="text" placeholder="Phone *" class="form-input" required />
-                                                    </span>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-calendar-alt"></i></span>
                                                         <input type="date" class="form-input" required />
                                                     </span>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <span class="form-control-span">
-                                                        <span class="icon"><i class="fas fa-user-tag"></i></span>
-                                                        <input type="number" class="form-input" placeholder="Numbers Of Tickets" />
-                                                    </span>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <span class="form-control-span">
-                                                        <textarea class="form-input" placeholder="Message" cols="30" rows="10"></textarea>
-                                                    </span>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="checkbox-item">
-                                                        <input type="checkbox" id="check-availability" name="check-availability" value="check-availability" />
-                                                        <label for="check-availability" class="check-box-label">Check Availability</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <button class="sec-btn find-now-btn"><span>Book Now</span></button>
-                                                </div>
+                                                </div>                                             
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="widget why-book-with-us wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
                                     <div class="line-title">
-                                        <h4 class="h4-title">Why Book With Us?</h4>
+                                        <h4 class="h4-title">Why Choose With Us?</h4>
                                     </div>
                                     <ul class="book-with-list">
-                                        <li><i class="fas fa-angle-right"></i>Best Price Guarantee</li>
+                                        <li><i class="fas fa-angle-right"></i>Best Web App and Free</li>
                                         <li><i class="fas fa-angle-right"></i>Customer care available 24/7</li>
                                         <li><i class="fas fa-angle-right"></i>Free Travel Insureance</li>
                                         <li><i class="fas fa-angle-right"></i>Hand-picked Tours &amp; Activities</li>
