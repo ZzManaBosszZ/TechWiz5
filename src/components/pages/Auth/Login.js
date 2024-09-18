@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   getDecodedToken,
   removeAccessToken,
@@ -10,12 +10,8 @@ import api from "../../../services/api";
 import url from "../../../services/url";
 import "../../css/login.css";
 
-
-
 function Login() {
   const navigate = useNavigate();
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -26,10 +22,6 @@ function Login() {
     email: "",
     password: "",
   });
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,7 +69,10 @@ function Login() {
 
           let redirectUrl = "";
           if (accountRole === "ADMIN" || accountRole === "USER") {
-            redirectUrl = "/";
+            redirectUrl = config.routes.home;
+            // Điều hướng đến trang chính và tải lại trang
+            navigate(redirectUrl, { replace: true });
+            window.location.reload();
           } else if (accountRole === "") {
             removeAccessToken();
             setFormErrors({
@@ -102,54 +97,64 @@ function Login() {
     }
   };
   return (
-    <body style={{ backgroundImage: "url(assets/images/login-img.jpg)"}}>
-      <div class="login">
-
-         <form action="" class="login__form">
-          <image src="assets/images/avatar.png"/>
-            <h1 class="login__title">Login</h1>
-
-            <div class="login__content">
-               <div class="login__box">
-                  <i class="ri-user-3-line login__icon"></i>
-
-                  <div class="login__box-input">
-                     <input type="email" required class="login__input" id="login-email" placeholder=" "/>
-                     <label for="login-email" class="login__label">Email</label>
-                  </div>
-               </div>
-
-               <div class="login__box">
-                  <i class="ri-lock-2-line login__icon"></i>
-
-                  <div class="login__box-input">
-                     <input type="password" required class="login__input" id="login-pass" placeholder=" "/>
-                     <label for="login-pass" class="login__label">Password</label>
-                     <i class="ri-eye-off-line login__eye" id="login-eye"></i>
-                  </div>
-               </div>
+    <body style={{ backgroundImage: "url(assets/images/destination-detail-banner.jpg)" }}>
+      <div className="login">
+        <form className="login__form" onSubmit={handleLogin}>
+          <image src="assets/images/avatar.png" />
+          <h1 className="login__title">Login</h1>
+          <div className="login__content">
+            <div className="login__box">
+              <i className="ri-user-3-line login__icon"></i>
+              <div className="login__box-input">
+                <input
+                  type="email"
+                  name="email"
+                  className={`login__input ${formErrors.email ? "is-invalid" : ""}`}
+                  id="login-email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoFocus
+                  placeholder=""/>
+                <label for="login-email" className="login__label">Email</label>
+                {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
+              </div>
             </div>
 
-            <div class="login__check">
-               <div class="login__check-group">
-                  <input type="checkbox" class="login__check-input" id="login-check"/>
-                  <label for="login-check" class="login__check-label">Remember me</label>
-               </div>
+            <div className="login__box">
+              <i className="ri-lock-2-line login__icon"></i>
+              <div className="login__box-input">
+                <input
+                  type="password"
+                  name="password"
+                  className={`login__input ${formErrors.password ? "is-invalid" : ""}`}
+                  id="login-pass"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder=" " />
+                <label for="login-pass" className="login__label">Password</label>
+                {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
+                <i className="ri-eye-off-line login__eye" id="login-eye"></i>
+              </div>
+            </div>
+          </div>
 
-               <a href="#" class="login__forgot">Forgot Password?</a>
+          <div className="login__check">
+            <div className="login__check-group">
+              <input type="checkbox" className="login__check-input" id="login-check" />
+              <label for="login-check" className="login__check-label">Remember me</label>
             </div>
 
-            <button type="submit" class="login__button">Login</button>
+            <a href="#" className="login__forgot">Forgot Password?</a>
+          </div>
 
-            <p class="login__register">
-               Don't have an account? <a href="#">Register</a>
-            </p>
-         </form>
+          <button type="submit" className="login__button">Login</button>
+
+          <p className="login__register">
+            Don't have an account? <a href= "">Register</a>
+          </p>
+        </form>
       </div>
-      
-
-      <script src="assets/js/main.js"></script>
-   </body>
+    </body>
   );
 }
 

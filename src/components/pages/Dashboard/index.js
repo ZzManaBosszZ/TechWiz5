@@ -1,13 +1,10 @@
 import Layout from "../../layouts";
 import Banner from "./Banner";
 function Home() {
-
-
     return (
         <>
             <Layout title="Home Page">
-                
-            <Banner/>
+                <Banner />
                 <section className="main-about common-sec">
                     <div className="logo-icon">
                         <img src="assets/images/logo-icon.svg" alt="logo-icon" />
@@ -43,7 +40,6 @@ function Home() {
                         </div>
                     </div>
                 </section>
-
 
                 <section className="main-destination common-sec back-image" style={{ backgroundImage: "url(assets/images/wave-design.jpg)" }}>
                     <div className="sec-wp">
@@ -128,7 +124,6 @@ function Home() {
                         </div>
                     </div>
                 </section>
-
 
                 <section className="main-tour-offer">
                     <div className="tour-offer-top pt-70 bg-f6">
@@ -228,10 +223,9 @@ function Home() {
                     </div>
                 </section>
 
-
                 <section className="main-highlight overlay back-image wow fadeup-animation" style={{ backgroundImage: "url(assets/images/highlight-image.jpg)" }} data-wow-duration="1s" data-wow-delay="0.1s">
                     <div className="highlight-bg-video">
-                        <video loop muted autoplay>
+                        <video>
                             <source src="assets/images/highlight-video.mp4" type="video/mp4" />
                         </video>
                     </div>
@@ -248,7 +242,6 @@ function Home() {
                         </div>
                     </div>
                 </section>
-
 
                 <section className="main-tour bg-f6 back-image" style={{ backgroundImage: "url(assets/images/white-map.png)" }}>
                     <div className="tour-services">
