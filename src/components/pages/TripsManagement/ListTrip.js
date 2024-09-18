@@ -20,12 +20,16 @@ function ListTrip() {
         const loadData = async () => {
             try {
                 const response = await api.get(url.TRIP.LIST_BY_USER, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
-                setTrips(response.data.data);
-                // console.log(response.data.data);
+                const tripsWithImages = response.data.data.map(trip => ({
+                    ...trip,
+                    image: getRandomImage() // Gán ảnh ngẫu nhiên cho mỗi mục
+                }));
+                setTrips(tripsWithImages);
             } catch (error) { }
         };
         loadData();
     }, []);
+
 
     //search, filter
     const [searchName, setSearchName] = useState("");
@@ -87,14 +91,17 @@ function ListTrip() {
     const images = [
         "url(assets/images/tour-box-image1.jpg)",
         "url(assets/images/tour-box-image2.jpg)",
-        "url(assets/images/tour-box-image3.jpg)"
-        // Thêm các URL ảnh khác nếu cần
+        "url(assets/images/tour-box-image3.jpg)",
+        "url(assets/images/tour-list-image1.jpg)",
+        "url(assets/images/tour-list-image2.jpg)",
+        "url(assets/images/tour-list-image3.jpg)",
     ];
 
     const getRandomImage = () => {
         const randomIndex = Math.floor(Math.random() * images.length);
         return images[randomIndex];
     };
+
 
     //paginate
     const [currentPage, setCurrentPage] = useState(1);
@@ -170,7 +177,7 @@ function ListTrip() {
                                             return (
                                                 <div className="col-lg-6 col-md-6" key={trip.id}>
                                                     <div className="tour-box">
-                                                        <div className="tour-box-image back-image" style={{ backgroundImage: getRandomImage() }}></div>
+                                                        <div className="tour-box-image back-image" style={{ backgroundImage: trip.image }}></div>
                                                         <div className="tour-box-content">
                                                             <div className="tour-box-label">
                                                                 <div className="tour-box-inner-label">
