@@ -30,22 +30,42 @@ function ListTrip() {
     //search, filter
     const [searchName, setSearchName] = useState("");
     const [searchDestination, setSearchDestination] = useState("");
-    const [createdDate, setCreatedDate] = useState("");
-    const handleSearchNameChange = (e) => {
-        setSearchName(e.target.value);
+    const [searchStartDate, setSearchStartDate] = useState("");
+    const [searchDuration, setSearchDuration] = useState("Any");
+    const [minBudget, setMinBudget] = useState("");
+    const [maxBudget, setMaxBudget] = useState("");
+
+    const handleSearchNameChange = (e) => setSearchName(e.target.value);
+    const handleSearchDestinationChange = (e) => setSearchDestination(e.target.value);
+    const handleSearchStartDateChange = (e) => setSearchStartDate(e.target.value);
+    const handleSearchDurationChange = (e) => setSearchDuration(e.target.value);
+    const handleMinBudgetChange = (e) => setMinBudget(e.target.value);
+    const handleMaxBudgetChange = (e) => setMaxBudget(e.target.value);
+
+    const handleReset = () => {
+        setSearchName("");
+        setSearchDestination("");
+        setSearchStartDate("");
+        setSearchDuration("Any");
+        setMinBudget("");
+        setMaxBudget("");
     };
-    const handleSearchDestinationChange = (e) => {
-        setSearchDestination(e.target.value);
-    };
-    const handleCreatedDateChange = (e) => {
-        setCreatedDate(e.target.value);
-    };
+
     const filteredTrips = trips.filter((item) => {
         const nameMatch = item.tripName.toLowerCase().includes(searchName.toLowerCase());
         const destinationMatch = item.destination.toLowerCase().includes(searchDestination.toLowerCase());
-        const createdDateMatch = createdDate ? new Date(item.createdDate) >= new Date(createdDate) : true;
-        return nameMatch && destinationMatch && createdDateMatch;
+        const startDateMatch = searchStartDate
+            ? new Date(item.startDate).toLocaleDateString() === new Date(searchStartDate).toLocaleDateString()
+            : true;
+        const durationMatch = searchDuration === "Any" || (searchDuration === "1 Day Tour" && (new Date(item.endDate) - new Date(item.startDate)) / (1000 * 60 * 60 * 24) === 1) ||
+            (searchDuration === "2-4 Days Tour" && (new Date(item.endDate) - new Date(item.startDate)) / (1000 * 60 * 60 * 24) >= 2 && (new Date(item.endDate) - new Date(item.startDate)) / (1000 * 60 * 60 * 24) <= 4) ||
+            (searchDuration === "5-7 Days Tour" && (new Date(item.endDate) - new Date(item.startDate)) / (1000 * 60 * 60 * 24) >= 5 && (new Date(item.endDate) - new Date(item.startDate)) / (1000 * 60 * 60 * 24) <= 7) ||
+            (searchDuration === "7+ Days Tour" && (new Date(item.endDate) - new Date(item.startDate)) / (1000 * 60 * 60 * 24) > 7);
+        const budgetMatch = (minBudget ? item.budget >= minBudget : true) && (maxBudget ? item.budget <= maxBudget : true);
+
+        return nameMatch && destinationMatch && startDateMatch && durationMatch && budgetMatch;
     });
+
 
     const sortedTrips = [...filteredTrips].sort((a, b) => {
         let comparison = 0;
@@ -62,7 +82,7 @@ function ListTrip() {
         }
         return sortOrder === "Descending" ? comparison : -comparison;
     });
-    
+
 
     const images = [
         "url(assets/images/tour-box-image1.jpg)",
@@ -78,7 +98,7 @@ function ListTrip() {
 
     //paginate
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 1; // Number of items per page
+    const itemsPerPage = 2; // Number of items per page
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -232,76 +252,60 @@ function ListTrip() {
                                     </div>
                                     <div class="find-tour-form">
                                         <form>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <span class="form-control-span">
-                                                        <span class="icon"><i class="fas fa-search"></i></span>
-                                                        <input type="text" placeholder="Search Tour(Name)" class="form-input" />
+                                            <div className="row">
+                                                <div className="col-lg-12">
+                                                    <span className="form-control-span">
+                                                        <span className="icon"><i className="fas fa-search"></i></span>
+                                                        <input type="text" placeholder="Search Tour(Name)" className="form-input" value={searchName} onChange={handleSearchNameChange} />
                                                     </span>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <span class="form-control-span">
-                                                        <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
-                                                        <input type="text" placeholder="Where To?(Destination)" class="form-input" />
+                                                <div className="col-lg-12">
+                                                    <span className="form-control-span">
+                                                        <span className="icon"><i className="fas fa-map-marker-alt"></i></span>
+                                                        <input type="text" placeholder="Where To?(Destination)" className="form-input" value={searchDestination} onChange={handleSearchDestinationChange} />
                                                     </span>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <span class="form-control-span">
-                                                        <span class="icon"><i class="fas fa-calendar-alt"></i></span>
-                                                        <select class="form-input">
-                                                            <option>Month</option>
-                                                            <option>January</option>
-                                                            <option>February</option>
-                                                            <option>March</option>
-                                                            <option>April</option>
-                                                            <option>May</option>
-                                                            <option>June</option>
-                                                            <option>July</option>
-                                                            <option>August</option>
-                                                            <option>September</option>
-                                                            <option>October</option>
-                                                            <option>November</option>
-                                                            <option>December</option>
+                                                <div className="col-lg-12">
+                                                    <span className="form-control-span">
+                                                        <span className="icon"><i className="fas fa-calendar-alt"></i></span>
+                                                        <input
+                                                            type="date"
+                                                            className="form-input"
+                                                            value={searchStartDate}
+                                                            onChange={handleSearchStartDateChange}>
+                                                        </input>
+                                                        <span className="arrow"><i className="fas fa-caret-down"></i></span>
+                                                    </span>
+                                                </div>
+                                                <div className="col-lg-12">
+                                                    <label className="label-input">Duration</label>
+                                                    <span className="form-control-span no-icon">
+                                                        <select className="form-input" value={searchDuration} onChange={handleSearchDurationChange}>
+                                                            <option value="Any">Any</option>
+                                                            <option value="1 Day Tour">1 Day Tour</option>
+                                                            <option value="2-4 Days Tour">2-4 Days Tour</option>
+                                                            <option value="5-7 Days Tour">5-7 Days Tour</option>
+                                                            <option value="7+ Days Tour">7+ Days Tour</option>
                                                         </select>
-                                                        <span class="arrow"><i class="fas fa-caret-down"></i></span>
+                                                        <span className="arrow"><i className="fas fa-caret-down"></i></span>
                                                     </span>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <label class="label-input">Duration (enddate - createdate)</label>
-                                                    <span class="form-control-span no-icon">
-                                                        <select class="form-input">
-                                                            <option>Any</option>
-                                                            <option>1 Day Tour</option>
-                                                            <option>2-4 Days Tour</option>
-                                                            <option>5-7 Days Tour</option>
-                                                            <option>7+ Days Tour</option>
-                                                        </select>
-                                                        <span class="arrow"><i class="fas fa-caret-down"></i></span>
+                                                <div className="col-lg-6 col-sm-6">
+                                                    <label className="label-input">Min Budget</label>
+                                                    <span className="form-control-span no-icon no-arrow">
+                                                        <input type="number" className="form-input" placeholder="1" value={minBudget} onChange={handleMinBudgetChange} />
                                                     </span>
                                                 </div>
-                                                <div class="col-lg-6 col-sm-6">
-                                                    <label class="label-input">Min Budget</label>
-                                                    <span class="form-control-span no-icon no-arrow">
-                                                        <input type="number" class="form-input" placeholder="1" />
+                                                <div className="col-lg-6 col-sm-6">
+                                                    <label className="label-input">Max Budget</label>
+                                                    <span className="form-control-span no-icon no-arrow">
+                                                        <input type="number" className="form-input" placeholder="100" value={maxBudget} onChange={handleMaxBudgetChange} />
                                                     </span>
                                                 </div>
-                                                <div class="col-lg-6 col-sm-6">
-                                                    <label class="label-input">Max Budget</label>
-                                                    <span class="form-control-span no-icon no-arrow">
-                                                        <input type="number" class="form-input" placeholder="100" />
-                                                    </span>
+                                                <div className="col-lg-12">
+                                                    <button className="sec-btn find-now-btn" type="button" onClick={handleReset}><span>Reset</span></button>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <div class="checkbox-list">
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" id="cultural" name="cultural" value="cultural" />
-                                                            <label for="cultural" class="check-box-label">Cultural</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <button class="sec-btn find-now-btn"><span>Find Now</span></button>
-                                                </div>
+
                                             </div>
                                         </form>
                                     </div>
