@@ -102,11 +102,11 @@ function Login() {
     }
   };
   return (
-    <body>
+    <body style={{ backgroundImage: "url(assets/images/login-img.jpg)"}}>
       <div class="login">
-         {/* <img src="src/components/img/partners-logo2.png" alt="login image" class="login__img"/> */}
 
          <form action="" class="login__form">
+          <image src="assets/images/avatar.png"/>
             <h1 class="login__title">Login</h1>
 
             <div class="login__content">

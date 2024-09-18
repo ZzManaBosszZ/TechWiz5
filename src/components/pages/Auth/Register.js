@@ -3,11 +3,13 @@ import "../../css/register.css";
 function Register(){
 
     return (
-        <body>
+        <body style={{ backgroundImage: "url(assets/images/login-img.jpg)"}}>
+
           <div class="register">
              {/* <img src="src/components/img/partners-logo2.png" alt="login image" class="login__img"/> */}
     
              <form action="" class="register__form">
+                <a href="#">Back</a>
                 <h1 class="register__title">Register</h1>
     
                 <div class="register__content">
