@@ -2,6 +2,7 @@ import config from "../config/index";
 import Login from "../components/pages/Auth/Login";
 import ForgotPassWord from "../components/pages/Auth/ForgotPassWord";
 import ResetPassword from "../components/pages/Auth/ResetPassword";
+import Register from "../components/pages/Auth/Register";
 import Home from "../components/pages/Dashboard/index"
 import AboutUs from "../components/pages/Others/About";
 import Contact from "../components/pages/Others/Contact";
@@ -11,6 +12,7 @@ import TripDetail from "../components/pages/TripsManagement/DetailTrip";
 
 const publicRoutes = [
     { path: config.routes.login, component: Login },
+    { path: config.routes.register, component: Register },
     { path: config.routes.home, component: Home },
     { path: config.routes.about_us, component: AboutUs },
     { path: config.routes.contact_us, component: Contact },
@@ -25,7 +27,7 @@ const privateRoutes = [
 
 const authenticationRoutes = [
     { path: config.routes.login, component: Login },
-    // { path: config.routes.register, component: Register },
+    { path: config.routes.register, component: Register },
     { path: config.routes.forgot_password, component: ForgotPassWord },
     { path: config.routes.reset_password, component: ResetPassword },
 
