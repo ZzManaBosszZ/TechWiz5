@@ -54,7 +54,7 @@ function ListTrip() {
                                 </div>
                                 <div class="tour-filter-result wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.3s">
                                     <div class="row">
-                                        
+
                                         <div class="col-lg-6 col-md-6">
                                             <div class="tour-box">
                                                 <div class="tour-box-image back-image" style={{ backgroundImage: "url(assets/images/tour-box-image1.jpg)" }}></div>
@@ -66,9 +66,6 @@ function ListTrip() {
                                                     </div>
                                                     <div class="tour-box-title">
                                                         <h4 class="h4-title">Holiday Planners is a World Leading Online Tour Booking Platform(TripName)</h4>
-                                                    </div>
-                                                    <div class="tour-box-description">
-                                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
                                                     </div>
                                                     <div class="tour-info-box">
                                                         <div class="row">
@@ -90,7 +87,7 @@ function ListTrip() {
                                                                     </div>
                                                                     <div class="tour-info-content">
                                                                         <h5 class="h6-title">Group Size</h5>
-                                                                        <p>6 People</p>
+                                                                        <p>6 People(Group_size)</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -101,13 +98,13 @@ function ListTrip() {
                                                             <h3 class="h3-title">$1200</h3>
                                                         </div>
                                                         <div class="book-now-button">
-                                                            <a href="tour-detail.html" title="Book Now" class="sec-btn"><span>Book Now</span></a>
+                                                            <a href="tour-detail.html" title="Watch Now" class="sec-btn"><span>Watch Now</span></a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
 
                                     {/* Paginate */}
@@ -139,13 +136,13 @@ function ListTrip() {
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-search"></i></span>
-                                                        <input type="text" placeholder="Search Tour" class="form-input" />
+                                                        <input type="text" placeholder="Search Tour(Name)" class="form-input" />
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
-                                                        <input type="text" placeholder="Where To?" class="form-input" />
+                                                        <input type="text" placeholder="Where To?(Destination)" class="form-input" />
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
@@ -170,7 +167,7 @@ function ListTrip() {
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <label class="label-input">Duration</label>
+                                                    <label class="label-input">Duration (enddate - createdate)</label>
                                                     <span class="form-control-span no-icon">
                                                         <select class="form-input">
                                                             <option>Any</option>
@@ -183,13 +180,13 @@ function ListTrip() {
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-6 col-sm-6">
-                                                    <label class="label-input">Min Price</label>
+                                                    <label class="label-input">Min Budget</label>
                                                     <span class="form-control-span no-icon no-arrow">
                                                         <input type="number" class="form-input" placeholder="1" />
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-6 col-sm-6">
-                                                    <label class="label-input">Max Price</label>
+                                                    <label class="label-input">Max Budget</label>
                                                     <span class="form-control-span no-icon no-arrow">
                                                         <input type="number" class="form-input" placeholder="100" />
                                                     </span>
