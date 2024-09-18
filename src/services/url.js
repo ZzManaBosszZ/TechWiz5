@@ -14,5 +14,21 @@ const url = {
         UPDATE_PROFILE: "user/update-profile",
     },
 
+    TRIP: {
+        LIST: "/any/trip",
+        LIST_BY_USER: "/trip",
+        CREATE: "/trip",
+        PUT: "/trip",
+        DELETE: "/trip",
+    },
+
+    CATEGORY: {
+        LIST: "/any/category",
+        LIST_BY_USER: "/category",
+        CREATE: "/category",
+        PUT: "/category",
+        DELETE: "/category",
+    },
+
 }
 export default url;
