@@ -86,7 +86,7 @@ function TripPlan() {
                     <div class="tour-timeline-box">
                         <div class="tt-box-number">1</div>
                         <div class="tt-box-content">
-                            <h3 class="h3-title">Day 1: <span></span></h3>
+                            <h3 class="h3-title">Day 1: <span>(TRIP NAME)</span></h3>
 
                             <div class="tour-timetable-schedule mt-40 mb-40">
                                 <ul>

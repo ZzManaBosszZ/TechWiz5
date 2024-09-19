@@ -12,7 +12,7 @@ function Reason() {
                     <li><i class="fas fa-angle-right"></i>Hand-picked Tours & Activities</li>
                 </ul>
             </div>
-            <div class="widget get-a-questions back-image wow fadeup-animation" style={{ backgroundImage: "url(assets/images/get-a-questions-back.jpg)" }} data-wow-duration="1s" data-wow-delay="0.3s">
+            <div class="widget get-a-questions back-image wow fadeup-animation" style={{ backgroundImage: "url(/assets/images/get-a-questions-back.jpg)" }} data-wow-duration="1s" data-wow-delay="0.3s">
                 <div class="line-title">
                     <h4 class="h4-title">Get a Question?</h4>
                 </div>

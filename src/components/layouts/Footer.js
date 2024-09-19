@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <>
-        <footer className="site-footer back-image overlay" style={{backgroundImage: "url(assets/images/footer-back.jpg)"}}>
+        <footer className="site-footer back-image overlay" style={{backgroundImage: "url(/assets/images/footer-back.jpg)"}}>
             <div className="sec-wp">
                 <div className="container">
                     <div className="top-footer common-sec">

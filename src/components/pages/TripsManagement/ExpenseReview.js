@@ -41,7 +41,7 @@ function ExpenseReview() {
 
         // Tổng số tiền đã chi tiêu
         const totalSpent = fakeExpenses.reduce((sum, expense) => sum + expense.amount, 0);
-        
+
         // Tính phần tiền còn lại
         const remainingAmount = totalBudget - totalSpent;
 
@@ -53,9 +53,9 @@ function ExpenseReview() {
         });
 
         // Thêm phần "Remaining" vào series và labels
-        setChartData({ 
-            labels: [...labels, "Remaining"], 
-            series: [...series, remainingAmount] 
+        setChartData({
+            labels: [...labels, "Remaining"],
+            series: [...series, remainingAmount]
         });
     }, [id]);
 
@@ -133,9 +133,9 @@ function ExpenseReview() {
                 <div class="tab-box review-tab-box">
                     <h2 class="h2-title">Tour Review Expense</h2>
                     <p>This tab summarizes trip expenses, covering major costs like flights, accommodation, and meals, as well as any extra fees. It helps users compare actual spending to the budget and evaluate cost-effectiveness for future trips. This section may also include feedback on service quality relative to the expenses.</p>
-                    
+
                     {/* Chart */}
-                    <div class="chart-wrapper">
+                    <div class="chart-wrapper" style={{ marginTop: "30px", marginBottom: "30px" }}>
                         <Chart
                             options={chartOptions}
                             series={chartData.series}
@@ -143,7 +143,8 @@ function ExpenseReview() {
                             width="500"
                         />
                     </div>
-                    
+
+
                     {/* Existing content */}
                     <div class="review-breakdown">
                         <div class="rb-left-side">
