@@ -1,13 +1,24 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import url from "../../services/url";
-import { getAccessToken } from "../../utils/auth";
+import { getAccessToken, removeAccessToken } from "../../utils/auth";
 import config from "../../config";
 import "../css/style.css";
+
 function Header() {
   const [profile, setProfile] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  //show list data
+  // Function to handle logout
+  const handleLogout = () => {
+    removeAccessToken();
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+
+  // Show list data
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -15,8 +26,10 @@ function Header() {
           headers: { Authorization: `Bearer ${getAccessToken()}` },
         });
         setProfile(response.data.data);
-        // console.log(response.data.data);
-      } catch (error) {}
+        setIsLoggedIn(true);
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
     };
     loadProfile();
   }, []);
@@ -29,7 +42,7 @@ function Header() {
             <div className="col-lg-8">
               <ul className="contact-list-item">
                 <li>
-                  <a href="" title="holidayplanners@gmail.com">
+                  <a href="mailto:holidayplanners@gmail.com" title="holidayplanners@gmail.com">
                     <span className="icon">
                       <i className="far fa-envelope"></i>
                     </span>
@@ -102,8 +115,25 @@ function Header() {
                       <i className="fas fa-user"></i>
                     </div>
                     <div className="dropdown-content">
-                      <a className="login-drop" href="#">Login</a>
-                      <a className="signup-drop" href="#">SignUp</a>
+                      {isLoggedIn ? (
+                        <>
+                          <a className="profile-drop" href="/profile">
+                            Profile
+                          </a>
+                          <a className="logout-drop" href="#" onClick={handleLogout}>
+                            Logout
+                          </a>
+                        </>
+                      ) : (
+                        <>
+                          <a className="login-drop" href="/login">
+                            Login
+                          </a>
+                          <a className="signup-drop" href="/signup">
+                            Sign Up
+                          </a>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -235,4 +265,5 @@ function Header() {
     </header>
   );
 }
+
 export default Header;

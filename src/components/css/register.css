@@ -47,10 +47,46 @@ button {
   /* color: #000; */
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+
+.password-box {
+  display: flex;
+  align-items: center; /* Align the elements in the center vertically */
 }
+
+.password-box input {
+  flex-grow: 1; /* Make the input take the available space */
+}
+
+.toggle-password {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+
+
+.password-box {
+  display: flex;
+  align-items: center;
+}
+
+.password-box input {
+  flex-grow: 1;
+}
+
+.toggle-password {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.register__icon {
+  margin-right: 10px; /* Add space between icon and input */
+  font-size: 20px; /* Adjust the icon size */
+}
+
 .register {
     position: relative;
     height: 100vh;

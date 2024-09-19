@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,11 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import url from "../../../services/url";
 import api from "../../../services/api";
 import "../../css/register.css";
-function Register() {
 
+// Import icons from react-icons
+import { RiUser3Line, RiMailLine, RiLock2Line, RiEyeOffLine, RiEyeLine } from "react-icons/ri"; 
+
+function Register() {
    const navigate = useNavigate();
 
-   const [showPassword, setShowPassword] = useState(false);
+   const [showPassword, setShowPassword] = useState(false);  // State to toggle password visibility
 
    const [formData, setFormData] = useState({
       fullname: "",
@@ -25,7 +27,7 @@ function Register() {
    });
 
    const handleTogglePassword = () => {
-      setShowPassword(!showPassword);
+      setShowPassword(!showPassword);  // Toggle password visibility
    };
 
    const handleChange = (e) => {
@@ -76,9 +78,6 @@ function Register() {
          try {
             const registerRequest = await api.post(url.AUTH.SIGN_UP, formData);
 
-            // Check API response
-            console.log(registerRequest);
-
             if (registerRequest.status === 200) {
                toast.success("Register successfully!", {
                   position: "top-right",
@@ -117,8 +116,10 @@ function Register() {
                   <a className="return" href="#">Back</a>
                   <h1 className="register__title">Register</h1>
                   <div className="register__content">
+                     
+               
                      <div className="register__box">
-                        <i className="ri-user-3-line register__icon"></i>
+                        <RiUser3Line className="register__icon" /> 
                         <div className="register__box-input">
                            <input
                               type="text"
@@ -129,12 +130,14 @@ function Register() {
                               value={formData.fullname}
                               onChange={handleChange}
                               autoFocus />
-                           <label for="register-name" className="register__label">Name</label>
+                           <label htmlFor="register-name" className="register__label">Name</label>
                            {formErrors.fullname && <div className="invalid-feedback">{formErrors.fullname}</div>}
                         </div>
                      </div>
+
+                
                      <div className="register__box">
-                        <i className="ri-user-3-line register__icon"></i>
+                        <RiMailLine className="register__icon" /> 
                         <div className="register__box-input">
                            <input
                               type="email"
@@ -144,30 +147,39 @@ function Register() {
                               value={formData.email}
                               onChange={handleChange}
                               placeholder="" />
-                           <label for="register-email" className="register__label">Email</label>
+                           <label htmlFor="register-email" className="register__label">Email</label>
                            {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
                         </div>
                      </div>
 
+                  
                      <div className="register__box">
-                        <i className="ri-lock-2-line register__icon"></i>
-
-                        <div className="register__box-input">
+                        <RiLock2Line className="register__icon" /> 
+                        <div className="register__box-input password-box">
                            <input
-                              type="password"
+                              type={showPassword ? "text" : "password"}  // Toggle between "text" and "password"
                               className={`register__input ${formErrors.password ? "is-invalid" : ""}`}
                               id="register-pass"
                               name="password"
                               value={formData.password}
                               onChange={handleChange}
                               placeholder=" " />
-                           <label for="register-pass" className="register__label">Password</label>
+                           <label htmlFor="register-pass" className="register__label">Password</label>
                            {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
-                           <i className="ri-eye-off-line register__eye" id="register-eye"></i>
+
+                          
+                           <button
+                              type="button"
+                              className="toggle-password"
+                              onClick={handleTogglePassword}
+                           >
+                              {showPassword ? <RiEyeOffLine /> : <RiEyeLine />}
+                           </button>
                         </div>
                      </div>
                   </div>
-                  <button type="submit" className="register__button" value="Login" valueSubmit="Login..." handleEvent={handleSignUp}>Register Now</button>
+
+                  <button type="submit" className="register__button" valueSubmit="Login...">Register Now</button>
                   <p className="login__register">
                      Have an account? <a href="#">Login</a>
                   </p>
@@ -177,4 +189,5 @@ function Register() {
       </>
    );
 }
+
 export default Register;

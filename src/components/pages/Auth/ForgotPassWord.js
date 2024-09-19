@@ -3,34 +3,129 @@ import api from "../../../services/api";
 import url from "../../../services/url";
 import { toast } from "react-toastify";
 import "../../css/forgot.css"
+
+// Import the email icon from react-icons
+import { RiMailLine } from "react-icons/ri";
+
 function ForgotPassword() {
 
-  return (
+   const [formSubmitted, setFormSubmitted] = useState(false);
+   const [submitting, setSubmitting] = useState(false);
+ 
+   const [formData, setFormData] = useState({
+     email: "",
+   });
+ 
+   const [formErrors, setFormErrors] = useState({
+     email: "",
+   });
+ 
+   const handleChange = (e) => {
+     const { name, value } = e.target;
+     setFormData({ ...formData, [name]: value });  // Update form data state
+     setFormErrors({ ...formErrors, [name]: "" });
+   };
+ 
+   const isEmailValid = (email) => {
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     return emailRegex.test(email);
+   };
+ 
+   const validateForm = () => {
+     let valid = true;
+     const newErrors = {};
+ 
+     if (!formData.email) {
+       valid = false;
+       newErrors.email = "Please enter your email.";
+     } else if (!isEmailValid(formData.email)) {
+       valid = false;
+       newErrors.email = "Please enter a valid email address.";
+     }
+ 
+     setFormErrors(newErrors);
+ 
+     return valid;
+   };
+ 
+   const submitResponse = async (e) => {
+     e.preventDefault();
+ 
+     if (validateForm()) {
+       try {
+         setSubmitting(true);
+ 
+         await api.post(url.AUTH.FORGOT_PASSWORD, formData);
+         setTimeout(() => {
+           setFormSubmitted(true);
+           setSubmitting(false);
+           toast.success("Submitted successfully!", {
+             position: "top-right",
+             autoClose: 2000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "colored",
+           });
+         }, 1500);
+       } catch (error) {
+         setTimeout(() => {
+           setFormSubmitted(true);
+           setSubmitting(false);
+           toast.success("Submitted successfully!", {
+             position: "top-right",
+             autoClose: 2000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "colored",
+           });
+         }, 1500);
+       }
+     }
+   };
+
+   return (
     <body>
-      <div class="forgot">
+      <div className="forgot">
 
-         <form action="" class="forgot__form" autocomplete="off">
-          <image src="assets/images/avatar.png"/>
-            <h1 class="forgot__title">Recover Password</h1>
+         <form className="forgot__form" autoComplete="off" onSubmit={submitResponse}>
+            <a className="back" href="#">Back</a>
+            <h1 className="forgot__title">Recover Password</h1>
 
-            <div class="forgot__content">
-               <div class="forgot__box">
-                  <i class="ri-user-3-line forgot__icon"></i>
+            <div className="forgot__content">
+               <div className="forgot__box">
+                  {/* Use email icon */}
+                  <RiMailLine className="forgot__icon" /> 
 
-                  <div class="forgot__box-input">
-                     <input type="email" required class="forgot__input" id="forgot-email" placeholder=" "/>
-                     <label for="forgot-email" class="forgot__label">Email</label>
+                  <div className="forgot__box-input">
+                     <input
+                       type="email"
+                       name="email"  // Make sure name is set correctly
+                       required
+                       className="forgot__input"
+                       id="forgot-email"
+                       value={formData.email}  // Link input to form state
+                       onChange={handleChange}  // Handle input change
+                       placeholder=" " />
+                     <label htmlFor="forgot-email" className="forgot__label">Email</label>
+                     {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
                   </div>
                </div>
             </div>
 
-            <button type="submit" class="forgot__button">Reset Email</button>
+            <button type="submit" className="forgot__button" disabled={submitting}>
+              {submitting ? "Sending..." : "Reset Email"}
+            </button>
 
          </form>
       </div>
-      
-   </body>
-  );
+    </body>
+   );
 }
 
 export default ForgotPassword;
