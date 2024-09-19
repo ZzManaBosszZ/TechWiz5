@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import url from "../../services/url";
-import { getAccessToken, removeAccessToken } from "../../utils/auth"; // Import a method to remove token
+import { getAccessToken, removeAccessToken } from "../../utils/auth";
 import config from "../../config";
 import "../css/style.css";
 
 function Header() {
   const [profile, setProfile] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // Use navigate instead of history
+  const navigate = useNavigate();
 
   // Function to handle logout
   const handleLogout = () => {
-    removeAccessToken(); // Clear the token from wherever it's stored
-    setIsLoggedIn(false); // Update the login state
-    navigate("/login"); // Redirect to login page
+    removeAccessToken();
+    setIsLoggedIn(false);
+    navigate("/login");
   };
 
   // Show list data
@@ -26,9 +26,9 @@ function Header() {
           headers: { Authorization: `Bearer ${getAccessToken()}` },
         });
         setProfile(response.data.data);
-        setIsLoggedIn(true); // User is logged in if the profile is loaded successfully
+        setIsLoggedIn(true);
       } catch (error) {
-        setIsLoggedIn(false); // User is not logged in if an error occurs
+        setIsLoggedIn(false);
       }
     };
     loadProfile();
@@ -42,7 +42,7 @@ function Header() {
             <div className="col-lg-8">
               <ul className="contact-list-item">
                 <li>
-                  <a href="" title="holidayplanners@gmail.com">
+                  <a href="mailto:holidayplanners@gmail.com" title="holidayplanners@gmail.com">
                     <span className="icon">
                       <i className="far fa-envelope"></i>
                     </span>
@@ -115,8 +115,25 @@ function Header() {
                       <i className="fas fa-user"></i>
                     </div>
                     <div className="dropdown-content">
-                      <a className="login-drop" href="#">Login</a>
-                      <a className="signup-drop" href="#">SignUp</a>
+                      {isLoggedIn ? (
+                        <>
+                          <a className="profile-drop" href="/profile">
+                            Profile
+                          </a>
+                          <a className="logout-drop" href="#" onClick={handleLogout}>
+                            Logout
+                          </a>
+                        </>
+                      ) : (
+                        <>
+                          <a className="login-drop" href="/login">
+                            Login
+                          </a>
+                          <a className="signup-drop" href="/signup">
+                            Sign Up
+                          </a>
+                        </>
+                      )}
                     </div>
                   </div>
 
