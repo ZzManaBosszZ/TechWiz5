@@ -1,4 +1,5 @@
 import Layout from "../../layouts";
+import Reason from "../../layouts/Reason";
 
 function Contact() {
     return (
@@ -65,39 +66,7 @@ function Contact() {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="right-side">
-                                <div class="widget why-book-with-us wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
-                                    <div class="line-title">
-                                        <h4 class="h4-title">Why Book With Us?</h4>
-                                    </div>
-                                    <ul class="book-with-list">
-                                        <li><i class="fas fa-angle-right"></i>Best Price Guarantee</li>
-                                        <li><i class="fas fa-angle-right"></i>Customer care available 24/7</li>
-                                        <li><i class="fas fa-angle-right"></i>Free Travel Insureance</li>
-                                        <li><i class="fas fa-angle-right"></i>Hand-picked Tours & Activities</li>
-                                    </ul>
-                                </div>
-                                <div class="widget get-a-questions back-image wow fadeup-animation" style={{ backgroundImage: "url(assets/images/get-a-questions-back.jpg)" }} data-wow-duration="1s" data-wow-delay="0.2s">
-                                    <div class="line-title">
-                                        <h4 class="h4-title">Get a Question?</h4>
-                                    </div>
-                                    <p>Do not hesitage to give us a call. We are an expert team and we are happy to talk to you.</p>
-                                    <ul class="gaq-list-item">
-                                        <li>
-                                            <a href="https://html.geekcodelab.com/cdn-cgi/l/email-protection#650d0a090c01041c1509040b0b001716250208040c094b060a08" title="holidayplanners@gmail.com">
-                                                <i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="2c44434045484d555c404d4242495e5f6c4b414d4540024f4341">[email&#160;protected]</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="tel:1234567890" title="+123 456 7890">
-                                                <i class="fas fa-phone-alt"></i> +123 456 7890
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <Reason />
                     </div>
                 </div>
             </section>
