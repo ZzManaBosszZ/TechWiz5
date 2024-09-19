@@ -87,19 +87,48 @@ function TripPlan() {
                         <div class="tt-box-number">1</div>
                         <div class="tt-box-content">
                             <h3 class="h3-title">Day 1: <span></span></h3>
-                            <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
-                                sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and,
-                                as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless</p>
-                        </div>
-                    </div>
 
-                    <div class="tour-timeline-box">
-                        <div class="tt-box-number">2</div>
-                        <div class="tt-box-content">
-                            <h3 class="h3-title">Day 2: <span>Adventure Beggins</span></h3>
-                            <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
-                                sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and,
-                                as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless</p>
+                            <div class="tour-timetable-schedule mt-40 mb-40">
+                                <ul>
+                                    <li>
+                                        <div class="tts-label">
+                                            <h4 class="h4-title">Destination</h4>
+                                        </div>
+                                        <div class="tts-description">
+                                            <a href="#">Greece</a>
+                                        </div>
+                                        <button class="edit-btn">Edit</button>
+                                    </li>
+                                    <li>
+                                        <div class="tts-label">
+                                            <h4 class="h4-title">Departure</h4>
+                                        </div>
+                                        <div class="tts-description">
+                                            Lorem Ipsum
+                                        </div>
+                                        <button class="edit-btn">Edit</button>
+                                    </li>
+                                    <li>
+                                        <div class="tts-label">
+                                            <h4 class="h4-title">Departure Time</h4>
+                                        </div>
+                                        <div class="tts-description">
+                                            9:15 AM To 9:30 AM.
+                                        </div>
+                                        <button class="edit-btn">Edit</button>
+                                    </li>
+                                    <li>
+                                        <div class="tts-label">
+                                            <h4 class="h4-title">Return Time</h4>
+                                        </div>
+                                        <div class="tts-description">
+                                            Approximately 10:30 PM.
+                                        </div>
+                                        <button class="edit-btn">Edit</button>
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>

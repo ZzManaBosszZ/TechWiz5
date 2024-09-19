@@ -3105,7 +3105,7 @@ blockquote p {
     text-align: center
 }
 
-.tour-timetable-schedule>ul>li {
+/* .tour-timetable-schedule>ul>li {
     display: inline-table;
     width: 100%
 }
@@ -3142,7 +3142,7 @@ blockquote p {
 
 .tour-timetable-schedule ul li .tts-description a:hover {
     color: var(--yellow-color)
-}
+} */
 
 .tour-video {
     width: 100%;
@@ -4103,7 +4103,7 @@ blockquote p {
     .tour-detail-tabbing .nav-tabs li.nav-item .nav-link {
         padding: 12px
     }
-    .tour-timetable-schedule>ul>li {
+    /* .tour-timetable-schedule>ul>li {
         display: block;
         background: var(--white-light-color);
         margin-bottom: 15px
@@ -4123,7 +4123,7 @@ blockquote p {
     .tour-timetable-schedule ul li:last-child .tts-label,
     .tour-timetable-schedule ul li:last-child .tts-description {
         border-bottom: none
-    }
+    } */
     .blog-single-image {
         height: 300px
     }
@@ -4459,5 +4459,77 @@ blockquote p {
 @media(max-height:475px) {
     .modal-body.overflow-text {
         height: 400px
+    }
+}
+
+.tour-timetable-schedule {
+    padding: 0;
+    margin: 0;
+}
+
+.tour-timetable-schedule ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tour-timetable-schedule ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(43 43 43 / 0.1);
+    margin-bottom: 15px;
+    background: var(--white-light-color);
+    padding: 15px;
+}
+
+.tts-label, .tts-description {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.tts-label {
+    border-right: 1px solid rgb(43 43 43 / 0.1);
+}
+
+.tts-description {
+    color: var(--dark-color);
+}
+
+.tts-description a {
+    color: var(--dark-color);
+    text-decoration: none;
+}
+
+.tts-description a:hover {
+    color: var(--yellow-color);
+}
+
+.edit-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.edit-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .tour-timetable-schedule ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tts-label, .tts-description {
+        padding: 8px 0;
+    }
+
+    .edit-btn {
+        margin-top: 10px;
     }
 }
