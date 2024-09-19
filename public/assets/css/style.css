@@ -1342,7 +1342,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
     margin: 0 -15px
 }
 
-.banner-form form .input-col {
+/* .banner-form form .input-col {
     max-width: 27.545%;
     padding-left: 15px;
     padding-right: 15px;
@@ -1357,7 +1357,52 @@ input[type=date]::-webkit-calendar-picker-indicator {
 
 .banner-form form .input-col.button-col .sec-btn {
     width: 100%
+} */
+
+/* Đảm bảo các phần tử trong biểu mẫu có khoảng cách phù hợp */
+.banner-form form {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không đủ không gian */
+    margin: 0 -15px; /* Xóa khoảng cách ngoài của các phần tử con */
 }
+
+/* Điều chỉnh các trường nhập liệu */
+.banner-form form .input-col {
+    max-width: 100%; /* Đảm bảo phần tử không vượt quá chiều rộng của container */
+    flex: 1 1 auto; /* Cho phép phần tử co giãn để chiếm không gian */
+    margin-bottom: 15px; /* Khoảng cách giữa các trường */
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box; /* Đảm bảo padding và border không làm tăng kích thước của phần tử */
+}
+
+/* Điều chỉnh trường nút bấm */
+.banner-form form .input-col.button-col {
+    max-width: 100%; /* Đảm bảo nút không vượt quá chiều rộng của container */
+    flex: 1 1 auto; /* Cho phép nút co giãn để chiếm không gian */
+    margin-bottom: 0; /* Đặt khoảng cách dưới cùng của nút */
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box; /* Đảm bảo padding và border không làm tăng kích thước của phần tử */
+}
+
+/* Điều chỉnh nút bấm */
+.banner-form form .input-col.button-col .sec-btn {
+    width: 100%; /* Đảm bảo nút chiếm toàn bộ chiều rộng của phần tử chứa */
+}
+
+/* Điều chỉnh cho màn hình nhỏ hơn */
+@media (max-width: 768px) {
+    .banner-form form .input-col,
+    .banner-form form .input-col.button-col {
+        flex: 1 1 100%; /* Phần tử chiếm 100% chiều rộng trên màn hình nhỏ */
+    }
+    
+    .banner-form form {
+        margin: 0; /* Đặt lại margin cho các phần tử con */
+    }
+}
+
 
 .about-image-wp {
     position: relative;
@@ -3005,7 +3050,7 @@ blockquote p {
     color: var(--white-color);
     height: 50%;
     border-bottom: 1px solid var(--white-color);
-    padding-top: 5px
+    padding-top: 12px
 }
 
 .tour-price-wp .tour-price p {
@@ -3862,7 +3907,7 @@ blockquote p {
     .banner-slide-box {
         padding: 300px 0 220px
     }
-    .banner-form form .input-col {
+    /* .banner-form form .input-col {
         max-width: 100%;
         flex: 0 0 100%;
         margin-bottom: 15px
@@ -3871,7 +3916,7 @@ blockquote p {
         max-width: 100%;
         flex: 0 0 100%;
         margin-bottom: 0
-    }
+    } */
     .about-image-wp {
         margin-bottom: 30px
     }

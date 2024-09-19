@@ -1,4 +1,5 @@
 import Layout from "../../layouts";
+import Reason from "../../layouts/Reason";
 
 function TripDetail() {
     return (
@@ -37,17 +38,16 @@ function TripDetail() {
                                             <a class="nav-link" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false"><i class="fas fa-camera-retro"></i>Gallery</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false"><i class="fas fa-users"></i>Review</a>
+                                            <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false"><i class="fas fa-credit-card"></i>Expense Trip</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content wow fadeup-animation" id="myTabContent" data-wow-duration="1s" data-wow-delay="0.2s">
                                         <div class="tab-pane fade show active" id="information" role="tabpanel" aria-labelledby="information-tab">
                                             <div class="tab-box information-tab-box">
-                                                {/* <span class="discount-label">22% Off</span> */}
                                                 <div class="row">
                                                     <div class="col-xl-9 col-lg-9">
                                                         <div class="tour-title">
-                                                            <h2 class="h2-title">A wonderful serenity has taken possession of my entire soul</h2>
+                                                            <h2 class="h2-title">Information of Trip to (Destination)</h2>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3 col-lg-3">
@@ -63,44 +63,34 @@ function TripDetail() {
                                                     <ul>
                                                         <li>
                                                             <i class="fas fa-clock"></i>
-                                                            <span class="text">2 days</span>
+                                                            <span class="text">2 days(enddate - createdate)</span>
                                                         </li>
                                                         <li>
                                                             <i class="fas fa-user-friends"></i>
-                                                            <span class="text">6 People</span>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fas fa-user-plus"></i>
-                                                            <span class="text">18</span>
+                                                            <span class="text">6 People(sizegroup)</span>
                                                         </li>
                                                         <li>
                                                             <a href="destination-detail.html">
                                                                 <i class="fas fa-map-marker-alt"></i>
-                                                                <span class="text">Greece</span>
+                                                                <span class="text">Greece(Destination)</span>
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a href="javascript:void(0);">
                                                                 <i class="fas fa-sun"></i>
-                                                                <span class="text">Discovery</span>
+                                                                <span class="text">Discovery(Category)</span>
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div class="tour-description">
+                                                {/* <div class="tour-description">
                                                     <p> I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
                                                         sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams.</p>
                                                     <p> I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
                                                         sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and, as
                                                         I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and
                                                         flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath</p>
-                                                </div>
-                                                <div class="tour-video mt-40">
-                                                    <video loop muted autoplay controls>
-                                                        <source src="assets/images/highlight-video.mp4" type="video/mp4" />
-                                                    </video>
-                                                    <a href="javascript:void(0);" title="Play Video" class="play-btn"></a>
-                                                </div>
+                                                </div> */}
                                                 <div class="tour-timetable-schedule mt-40 mb-40">
                                                     <ul>
                                                         <li>
@@ -197,44 +187,9 @@ function TripDetail() {
                                                             as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless</p>
                                                     </div>
                                                 </div>
-                                                <div class="tour-timeline-box">
-                                                    <div class="tt-box-number">2</div>
-                                                    <div class="tt-box-content">
-                                                        <h3 class="h3-title">Day 2: <span>Adventure Beggins</span></h3>
-                                                        <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
-                                                            sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and,
-                                                            as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless</p>
-                                                    </div>
-                                                </div>
-                                                <div class="tour-timeline-box">
-                                                    <div class="tt-box-number">3</div>
-                                                    <div class="tt-box-content">
-                                                        <h3 class="h3-title">Day 3 - 7: <span>Historical Tour</span></h3>
-                                                        <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
-                                                            sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and,
-                                                            as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless</p>
-                                                    </div>
-                                                </div>
-                                                <div class="tour-timeline-box">
-                                                    <div class="tt-box-number">4</div>
-                                                    <div class="tt-box-content">
-                                                        <h3 class="h3-title">Day 8 - 11: <span>City Tour</span></h3>
-                                                        <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
-                                                            sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and,
-                                                            as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless</p>
-                                                    </div>
-                                                </div>
-                                                <div class="tour-timeline-box">
-                                                    <div class="tt-box-number">5</div>
-                                                    <div class="tt-box-content">
-                                                        <h3 class="h3-title">Day 12: <span>Return</span></h3>
-                                                        <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian
-                                                            sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and,
-                                                            as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless</p>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
+
                                         <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
                                             <div class="tab-box location-tab-box">
                                                 <h2 class="h2-title"><span>Tour Location</span></h2>
@@ -280,7 +235,7 @@ function TripDetail() {
                                         </div>
                                         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                             <div class="tab-box review-tab-box">
-                                                <h2 class="h2-title">Tour Review Scores And Score Breakdown</h2>
+                                                <h2 class="h2-title">Tour Review Expense</h2>
                                                 <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me</p>
                                                 <div class="review-breakdown">
                                                     <div class="rb-left-side">
@@ -338,292 +293,6 @@ function TripDetail() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="rb-comment-list">
-                                                    <ul>
-                                                        <li class="rb-comment-box">
-                                                            <div class="rb-comment-image">
-                                                                <img src="assets/images/avatar.png" alt="avtar" />
-                                                            </div>
-                                                            <div class="rb-comment-content">
-                                                                <div class="rb-comment-top-text">
-                                                                    <h5 class="h5-title">John Doe</h5>
-                                                                    <p class="date">February 8, 2020 at 11:51 am</p>
-                                                                </div>
-                                                                <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me</p>
-                                                                <div class="rb-rating">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Accommodation</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Destination</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Meals</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Overall</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Transport</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Value for Money</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="rb-comment-box">
-                                                            <div class="rb-comment-image">
-                                                                <img src="assets/images/avatar.png" alt="avtar" />
-                                                            </div>
-                                                            <div class="rb-comment-content">
-                                                                <div class="rb-comment-top-text">
-                                                                    <h5 class="h5-title">John Doe</h5>
-                                                                    <p class="date">February 8, 2020 at 11:51 am</p>
-                                                                </div>
-                                                                <p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me</p>
-                                                                <div class="rb-rating">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Accommodation</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Destination</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Meals</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Overall</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Transport</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="rb-rating-inner">
-                                                                                <span class="rb-rating-label">Value for Money</span>
-                                                                                <span class="rb-rating-value">
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                    <i class="fas fa-star"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="rb-comment-form">
-                                                    <h2 class="h2-title">Post a Comment</h2>
-                                                    <form>
-                                                        <div class="rb-rating">
-                                                            <div class="row">
-                                                                <div class="col-lg-4">
-                                                                    <div class="rb-rating-inner">
-                                                                        <span class="rb-rating-label">Accommodation</span>
-                                                                        <span class="rb-rating-value">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="rb-rating-inner">
-                                                                        <span class="rb-rating-label">Destination</span>
-                                                                        <span class="rb-rating-value">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="rb-rating-inner">
-                                                                        <span class="rb-rating-label">Meals</span>
-                                                                        <span class="rb-rating-value">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="rb-rating-inner">
-                                                                        <span class="rb-rating-label">Overall</span>
-                                                                        <span class="rb-rating-value">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="rb-rating-inner">
-                                                                        <span class="rb-rating-label">Transport</span>
-                                                                        <span class="rb-rating-value">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="rb-rating-inner">
-                                                                        <span class="rb-rating-label">Value for Money</span>
-                                                                        <span class="rb-rating-value">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-4">
-                                                                <span class="form-control-span">
-                                                                    <input type="text" placeholder="Your Name" class="form-input" />
-                                                                </span>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <span class="form-control-span">
-                                                                    <input type="email" placeholder="Your Email *" required class="form-input" />
-                                                                </span>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <span class="form-control-span">
-                                                                    <input type="text" placeholder="Website" class="form-input" />
-                                                                </span>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <span class="form-control-span">
-                                                                    <textarea class="form-input" placeholder="Your Comment" cols="30" rows="10"></textarea>
-                                                                </span>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <button class="sec-btn"><span>Submit</span></button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -642,54 +311,26 @@ function TripDetail() {
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-user"></i></span>
-                                                        <input type="text" placeholder="Full Name *" class="form-input" required />
+                                                        <p type="text" placeholder="Full Name *" class="form-input">John Doe (Name)</p>
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-envelope"></i></span>
-                                                        <input type="email" placeholder="Email *" class="form-input" required />
+                                                        <p type="email" placeholder="Email *" class="form-input">Johndoe@gmail.com</p>
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-calendar-alt"></i></span>
-                                                        <input type="date" class="form-input" required />
+                                                        <p type="date" class="form-input">Time 22/8/2024</p>
                                                     </span>
-                                                </div>                                             
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="widget why-book-with-us wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
-                                    <div class="line-title">
-                                        <h4 class="h4-title">Why Choose With Us?</h4>
-                                    </div>
-                                    <ul class="book-with-list">
-                                        <li><i class="fas fa-angle-right"></i>Best Web App and Free</li>
-                                        <li><i class="fas fa-angle-right"></i>Customer care available 24/7</li>
-                                        <li><i class="fas fa-angle-right"></i>Free Travel Insureance</li>
-                                        <li><i class="fas fa-angle-right"></i>Hand-picked Tours &amp; Activities</li>
-                                    </ul>
-                                </div>
-                                <div class="widget get-a-questions back-image wow fadeup-animation" style={{ backgroundImage: "url(assets/images/get-a-questions-back.jpg)" }} data-wow-duration="1s" data-wow-delay="0.3s">
-                                    <div class="line-title">
-                                        <h4 class="h4-title">Get a Question?</h4>
-                                    </div>
-                                    <p>Do not hesitage to give us a call. We are an expert team and we are happy to talk to you.</p>
-                                    <ul class="gaq-list-item">
-                                        <li>
-                                            <a href="https://html.geekcodelab.com/cdn-cgi/l/email-protection#69010605000d081019050807070c1b1a290e04080005470a0604" title="holidayplanners@gmail.com">
-                                                <i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="e28a8d8e8b86839b928e838c8c879091a2858f838b8ecc818d8f">holidayplanners@gmail.com</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="tel:1234567890" title="+123 456 7890">
-                                                <i class="fas fa-phone-alt"></i> +84 367640262
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <Reason />
                             </div>
                         </div>
                     </div>

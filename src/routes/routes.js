@@ -8,16 +8,16 @@ import AboutUs from "../components/pages/Others/About";
 import Contact from "../components/pages/Others/Contact";
 import ListTrip from "../components/pages/TripsManagement/ListTrip";
 import TripDetail from "../components/pages/TripsManagement/DetailTrip";
+import TripCreate from "../components/pages/TripsManagement/TripCreate";
 
 
 const publicRoutes = [
-    { path: config.routes.login, component: Login },
-    { path: config.routes.register, component: Register },
     { path: config.routes.home, component: Home },
     { path: config.routes.about_us, component: AboutUs },
     { path: config.routes.contact_us, component: Contact },
     { path: config.routes.trip, component: ListTrip },
-    { path: config.routes.trip_detail, component: TripDetail }
+    { path: config.routes.trip_detail, component: TripDetail },
+    { path: config.routes.create_trip, component: TripCreate },
 
 ];
 
