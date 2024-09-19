@@ -15,11 +15,11 @@ const url = {
     },
 
     TRIP: {
-        LIST: "/any/trip",
-        LIST_BY_USER: "/trip",
-        CREATE: "/trip",
-        PUT: "/trip",
-        DELETE: "/trip",
+        LIST_BY_ID: "trip/{}",
+        LIST_BY_USER: "trip",
+        CREATE: "trip",
+        PUT: "trip",
+        DELETE: "trip",
     },
 
     CATEGORY: {

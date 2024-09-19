@@ -98,7 +98,7 @@ function Header() {
               <div className="col-lg-4">
                 <div className="site-branding">
                   <a href="index-2.html" title="Travel & Tour">
-                    <img src="assets/images/logo.png" alt="Logo" />
+                    <img src="/assets/images/logo.png" alt="Logo" />
                   </a>
                 </div>
               </div>
@@ -115,17 +115,8 @@ function Header() {
                       <i className="fas fa-user"></i>
                     </div>
                     <div className="dropdown-content">
-                      {isLoggedIn ? (
-                        <>
-                          <a href="#">Profile</a>
-                          <a href="#" onClick={handleLogout}>Logout</a> {/* Add onClick for logout */}
-                        </>
-                      ) : (
-                        <>
-                          <a href="#">Login</a>
-                          <a href="#">SignUp</a>
-                        </>
-                      )}
+                      <a className="login-drop" href="#">Login</a>
+                      <a className="signup-drop" href="#">SignUp</a>
                     </div>
                   </div>
 
@@ -138,7 +129,7 @@ function Header() {
                     <div className="full-menu">
                       <div className="logo-icon">
                         <img
-                          src="assets/images/logo-icon-white.svg"
+                          src="/assets/images/logo-icon-white.svg"
                           alt="logo-icon-white"
                         />
                       </div>
@@ -149,7 +140,7 @@ function Header() {
                               <div className="site-branding">
                                 <a href="index-2.html" title="Travel & Tour">
                                   <img
-                                    src="assets/images/white-logo.png"
+                                    src="/assets/images/white-logo.png"
                                     alt="Logo"
                                   />
                                 </a>

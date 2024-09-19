@@ -8,7 +8,7 @@ function Footer() {
                         <div className="row">
                             <div className="col-lg-4">
                                 <div className="footer-logo mb-30 wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
-                                    <a href="index-2.html" title="Travel & Tour"><img src="assets/images/white-logo.png" alt="Logo"/></a>
+                                    <a href="index-2.html" title="Travel & Tour"><img src="/assets/images/white-logo.png" alt="Logo"/></a>
                                 </div>
                                 <div className="footer-text mb-30 wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
                                     <p><b>Holiday Planners</b> sit amet consectetur adipisicing elit. Perferendis sapiente tenetur officiis explicabo fugit, sit mollitia eum atque excepturi quaerat autem.</p>
@@ -22,7 +22,7 @@ function Footer() {
                                     </form>
                                 </div>
                                 <div className="payment-companies-logo wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.4s">
-                                    <img src="assets/images/payment-companies-logo.png" alt="payment-companies-logo"/>
+                                    <img src="/assets/images/payment-companies-logo.png" alt="payment-companies-logo"/>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-6">
