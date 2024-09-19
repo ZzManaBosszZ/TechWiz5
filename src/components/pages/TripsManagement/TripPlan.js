@@ -34,7 +34,7 @@ function TripPlan() {
             <div className="tab-pane fade" id="tour-plan" role="tabpanel" aria-labelledby="tour-plan-tab">
                 <div className="tab-box tour-plan-tab-box">
                     {/* modal */}
-                    <div class="rb-comment-form">
+                    <div className="rb-comment-form">
                         <button
                             className={`sec-btn ${trip.categories.length === 0 ? 'center-btn' : 'top-right-btn'}`}
                             onClick={handleOpenModal}
@@ -83,54 +83,54 @@ function TripPlan() {
                     </div>
 
 
-                    <div class="tour-timeline-box">
-                        <div class="tt-box-number">1</div>
-                        <div class="tt-box-content">
-                            <h3 class="h3-title">Day 1: <span>(TRIP NAME)</span></h3>
+                    {/* <div className="tour-timeline-box">
+                        <div className="tt-box-number">1</div>
+                        <div className="tt-box-content">
+                            <h3 className="h3-title">Day 1: <span>(TRIP NAME)</span></h3>
 
-                            <div class="tour-timetable-schedule mt-40 mb-40">
+                            <div className="tour-timetable-schedule mt-40 mb-40">
                                 <ul>
                                     <li>
-                                        <div class="tts-label">
-                                            <h4 class="h4-title">Destination</h4>
+                                        <div className="tts-label">
+                                            <h4 className="h4-title">Destination</h4>
                                         </div>
-                                        <div class="tts-description">
+                                        <div className="tts-description">
                                             <a href="#">Greece</a>
                                         </div>
-                                        <button class="edit-btn">Edit</button>
+                                        <button className="edit-btn">Edit</button>
                                     </li>
                                     <li>
-                                        <div class="tts-label">
-                                            <h4 class="h4-title">Departure</h4>
+                                        <div className="tts-label">
+                                            <h4 className="h4-title">Departure</h4>
                                         </div>
-                                        <div class="tts-description">
+                                        <div className="tts-description">
                                             Lorem Ipsum
                                         </div>
-                                        <button class="edit-btn">Edit</button>
+                                        <button className="edit-btn">Edit</button>
                                     </li>
                                     <li>
-                                        <div class="tts-label">
-                                            <h4 class="h4-title">Departure Time</h4>
+                                        <div className="tts-label">
+                                            <h4 className="h4-title">Departure Time</h4>
                                         </div>
-                                        <div class="tts-description">
+                                        <div className="tts-description">
                                             9:15 AM To 9:30 AM.
                                         </div>
-                                        <button class="edit-btn">Edit</button>
+                                        <button className="edit-btn">Edit</button>
                                     </li>
                                     <li>
-                                        <div class="tts-label">
-                                            <h4 class="h4-title">Return Time</h4>
+                                        <div className="tts-label">
+                                            <h4 className="h4-title">Return Time</h4>
                                         </div>
-                                        <div class="tts-description">
+                                        <div className="tts-description">
                                             Approximately 10:30 PM.
                                         </div>
-                                        <button class="edit-btn">Edit</button>
+                                        <button className="edit-btn">Edit</button>
                                     </li>
                                 </ul>
                             </div>
 
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
