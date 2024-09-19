@@ -7,7 +7,7 @@ const routes = {
     profile: "/profile",
     login: "/login",
     forgot_password: "/forgot-password",
-    reset_password: "/reset-password/:resetToken",
+    reset_password: "/reset-password",
     register:"/register",
 
     //About And Contact Routes

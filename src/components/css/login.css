@@ -45,6 +45,45 @@ a {
 }
 
 
+.login__box {
+  display: flex;
+  align-items: center;
+}
+
+.login__icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-container .reset__input {
+  flex: 1;
+}
+
+  .password-container .toggle-password {
+      background: none;
+  }
+
+.password-container .toggle-password:focus {
+  outline: none;
+}
 /*=============== LOGIN ===============*/
 .login {
   position: relative;
@@ -98,6 +137,7 @@ a {
   position: relative;
   z-index: 1;
 }
+
 .login__box-input {
   position: relative;
 }
@@ -115,6 +155,8 @@ a {
   z-index: 10;
   cursor: pointer;
 }
+
+
 .login__box:nth-child(2) input {
   padding-right: 1.8rem;
 }

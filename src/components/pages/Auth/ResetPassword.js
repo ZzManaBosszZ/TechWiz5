@@ -4,26 +4,42 @@ import url from "../../../services/url";
 import { toast } from "react-toastify";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import config from "../../../config/index";
+import "../../css/reset.css";
+import { RiEyeOffFill, RiEyeFill } from "react-icons/ri"; // Import icons
 
 function ResetPassword() {
 
   const { resetToken } = useParams();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
     newPassword: "",
+    confirmNewPassword: "",
+    currentPassword: ""
   });
 
   const [formErrors, setFormErrors] = useState({
     email: "",
     newPassword: "",
+    confirmNewPassword: "",
+    currentPassword: ""
   });
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleToggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleToggleCurrentPassword = () => {
+    setShowCurrentPassword(!showCurrentPassword);
   };
 
   const handleChange = (e) => {
@@ -49,6 +65,11 @@ function ResetPassword() {
       newErrors.email = "Please enter a valid email address.";
     }
 
+    if (!formData.currentPassword) {
+      newErrors.currentPassword = "Please enter your current password.";
+      valid = false;
+    }
+
     if (!formData.newPassword) {
       newErrors.newPassword = "Please enter a new password.";
       valid = false;
@@ -57,6 +78,14 @@ function ResetPassword() {
       valid = false;
     } else if (formData.newPassword.length > 50) {
       newErrors.newPassword = "New password must be less than 50 characters.";
+      valid = false;
+    }
+
+    if (!formData.confirmNewPassword) {
+      newErrors.confirmNewPassword = "Please confirm your new password.";
+      valid = false;
+    } else if (formData.confirmNewPassword !== formData.newPassword) {
+      newErrors.confirmNewPassword = "Passwords do not match.";
       valid = false;
     }
 
@@ -90,75 +119,95 @@ function ResetPassword() {
   };
 
   return (
-    <body className="hold-transition theme-primary bg-img" style={{ backgroundImage: "url(../images/auth-bg/bg-2.jpg)" }}>
-      <div className="container h-p100">
-        <div className="row align-items-center justify-content-md-center h-p100">
-          <div className="col-12">
-            <div className="row justify-content-center no-gutters">
-              <div className="col-lg-5 col-md-5 col-12">
-                <div className="bg-white rounded30 shadow-lg">
-                  <div className="content-top-agile p-20 pb-0">
-                    <h3 className="mb-0 text-primary">Recover Password</h3>
-                    <Link to="/login" classNameName="text-primary" style={{ fontWeight: 300, fontSize: 14 }}>
-                      Back to Login
-                    </Link>
-                  </div>
-                  <div className="p-40">
-                    <form onSubmit={submitResponse}>
+    <body>
+      <div className="reset">
+        <form action="" className="reset__form" autoComplete="off">
+          <Link className="back" to="#">Back</Link>
+          <h1 className="reset__title">Reset Password</h1>
 
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent"><i className="ti-email"></i></span>
-                          </div>
-                          <input
-                            type="email"
-                            className={`form-control pl-15 bg-transparent ${formErrors.email ? "is-invalid" : ""}`}
-                            placeholder="Enter Your Email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            autoFocus />
-                          {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
-                        </div>
-                      </div>
-
-                      <div className="form-group">
-                        <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text bg-transparent">
-                              <i className="ti-lock"></i>
-                            </span>
-                          </div>
-                          <input
-                              type={showPassword ? "text" : "password"}
-                              className={`form-control pl-15 bg-transparent ${formErrors.newPassword ? "is-invalid" : ""}`}
-                              name="newPassword"
-                              id="newPassword"
-                              placeholder="******"
-                              value={formData.newPassword}
-                              onChange={handleChange}
-                          />
-                          <div className="input-group-append">
-                            <span className="input-group-text bg-transparent view-password" onClick={handleTogglePassword}>
-                              {!showPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
-                            </span>
-                          </div>
-                          {formErrors.newPassword && <div className="invalid-feedback">{formErrors.newPassword}</div>}
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-12 text-center">
-                          <button type="submit" className="btn btn-info margin-top-10">Reset Password </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+          {/* Current Password */}
+          <div className="reset__content">
+            <div className="reset__box">
+              <i className="ri-user-3-line reset__icon"></i>
+              <div className="reset__box-input password-container">
+                <input
+                  type={showCurrentPassword ? "text" : "password"}
+                  required
+                  className="reset__input"
+                  id="current-password"
+                  placeholder=" "
+                  name="currentPassword"
+                  value={formData.currentPassword}
+                  onChange={handleChange}
+                />
+                <label htmlFor="current-password" className="reset__label">Current Password</label>
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={handleToggleCurrentPassword}
+                >
+                  {showCurrentPassword ? <RiEyeOffFill /> : <RiEyeFill />}
+                </button>
               </div>
             </div>
           </div>
-        </div>
+
+          <div className="reset__content">
+            <div className="reset__box">
+              <i className="ri-user-3-line reset__icon"></i>
+              <div className="reset__box-input password-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  className="reset__input"
+                  id="new-password"
+                  placeholder=" "
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                />
+                <label htmlFor="new-password" className="reset__label">New Password</label>
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={handleTogglePassword}
+                >
+                  {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="reset__content">
+            <div className="reset__box">
+              <i className="ri-user-3-line reset__icon"></i>
+              <div className="reset__box-input password-container">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  required
+                  className="reset__input"
+                  id="confirm-new-password"
+                  placeholder=" "
+                  name="confirmNewPassword"
+                  value={formData.confirmNewPassword}
+                  onChange={handleChange}
+                />
+                <label htmlFor="confirm-new-password" className="reset__label">Confirm New Password</label>
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={handleToggleConfirmPassword}
+                >
+                  {showConfirmPassword ? <RiEyeOffFill /> : <RiEyeFill />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" className="reset__button" onClick={submitResponse}>
+            Reset Password
+          </button>
+        </form>
       </div>
     </body>
   );

@@ -40,8 +40,9 @@ button {
   outline: none;
 }
 
-a {
+.back {
   text-decoration: none;
+font-size: small;
 }
 
 
