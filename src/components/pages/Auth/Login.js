@@ -25,9 +25,10 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });  
     setFormErrors({ ...formErrors, [name]: "" });
-  };
+};
+
 
   const validateForm = () => {
     let valid = true;
@@ -52,6 +53,8 @@ function Login() {
     setFormErrors(newErrors);
     return valid;
   };
+
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
