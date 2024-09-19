@@ -218,7 +218,7 @@ function ListTrip() {
                                                                     <h3 className="h3-title">${trip.budget}</h3>
                                                                 </div>
                                                                 <div className="book-now-button">
-                                                                    <Link to={`/trip/${trip.id}`} title="View Details" className="sec-btn"><span>View Details</span></Link>
+                                                                    <Link to={`/trip-detail/${trip.id}`} title="View Details" className="sec-btn"><span>View Details</span></Link>
                                                                 </div>
                                                             </div>
                                                         </div>

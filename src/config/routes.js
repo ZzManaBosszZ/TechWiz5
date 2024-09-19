@@ -16,7 +16,7 @@ const routes = {
 
     //Trip Routes
     trip: "/trip",
-    trip_detail: "/trip-detail",
+    trip_detail: "/trip-detail/:id",
     create_trip: "/create-trip",
 };
 export default routes;

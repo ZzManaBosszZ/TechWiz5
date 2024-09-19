@@ -1,10 +1,33 @@
 import Layout from "../../layouts";
+import { useParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import api from "../../../services/api";
+import url from "../../../services/url";
+import { getAccessToken } from "../../../utils/auth";
 import Reason from "../../layouts/Reason";
 
 function TripDetail() {
+
+    const { id } = useParams();
+
+    const [TripDetail, setTripDetail] = useState({});
+
+    const loadData = useCallback(async () => {
+        try {
+            const tripDetailRequest = await api.get(url.TRIP.LIST_BY_ID.replace("{}", id), { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+            setTripDetail(tripDetailRequest.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [id]);
+
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
+
     return (
         <Layout>
-            <section class="main-banner inner-banner overlay back-image" style={{ backgroundImage: "url(assets/images/tour-detail-banner.jpg)" }}>
+            <section class="main-banner inner-banner overlay back-image" style={{ backgroundImage: "url(/assets/images/tour-detail-banner.jpg)" }}>
                 <div class="sec-wp">
                     <div class="container">
                         <div class="row">
@@ -162,16 +185,16 @@ function TripDetail() {
                                                 </div>
                                                 <div class="row no-gutters tour-gallery-slider">
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image1.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image1.jpg)" }}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image1.jpg" style={{ backgroundImage: "url(/assets/images/tour-gallery-slide-image1.jpg)" }}></div>
                                                     </div>
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image2.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image2.jpg)" }}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image2.jpg" style={{ backgroundImage: "url(/assets/images/tour-gallery-slide-image2.jpg)" }}></div>
                                                     </div>
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image3.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image3.jpg)" }}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image3.jpg" style={{ backgroundImage: "url(/assets/images/tour-gallery-slide-image3.jpg)" }}></div>
                                                     </div>
                                                     <div class="col-lg-4 p-0">
-                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image4.jpg" style={{ backgroundImage: "url(assets/images/tour-gallery-slide-image4.jpg)" }}></div>
+                                                        <div class="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image4.jpg" style={{ backgroundImage: "url(/assets/images/tour-gallery-slide-image4.jpg)" }}></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -212,22 +235,10 @@ function TripDetail() {
                                                 <div class="memories-gallery">
                                                     <div class="row">
                                                         <div class="col-lg-7">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image1.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image1.jpg)" }}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image1.jpg" style={{ backgroundImage: "url(/assets/images/memories-gallery-image1.jpg)" }}></div>
                                                         </div>
                                                         <div class="col-lg-5">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image2.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image2.jpg)" }}></div>
-                                                        </div>
-                                                        <div class="col-lg-5">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image3.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image3.jpg)" }}></div>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image4.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image4.jpg)" }}></div>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image5.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image5.jpg)" }}></div>
-                                                        </div>
-                                                        <div class="col-lg-5">
-                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image6.jpg" style={{ backgroundImage: "url(assets/images/memories-gallery-image6.jpg)" }}></div>
+                                                            <div class="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image2.jpg" style={{ backgroundImage: "url(/assets/images/memories-gallery-image2.jpg)" }}></div>
                                                         </div>
                                                     </div>
                                                 </div>

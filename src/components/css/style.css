@@ -83,7 +83,7 @@ button {
   outline: none;
 }
 
-a {
+.login-drop, .register-drop {
   text-decoration: none;
   color: #000;
 }
