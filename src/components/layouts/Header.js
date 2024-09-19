@@ -3,7 +3,7 @@ import api from "../../services/api";
 import url from "../../services/url";
 import { getAccessToken } from "../../utils/auth";
 import config from "../../config";
-import "../css/drop.css";
+import "../css/style.css";
 function Header() {
   const [profile, setProfile] = useState([]);
 

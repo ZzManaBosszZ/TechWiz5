@@ -33,9 +33,10 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });  
     setFormErrors({ ...formErrors, [name]: "" });
-  };
+};
+
 
   const validateForm = () => {
     let valid = true;
@@ -60,6 +61,8 @@ function Login() {
     setFormErrors(newErrors);
     return valid;
   };
+
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -105,7 +108,7 @@ function Login() {
     <body style={{ backgroundImage: "url(assets/images/login-img.jpg)"}}>
       <div class="login">
 
-         <form action="" class="login__form">
+         <form action="" class="login__form" autocomplete="off">
           <image src="assets/images/avatar.png"/>
             <h1 class="login__title">Login</h1>
 
@@ -147,8 +150,6 @@ function Login() {
          </form>
       </div>
       
-
-      <script src="assets/js/main.js"></script>
    </body>
   );
 }
