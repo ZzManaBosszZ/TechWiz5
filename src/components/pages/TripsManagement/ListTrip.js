@@ -105,7 +105,7 @@ function ListTrip() {
 
     //paginate
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 2; // Number of items per page
+    const itemsPerPage = 3; // Number of items per page
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
