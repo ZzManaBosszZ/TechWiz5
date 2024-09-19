@@ -1,13 +1,24 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import api from "../../services/api";
 import url from "../../services/url";
-import { getAccessToken } from "../../utils/auth";
+import { getAccessToken, removeAccessToken } from "../../utils/auth"; // Import a method to remove token
 import config from "../../config";
 import "../css/style.css";
+
 function Header() {
   const [profile, setProfile] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); // Use navigate instead of history
 
-  //show list data
+  // Function to handle logout
+  const handleLogout = () => {
+    removeAccessToken(); // Clear the token from wherever it's stored
+    setIsLoggedIn(false); // Update the login state
+    navigate("/login"); // Redirect to login page
+  };
+
+  // Show list data
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -15,8 +26,10 @@ function Header() {
           headers: { Authorization: `Bearer ${getAccessToken()}` },
         });
         setProfile(response.data.data);
-        // console.log(response.data.data);
-      } catch (error) {}
+        setIsLoggedIn(true); // User is logged in if the profile is loaded successfully
+      } catch (error) {
+        setIsLoggedIn(false); // User is not logged in if an error occurs
+      }
     };
     loadProfile();
   }, []);
@@ -102,8 +115,17 @@ function Header() {
                       <i className="fas fa-user"></i>
                     </div>
                     <div className="dropdown-content">
-                      <a href="#">Login</a>
-                      <a href="#">SignUp</a>
+                      {isLoggedIn ? (
+                        <>
+                          <a href="#">Profile</a>
+                          <a href="#" onClick={handleLogout}>Logout</a> {/* Add onClick for logout */}
+                        </>
+                      ) : (
+                        <>
+                          <a href="#">Login</a>
+                          <a href="#">SignUp</a>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -235,4 +257,5 @@ function Header() {
     </header>
   );
 }
+
 export default Header;

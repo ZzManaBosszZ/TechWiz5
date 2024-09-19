@@ -1,5 +1,6 @@
 import Layout from "../../layouts";
 import Reason from "../../layouts/Reason";
+import "../../css/style.css"
 
 function TripDetail() {
     return (
@@ -315,11 +316,14 @@ function TripDetail() {
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <span class="form-control-span">
-                                                        <span class="icon"><i class="fas fa-envelope"></i></span>
-                                                        <p type="email" placeholder="Email *" class="form-input">Johndoe@gmail.com</p>
-                                                    </span>
-                                                </div>
+    <span class="form-control-span">
+        <span class="icon"><i class="fas fa-envelope"></i></span>
+        <div class="scroll-container">
+            <p class="form-input">nghbjdsdfgfbu15102004@gmail.com</p>
+        </div>
+    </span>
+</div>
+
                                                 <div class="col-lg-12">
                                                     <span class="form-control-span">
                                                         <span class="icon"><i class="fas fa-calendar-alt"></i></span>
@@ -341,3 +345,5 @@ function TripDetail() {
 }
 
 export default TripDetail;
+
+
