@@ -224,31 +224,31 @@ button {
   }
 }
 .scroll-container {
-  overflow-x: auto; /* Hiển thị thanh cuộn ngang khi cần */
-  white-space: nowrap; /* Ngăn nội dung xuống dòng */
-  max-width: 100%; /* Giới hạn kích thước khung chứa */
-  box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước khung */
+  overflow-x: auto; 
+  white-space: nowrap;
+  max-width: 100%; 
+  box-sizing: border-box; 
 }
 
 .scroll-container::-webkit-scrollbar {
-  height: 1px; /* Chiều cao của thanh cuộn ngang nhỏ hơn */
+  height: 1px; 
 }
-
+ 
 .scroll-container::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Màu nền của vùng chứa thanh cuộn */
+  background: #f1f1f1; 
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-  background: #888; /* Màu của thanh cuộn */
-  border-radius: 10px; /* Bo tròn các góc của thanh cuộn */
+  background: #888; 
+  border-radius: 10px; 
 }
 
 .scroll-container::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Màu của thanh cuộn khi di chuột qua */
+  background: #555; 
 }
 
 
 .scroll-container {
-  scrollbar-width: thin; /* Đặt thanh cuộn ngang mỏng */
-  scrollbar-color: #888 #f1f1f1; /* Màu của thanh cuộn và vùng chứa */
+  scrollbar-width: thin; 
+  scrollbar-color: #888 #f1f1f1; 
 }
