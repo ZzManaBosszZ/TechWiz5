@@ -288,15 +288,6 @@ function TripPlan() {
                 <option value="date">Sort by Date</option>
                 <option value="activity">Sort by Activity</option>
               </select>
-              {/* <select
-                style={{ borderRadius: "5px", margin: "0 15px 10px", height: "3.2rem" }}
-                className="form-select text-center"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="date">Sort by Date</option>
-                <option value="activity">Create Expense</option>
-              </select> */}
               <button
                 className={`sec-btn ${
                   trip.categories.length === 0 ? "" : ""
