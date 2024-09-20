@@ -186,7 +186,6 @@ function TripPlan() {
     }
   };
 
-
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
