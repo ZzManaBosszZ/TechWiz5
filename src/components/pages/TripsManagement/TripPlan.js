@@ -23,9 +23,28 @@ function TripPlan() {
 
   const [trip, setTrip] = useState({ expenses: [], categories: [] });
   const [newExpense, setNewExpense] = useState({});
+  const [filterType, setFilterType] = useState("all");
+  const [sortBy, setSortBy] = useState("date");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
+
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editItem, setEditItem] = useState(null);
+
 
   const [itineraryItems, setItineraryItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
+
+  const [currency, setCurrency] = useState('USD'); // Giá trị mặc định là USD
+  const currencyOptions = [
+    { code: 'USD', symbol: '$' },
+    { code: 'EUR', symbol: '€' },
+    { code: 'VND', symbol: '₫' },
+    // Thêm các loại tiền tệ khác nếu cần
+  ];
+
 
   const loadTrip = useCallback(async () => {
     try {
@@ -45,16 +64,73 @@ function TripPlan() {
     loadTrip();
   }, [loadTrip]);
 
-  const [filterType, setFilterType] = useState("all");
-  const [sortBy, setSortBy] = useState("date");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleCreateExpense = async () => {
+    try {
+      const response = await api.post(
+        url.EXPENSE.CREATE,  // Thay URL này với URL tạo expense của bạn
+        {
+          tripId: id, // Lấy tripId hiện tại từ useParams
+          expenses: [
+            {
+              tripId: id, // ID chuyến đi
+              expenseCategory: newExpense.expenseCategory,
+              note: newExpense.note,
+              amountExpense: newExpense.amountExpense,
+              date: newExpense.date, // Nếu bạn đã có trường date
+            },
+          ],
+        },
+        {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        }
+      );
 
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [detailModalOpen, setDetailModalOpen] = useState(false);
+      const createdExpenses = response.data.data; // Giả sử API trả về dữ liệu như vậy
+      // Cập nhật lại danh sách expense với expenses vừa tạo
+      setItineraryItems((prevItems) => [...prevItems, ...createdExpenses]);
+      setFilteredItems((prevItems) => [...prevItems, ...createdExpenses]);
 
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editItem, setEditItem] = useState(null);
+      toast.success("Expense created successfully!");
+      handleCloseModal();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to create expense. Please try again.");
+    }
+  };
 
+  const handleEditExpense = async () => {
+    try {
+      const response = await api.put(
+        url.EXPENSE.PUT,  // Thay URL này với URL cập nhật expense của bạn
+        {
+          id: editItem.id, // ID của expense cần cập nhật
+          tripId: id, // ID chuyến đi
+          expenseCategory: editItem.expenseCategory,
+          note: editItem.note,
+          amountExpense: editItem.amountExpense,
+          date: editItem.date, // Ngày tháng đã chỉnh sửa
+        },
+        {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        }
+      );
+
+      const updatedExpense = response.data.data; // Giả sử API trả về dữ liệu đã cập nhật
+      // Cập nhật danh sách expenses với expense đã chỉnh sửa
+      setItineraryItems((prevItems) =>
+        prevItems.map((item) => (item.id === updatedExpense.id ? updatedExpense : item))
+      );
+      setFilteredItems((prevItems) =>
+        prevItems.map((item) => (item.id === updatedExpense.id ? updatedExpense : item))
+      );
+
+      toast.success("Expense updated successfully!");
+      handleCloseEditModal();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update expense. Please try again.");
+    }
+  };
 
 
   const handleOpenDetailModal = (item) => {
@@ -78,36 +154,6 @@ function TripPlan() {
     setEditModalOpen(false);
     if (selectedItem) {
       setDetailModalOpen(true);
-    }
-  };
-
-  const handleSaveEdit = async () => {
-    try {
-      // Gọi API để cập nhật item, truyền editItem vào body
-      await api.put(url.EXPENSE.PUT, { id: [editItem.id], ...editItem }, {
-        headers: { Authorization: `Bearer ${getAccessToken()}` },
-      });
-
-      // Cập nhật state
-      const updatedItems = itineraryItems.map((item) =>
-        item.id === editItem.id ? { ...item, ...editItem } : item
-      );
-      setItineraryItems(updatedItems);
-      setFilteredItems(updatedItems);
-
-      // Hiển thị thông báo thành công
-      toast.success({
-        text: "Item updated successfully!",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "#28a745",
-      }).showToast();
-
-      handleCloseEditModal();
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to edit item. Please try again.");
     }
   };
 
@@ -200,32 +246,6 @@ function TripPlan() {
       items: groupedItems[date],
     }));
   }, [sortedItems]);
-
-  // Hàm tạo expense mới
-  const handleCreateExpense = () => {
-    if (!newExpense.activity) {
-      alert("Activity cannot be empty.");
-      return;
-    }
-    if (newExpense.amount <= 0) {
-      alert("Amount must be greater than 0.");
-      return;
-    }
-    const newItem = {
-      id: String(itineraryItems.length + 1),
-      date: new Date().toISOString().split("T")[0],
-      time: new Date().toTimeString().split(" ")[0].slice(0, 5),
-      activity: newExpense.activity,
-      location: "Expense",
-      type: "expense",
-      notes: "",
-      expense: parseFloat(newExpense.amount),
-    };
-    const updatedItinerary = [...itineraryItems, newItem];
-    setItineraryItems(updatedItinerary);
-    setFilteredItems(updatedItinerary);
-    handleCloseModal();
-  };
 
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
@@ -401,19 +421,20 @@ function TripPlan() {
           </DragDropContext>
 
           {/* Detail Modal */}
+
+          {/* Detail Modal */}
           <Modal show={detailModalOpen} onHide={handleCloseDetailModal}>
             <Modal.Header closeButton>
-              <Modal.Title>Itinerary Details</Modal.Title>
+              <Modal.Title>Expense Details</Modal.Title>
             </Modal.Header>
             {selectedItem && (
               <Modal.Body>
-                <p><strong>Activity:</strong> {selectedItem.activity}</p>
-                <p><strong>Location:</strong> {selectedItem.location}</p>
+                {/* <p><strong>Activity:</strong> {selectedItem.expenseCategory || 'N/A'}</p> */}
+                {/* <p><strong>Location:</strong> {trip.destination || 'N/A'}</p> */}
                 <p><strong>Date:</strong> {new Date(selectedItem.date).toLocaleDateString()}</p>
-                <p><strong>Time:</strong> {selectedItem.time}</p>
-                <p><strong>Type:</strong> {selectedItem.type}</p>
-                <p><strong>Notes:</strong> {selectedItem.notes}</p>
-                <p><strong>Expense:</strong> ${selectedItem.amountExpense.toFixed(2)}</p>
+                <p><strong>Time:</strong> {new Date(selectedItem.date).toLocaleTimeString() || 'N/A'}</p>
+                <p><strong>Notes:</strong> {selectedItem.note || 'N/A'}</p>
+                <p><strong>Expense:</strong> ${selectedItem.amountExpense ? selectedItem.amountExpense.toFixed(2) : '0.00'}</p>
               </Modal.Body>
             )}
             <Modal.Footer>
@@ -434,6 +455,7 @@ function TripPlan() {
               </Button>
             </Modal.Footer>
           </Modal>
+
 
           {/* Edit Modal */}
           <Modal show={editModalOpen} onHide={handleCloseEditModal}>
@@ -474,7 +496,7 @@ function TripPlan() {
                   <Form.Group className="mb-3" controlId="formAmountExpense">
                     <Form.Label>Expense Amount</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="number"
                       name="amountExpense"
                       placeholder="Enter expense amount"
                       value={editItem.amountExpense}
@@ -483,7 +505,7 @@ function TripPlan() {
                       }
                       min="0"
                       step="0.01"
-                    />  
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formDate">
@@ -491,7 +513,7 @@ function TripPlan() {
                     <Form.Control
                       type="date"
                       name="date"
-                      value={new Date(editItem.date).toISOString().split('T')[0]} // Format date to match input
+                      value={new Date(editItem.date).toISOString().split('T')[0]} // Định dạng ngày tháng
                       onChange={(e) =>
                         setEditItem((prev) => ({ ...prev, date: new Date(e.target.value) }))
                       }
@@ -504,11 +526,12 @@ function TripPlan() {
               <Button variant="secondary" onClick={handleCloseEditModal}>
                 Cancel
               </Button>
-              <Button variant="primary" onClick={handleSaveEdit}>
+              <Button variant="primary" onClick={handleEditExpense}>
                 Save Changes
               </Button>
             </Modal.Footer>
           </Modal>
+
 
           {/* Create Expense Modal */}
           <Modal show={isModalOpen} onHide={handleCloseModal}>
@@ -517,31 +540,48 @@ function TripPlan() {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <Form.Group className="mb-3" controlId="formNewActivity">
-                  <Form.Label>Activity</Form.Label>
+                <Form.Group className="mb-3" controlId="formNewExpenseCategory">
+                  <Form.Label>Expense Category</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Enter activity"
-                    value={newExpense.activity}
-                    onChange={(e) =>
-                      setNewExpense({ ...newExpense, activity: e.target.value })
-                    }
+                    placeholder="Enter expense category"
+                    value={newExpense.expenseCategory}
+                    onChange={(e) => setNewExpense({ ...newExpense, expenseCategory: e.target.value })}
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formNewAmount">
+                <Form.Group className="mb-3" controlId="formNewNote">
+                  <Form.Label>Note</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    placeholder="Enter note"
+                    value={newExpense.note}
+                    onChange={(e) => setNewExpense({ ...newExpense, note: e.target.value })}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formNewAmountExpense">
                   <Form.Label>Amount</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Enter amount"
                     value={newExpense.amount}
-                    onChange={(e) =>
-                      setNewExpense({ ...newExpense, amount: e.target.value })
-                    }
+                    onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
                     min="0"
                     step="0.01"
                   />
                 </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formNewDate">
+                  <Form.Label>Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={newExpense.date || ""}
+                    onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
+                  />
+                </Form.Group>
+
               </Form>
             </Modal.Body>
             <Modal.Footer>

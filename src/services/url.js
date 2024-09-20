@@ -14,6 +14,10 @@ const url = {
         UPDATE_PROFILE: "user/update-profile",
     },
 
+    EXCHANGERATE:{
+        GET: "convert"
+    },
+
     EXPENSE: {
         CREATE: "expense",
         PUT: "expense",
