@@ -18,11 +18,20 @@ function TripPlan() {
   const { id } = useParams();
 
   const [trip, setTrip] = useState({ expenses: [], categories: [] });
+  const [newExpense, setNewExpense] = useState({ activity: "", amount: 0 });
+
+  const [itineraryItems, setItineraryItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const loadTrip = useCallback(async () => {
     try {
       const tripDetailRequest = await api.get(url.TRIP.LIST_BY_ID.replace("{}", id), { headers: { Authorization: `Bearer ${getAccessToken()}` } });
-      setTrip(tripDetailRequest.data.data);
+      const tripData = tripDetailRequest.data.data;
+
+      // Cập nhật itineraryItems từ dữ liệu API
+      setItineraryItems(tripData.expenses || []);
+      setFilteredItems(tripData.expenses || []);
+      setTrip(tripData);
     } catch (error) {
       console.log(error);
     }
@@ -32,71 +41,17 @@ function TripPlan() {
     loadTrip();
   }, [loadTrip]);
 
-
-  const [itineraryItems, setItineraryItems] = useState([
-    {
-      id: "1",
-      date: "2023-06-01",
-      time: "09:00",
-      activity: "Departure",
-      location: "Airport",
-      type: "transportation",
-      notes: "Check-in 2 hours before flight",
-      expense: 150,
-    },
-    {
-      id: "2",
-      date: "2023-06-01",
-      time: "14:00",
-      activity: "Hotel Check-in",
-      location: "Seaside Resort",
-      type: "accommodation",
-      notes: "Room 301",
-      expense: 200,
-    },
-    {
-      id: "3",
-      date: "2023-06-01",
-      time: "18:00",
-      activity: "Dinner",
-      location: "Beachfront Restaurant",
-      type: "meal",
-      notes: "Reservation under Smith",
-      expense: 80,
-    },
-    {
-      id: "4",
-      date: "2023-06-02",
-      time: "10:00",
-      activity: "City Tour",
-      location: "Downtown",
-      type: "sightseeing",
-      notes: "Meet guide at hotel lobby",
-      expense: 50,
-    },
-    {
-      id: "5",
-      date: "2023-06-02",
-      time: "15:00",
-      activity: "Museum Visit",
-      location: "National Museum",
-      type: "sightseeing",
-      notes: "Audio guide available",
-      expense: 25,
-    },
-  ]);
-
-  const [filteredItems, setFilteredItems] = useState(itineraryItems);
   const [filterType, setFilterType] = useState("all");
   const [sortBy, setSortBy] = useState("date");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newExpense, setNewExpense] = useState({ activity: "", amount: 0 });
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
+
+
 
   const handleOpenDetailModal = (item) => {
     setSelectedItem(item);
@@ -161,11 +116,11 @@ function TripPlan() {
 
   const getIcon = (type) => {
     switch (type) {
-      case "transportation":
+      case "Transport":
         return <FaPlane className="text-primary" />;
       case "accommodation":
         return <FaBed className="text-success" />;
-      case "meal":
+      case "Food":
         return <FaUtensils className="text-warning" />;
       case "sightseeing":
         return <FaCamera style={{ color: "#6f42c1" }} />;
@@ -343,35 +298,29 @@ function TripPlan() {
                                 <div className="d-flex align-items-center mb-2 mb-md-0">
                                   <div
                                     className="me-3"
-                                    style={{
-                                      fontSize: "1.5rem",
-                                      marginRight: "10px",
-                                    }}
+                                    style={{ fontSize: "1.5rem", marginRight: "10px" }}
                                   >
+                                    {/* Check if it's an expense and use FaMoneyBillWave or use getIcon with expenseCategory */}
                                     {item.type === "expense" ? (
                                       <FaMoneyBillWave className="text-success" />
                                     ) : (
-                                      getIcon(item.type)
+                                      getIcon(item.expenseCategory) // Use expenseCategory from API data
                                     )}
                                   </div>
                                   <div>
-                                    <h5 className="mb-1">{item.activity}</h5>
-                                    <small className="text-muted">
-                                      {item.location}
-                                    </small>
+                                    <h5 className="mb-1">{item.expenseCategory}</h5>
+                                    <small className="text-muted">{item.location}</small>
                                   </div>
                                 </div>
                                 <div style={{ display: "flex" }}>
                                   <div style={{ marginRight: "8rem" }}>
                                     <p className="mb-1">
-                                      <strong>
-                                        {new Date(item.date).toLocaleDateString()}
-                                      </strong>
+                                      <strong>{new Date(item.date).toLocaleDateString()}</strong>
                                     </p>
                                     <p className="mb-1 text-muted">{item.time}</p>
-                                    {item.expense > 0 && (
+                                    {item.amountExpense > 0 && (
                                       <p className="mb-0 text-success fw-semibold">
-                                        ${item.expense.toFixed(2)}
+                                        ${item.amountExpense.toFixed(2)}
                                       </p>
                                     )}
                                   </div>
@@ -382,7 +331,7 @@ function TripPlan() {
                                       variant="outline-primary"
                                       size="sm"
                                       onClick={(e) => {
-                                        e.stopPropagation(); // Prevent triggering the detail modal
+                                        e.stopPropagation();
                                         handleOpenEditModal(item);
                                       }}
                                     >
@@ -392,7 +341,7 @@ function TripPlan() {
                                       variant="outline-danger"
                                       size="sm"
                                       onClick={(e) => {
-                                        e.stopPropagation(); // Prevent triggering the detail modal
+                                        e.stopPropagation();
                                         handleDeleteItem(item.id);
                                       }}
                                     >
@@ -426,7 +375,7 @@ function TripPlan() {
                 <p><strong>Time:</strong> {selectedItem.time}</p>
                 <p><strong>Type:</strong> {selectedItem.type}</p>
                 <p><strong>Notes:</strong> {selectedItem.notes}</p>
-                <p><strong>Expense:</strong> ${selectedItem.expense.toFixed(2)}</p>
+                <p><strong>Expense:</strong> ${selectedItem.amountExpense.toFixed(2)}</p>
               </Modal.Body>
             )}
             <Modal.Footer>
