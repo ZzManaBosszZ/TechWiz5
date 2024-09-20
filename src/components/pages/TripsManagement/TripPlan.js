@@ -561,8 +561,8 @@ function TripPlan() {
                   <Form.Control
                     type="number"
                     placeholder="Enter amount"
-                    value={newExpense.amount}
-                    onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
+                    value={newExpense.amountExpense}
+                    onChange={(e) => setNewExpense({ ...newExpense, amountExpense: e.target.value })}
                     min="0"
                     step="0.01"
                   />
