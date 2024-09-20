@@ -19,6 +19,20 @@ function TripPlan() {
 
   const [trip, setTrip] = useState({ expenses: [], categories: [] });
 
+  const loadTrip = useCallback(async () => {
+    try {
+      const tripDetailRequest = await api.get(url.TRIP.LIST_BY_ID.replace("{}", id), { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+      setTrip(tripDetailRequest.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    loadTrip();
+  }, [loadTrip]);
+
+
   const [itineraryItems, setItineraryItems] = useState([
     {
       id: "1",
@@ -73,7 +87,6 @@ function TripPlan() {
   ]);
 
   const [filteredItems, setFilteredItems] = useState(itineraryItems);
-  // const [searchTerm, setSearchTerm] = useState(""); // Đã bị comment bỏ
   const [filterType, setFilterType] = useState("all");
   const [sortBy, setSortBy] = useState("date");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,22 +97,6 @@ function TripPlan() {
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
-
-  const loadData = useCallback(async () => {
-    try {
-      const tripDetailRequest = await api.get(
-        url.TRIP.LIST_BY_ID.replace("{}", id),
-        { headers: { Authorization: `Bearer ${getAccessToken()}` } }
-      );
-      setTrip(tripDetailRequest.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    loadData();
-  }, [loadData]);
 
   const handleOpenDetailModal = (item) => {
     setSelectedItem(item);
@@ -289,9 +286,8 @@ function TripPlan() {
                 <option value="activity">Sort by Activity</option>
               </select>
               <button
-                className={`sec-btn ${
-                  trip.categories.length === 0 ? "" : ""
-                }`}
+                className={`sec-btn ${trip.categories.length === 0 ? "" : ""
+                  }`}
                 onClick={handleOpenModal}
               >
                 <span>Create Expense</span>
@@ -349,7 +345,7 @@ function TripPlan() {
                                     className="me-3"
                                     style={{
                                       fontSize: "1.5rem",
-                                      marginRight: "10px", 
+                                      marginRight: "10px",
                                     }}
                                   >
                                     {item.type === "expense" ? (
@@ -365,44 +361,44 @@ function TripPlan() {
                                     </small>
                                   </div>
                                 </div>
-                                <div style={{display:"flex"}}>
-                                <div style={{marginRight:"8rem"}}>
-                                  <p className="mb-1">
-                                    <strong>
-                                      {new Date(item.date).toLocaleDateString()}
-                                    </strong>
-                                  </p>
-                                  <p className="mb-1 text-muted">{item.time}</p>
-                                  {item.expense > 0 && (
-                                    <p className="mb-0 text-success fw-semibold">
-                                      ${item.expense.toFixed(2)}
+                                <div style={{ display: "flex" }}>
+                                  <div style={{ marginRight: "8rem" }}>
+                                    <p className="mb-1">
+                                      <strong>
+                                        {new Date(item.date).toLocaleDateString()}
+                                      </strong>
                                     </p>
-                                  )}
-                                </div>
-                                {/* Edit and Delete Buttons */}
-                                <div style={{height:"2.5rem"}} className="ms-auto d-flex gap-2">
-                                  <Button
-                                  style={{marginRight:"1em"}}
-                                    variant="outline-primary"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation(); // Prevent triggering the detail modal
-                                      handleOpenEditModal(item);
-                                    }}
-                                  >
-                                    Edit
-                                  </Button>
-                                  <Button
-                                    variant="outline-danger"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation(); // Prevent triggering the detail modal
-                                      handleDeleteItem(item.id);
-                                    }}
-                                  >
-                                    Delete
-                                  </Button>
-                                </div>
+                                    <p className="mb-1 text-muted">{item.time}</p>
+                                    {item.expense > 0 && (
+                                      <p className="mb-0 text-success fw-semibold">
+                                        ${item.expense.toFixed(2)}
+                                      </p>
+                                    )}
+                                  </div>
+                                  {/* Edit and Delete Buttons */}
+                                  <div style={{ height: "2.5rem" }} className="ms-auto d-flex gap-2">
+                                    <Button
+                                      style={{ marginRight: "1em" }}
+                                      variant="outline-primary"
+                                      size="sm"
+                                      onClick={(e) => {
+                                        e.stopPropagation(); // Prevent triggering the detail modal
+                                        handleOpenEditModal(item);
+                                      }}
+                                    >
+                                      Edit
+                                    </Button>
+                                    <Button
+                                      variant="outline-danger"
+                                      size="sm"
+                                      onClick={(e) => {
+                                        e.stopPropagation(); // Prevent triggering the detail modal
+                                        handleDeleteItem(item.id);
+                                      }}
+                                    >
+                                      Delete
+                                    </Button>
+                                  </div>
                                 </div>
                               </li>
                             )}
