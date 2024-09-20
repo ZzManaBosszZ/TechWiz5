@@ -2165,6 +2165,22 @@ input[type=date]::-webkit-calendar-picker-indicator {
     color: var(--yellow-color)
 }
 
+/* Khi không có dữ liệu, nút nằm ở giữa */
+.center-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Đưa nút ra chính giữa */
+}
+
+/* Khi có dữ liệu, nút nằm ở góc trên bên phải */
+.top-right-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
 .payment-companies-logo img {
     max-width: 200px;
     width: 100%
