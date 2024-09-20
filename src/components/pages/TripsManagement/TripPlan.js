@@ -22,7 +22,7 @@ function TripPlan() {
   const { id } = useParams();
 
   const [trip, setTrip] = useState({ expenses: [], categories: [] });
-  const [newExpense, setNewExpense] = useState({ activity: "", amount: 0 });
+  const [newExpense, setNewExpense] = useState({});
 
   const [itineraryItems, setItineraryItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
