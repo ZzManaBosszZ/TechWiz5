@@ -38,7 +38,8 @@ function ExpenseReview() {
             const labels = [...Object.keys(categoryTotals), 'Remaining Budget'];
             const series = [...Object.values(categoryTotals), remainingBudget].map(value => value || 0); // Đảm bảo không có giá trị undefined
 
-            // // Kiểm tra dữ liệu trước khi cập nhật trạng thái
+            // // Kiểm tra dữ liệu trước khi cập nhật trạng tháiampp
+            
             // console.log('Labels:', labels);
             // console.log('Series:', series);
             // console.log('Total Expense:', totalExpense);
