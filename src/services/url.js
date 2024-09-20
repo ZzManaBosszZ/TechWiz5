@@ -14,6 +14,12 @@ const url = {
         UPDATE_PROFILE: "user/update-profile",
     },
 
+    EXPENSE: {
+        CREATE: "expense",
+        PUT: "expense",
+        DELETE: "expense",
+    },
+
     TRIP: {
         LIST_BY_ID: "trip/{}",
         LIST_BY_USER: "trip",

@@ -81,21 +81,34 @@ function TripPlan() {
     }
   };
 
-  const handleSaveEdit = () => {
-    if (!editItem.activity) {
-      alert("Activity cannot be empty.");
-      return;
+  const handleSaveEdit = async () => {
+    try {
+      // Gọi API để cập nhật item, truyền editItem vào body
+      await api.put(url.EXPENSE.PUT, { id: [editItem.id], ...editItem }, {
+        headers: { Authorization: `Bearer ${getAccessToken()}` },
+      });
+
+      // Cập nhật state
+      const updatedItems = itineraryItems.map((item) =>
+        item.id === editItem.id ? { ...item, ...editItem } : item
+      );
+      setItineraryItems(updatedItems);
+      setFilteredItems(updatedItems);
+
+      // Hiển thị thông báo thành công
+      toast.success({
+        text: "Item updated successfully!",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745",
+      }).showToast();
+
+      handleCloseEditModal();
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to edit item. Please try again.");
     }
-    if (editItem.expense <= 0) {
-      alert("Expense must be greater than 0.");
-      return;
-    }
-    const updatedItems = itineraryItems.map((item) =>
-      item.id === editItem.id ? { ...item, ...editItem } : item
-    );
-    setItineraryItems(updatedItems);
-    setFilteredItems(updatedItems);
-    handleCloseEditModal();
   };
 
   const handleDeleteItem = async (id) => {
@@ -111,7 +124,7 @@ function TripPlan() {
 
     if (result.isConfirmed) {
       try {
-        await api.delete(`${url.TRIP.DELETE}`, {
+        await api.delete(`${url.EXPENSE.DELETE}`, {
           headers: { Authorization: `Bearer ${getAccessToken()}` },
           data: [id],
         });
@@ -430,92 +443,58 @@ function TripPlan() {
             {editItem && (
               <Modal.Body>
                 <Form>
-                  <Form.Group className="mb-3" controlId="formActivity">
-                    <Form.Label>Activity</Form.Label>
+                  <Form.Group className="mb-3" controlId="formExpenseCategory">
+                    <Form.Label>Expense Category</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter activity"
-                      value={editItem.activity}
+                      name="expenseCategory"
+                      placeholder="Enter expense category"
+                      value={editItem.expenseCategory}
+                      autoFocus
                       onChange={(e) =>
-                        setEditItem({ ...editItem, activity: e.target.value })
+                        setEditItem((prev) => ({ ...prev, expenseCategory: e.target.value }))
                       }
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formLocation">
-                    <Form.Label>Location</Form.Label>
+                  <Form.Group className="mb-3" controlId="formNote">
+                    <Form.Label>Note</Form.Label>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter location"
-                      value={editItem.location}
+                      as="textarea"
+                      name="note"
+                      rows={3}
+                      placeholder="Enter note"
+                      value={editItem.note}
                       onChange={(e) =>
-                        setEditItem({ ...editItem, location: e.target.value })
+                        setEditItem((prev) => ({ ...prev, note: e.target.value }))
                       }
                     />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formAmountExpense">
+                    <Form.Label>Expense Amount</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="amountExpense"
+                      placeholder="Enter expense amount"
+                      value={editItem.amountExpense}
+                      onChange={(e) =>
+                        setEditItem((prev) => ({ ...prev, amountExpense: parseFloat(e.target.value) }))
+                      }
+                      min="0"
+                      step="0.01"
+                    />  
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formDate">
                     <Form.Label>Date</Form.Label>
                     <Form.Control
                       type="date"
-                      value={editItem.date}
+                      name="date"
+                      value={new Date(editItem.date).toISOString().split('T')[0]} // Format date to match input
                       onChange={(e) =>
-                        setEditItem({ ...editItem, date: e.target.value })
+                        setEditItem((prev) => ({ ...prev, date: new Date(e.target.value) }))
                       }
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formTime">
-                    <Form.Label>Time</Form.Label>
-                    <Form.Control
-                      type="time"
-                      value={editItem.time}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, time: e.target.value })
-                      }
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formType">
-                    <Form.Label>Type</Form.Label>
-                    <Form.Select
-                      value={editItem.type}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, type: e.target.value })
-                      }
-                    >
-                      <option value="transportation">Transportation</option>
-                      <option value="accommodation">Accommodation</option>
-                      <option value="meal">Meal</option>
-                      <option value="sightseeing">Sightseeing</option>
-                      <option value="expense">Expense</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formNotes">
-                    <Form.Label>Notes</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      placeholder="Enter notes"
-                      value={editItem.notes}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, notes: e.target.value })
-                      }
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formExpense">
-                    <Form.Label>Expense</Form.Label>
-                    <Form.Control
-                      type="number"
-                      placeholder="Enter expense"
-                      value={editItem.expense}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, expense: parseFloat(e.target.value) })
-                      }
-                      min="0"
-                      step="0.01"
                     />
                   </Form.Group>
                 </Form>
