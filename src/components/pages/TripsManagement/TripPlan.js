@@ -262,7 +262,6 @@ function TripPlan() {
   };
 
   return (
-
     <div
       className="tab-pane fade"
       id="tour-plan"
@@ -421,8 +420,6 @@ function TripPlan() {
           </DragDropContext>
 
           {/* Detail Modal */}
-
-          {/* Detail Modal */}
           <Modal show={detailModalOpen} onHide={handleCloseDetailModal}>
             <Modal.Header closeButton>
               <Modal.Title>Expense Details</Modal.Title>
@@ -455,7 +452,6 @@ function TripPlan() {
               </Button>
             </Modal.Footer>
           </Modal>
-
 
           {/* Edit Modal */}
           <Modal show={editModalOpen} onHide={handleCloseEditModal}>
@@ -531,7 +527,6 @@ function TripPlan() {
               </Button>
             </Modal.Footer>
           </Modal>
-
 
           {/* Create Expense Modal */}
           <Modal show={isModalOpen} onHide={handleCloseModal}>
