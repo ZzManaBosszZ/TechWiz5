@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <>
-        <footer className="site-footer back-image overlay" style={{backgroundImage: "url(assets/images/footer-back.jpg)"}}>
+        <footer className="site-footer back-image overlay" style={{backgroundImage: "url(/assets/images/footer-back.jpg)"}}>
             <div className="sec-wp">
                 <div className="container">
                     <div className="top-footer common-sec">
@@ -47,23 +47,23 @@ function Footer() {
                                             </li>
                                             <li>
                                                 <span className="contact-label">Location</span>
-                                                <a href="javascript:void(0);">8 Ton That Thuyet, My Dinh, Cau Giay, Ha Noi, Viet Nam</a>
+                                                <a>8 Ton That Thuyet, My Dinh, Cau Giay, Ha Noi, Viet Nam</a>
                                             </li>
                                             <li className="social-icons">
                                                 <span className="contact-label">Follow us</span>
                                                 <ul>
                                                     <li>
-                                                        <a href="javascript:void(0);" title="Follow us on Facebook">
+                                                        <a href="className" title="Follow us on Facebook">
                                                             <span className="icon"><i className="fab fa-facebook-f"></i></span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" title="Follow us on Instagram">
+                                                        <a href="className" title="Follow us on Instagram">
                                                             <span className="icon"><i className="fab fa-instagram"></i></span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0);" title="Follow us on Twitter">
+                                                        <a href="className" title="Follow us on Twitter">
                                                             <span className="icon"><i className="fab fa-twitter"></i></span>
                                                         </a>
                                                     </li>
@@ -83,9 +83,9 @@ function Footer() {
                             <div className="col-lg-6">
                                 <div className="copyright-link">
                                     <ul>
-                                        <li><a href="javascript:void(0);" title="Privacy Policy">Privacy Policy</a></li>
-                                        <li><a href="javascript:void(0);" title="Terms of Use">Terms of Use</a></li>
-                                        <li><a href="javascript:void(0);" title="Cookie Policy">Cookie Policy</a></li>
+                                        <li><a href="className" title="Privacy Policy">Privacy Policy</a></li>
+                                        <li><a href="className" title="Terms of Use">Terms of Use</a></li>
+                                        <li><a href="className" title="Cookie Policy">Cookie Policy</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@ function Footer() {
                 </div>
             </div>
         </footer>
-        <a href="javascript:void(0);" title="Back To Top" id="scrollToTop" className="scrolltop"> <i className="default fas fa-long-arrow-alt-up"></i> <i className="hover fas fa-long-arrow-alt-up"></i> </a>
+        <a href="className" title="Back To Top" id="scrollToTop" className="scrolltop"> <i className="default fas fa-long-arrow-alt-up"></i> <i className="hover fas fa-long-arrow-alt-up"></i> </a>
         </>
     );
 }

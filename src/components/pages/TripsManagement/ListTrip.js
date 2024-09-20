@@ -117,13 +117,13 @@ function ListTrip() {
 
     return (
         <Layout>
-            <section class="main-banner inner-banner overlay back-image" style={{ backgroundImage: "url(assets/images/tour-banner.jpg)" }}>
-                <div class="sec-wp">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="banner-content wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
-                                    <h1 class="h1-title">Your Trip List</h1>
+            <section className="main-banner inner-banner overlay back-image" style={{ backgroundImage: "url(assets/images/tour-banner.jpg)" }}>
+                <div className="sec-wp">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <div className="banner-content wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
+                                    <h1 className="h1-title">Your Trip List</h1>
                                 </div>
                             </div>
                         </div>
@@ -131,11 +131,11 @@ function ListTrip() {
                 </div>
             </section>
 
-            <section class="main-tour-list pb-70">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="left-side">
+            <section className="main-tour-list pb-70">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-8">
+                            <div className="left-side">
                                 {/* Sort */}
                                 <div className="tour-filter mb-30 wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.2s">
                                     <form>
@@ -252,13 +252,13 @@ function ListTrip() {
                         </div>
 
                         {/* Search */}
-                        <div class="col-lg-4">
-                            <div class="right-side">
-                                <div class="widget wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
-                                    <div class="line-title">
-                                        <h4 class="h4-title">Find Your Tour</h4>
+                        <div className="col-lg-4">
+                            <div className="right-side">
+                                <div className="widget wow fadeup-animation" data-wow-duration="1s" data-wow-delay="0.1s">
+                                    <div className="line-title">
+                                        <h4 className="h4-title">Find Your Tour</h4>
                                     </div>
-                                    <div class="find-tour-form">
+                                    <div className="find-tour-form">
                                         <form>
                                             <div className="row">
                                                 <div className="col-lg-12">

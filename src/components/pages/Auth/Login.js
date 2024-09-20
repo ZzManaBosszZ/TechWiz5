@@ -107,6 +107,7 @@ function Login() {
           <h1 className="login__title">Login</h1>
 
           <div className="login__content">
+            
             <div className="login__box">
               <RiMailLine className="login__icon" /> 
               <div className="login__box-input">
@@ -127,7 +128,7 @@ function Login() {
            
             <div className="login__box">
               <RiLock2Line className="login__icon" />  
-              <div className="login__box-input password-container">
+              <div className="login__box-input">
                 <input
                   type={showPassword ? "text" : "password"} 
                   name="password"
@@ -136,18 +137,11 @@ function Login() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder=" " />
-                <label htmlFor="login-pass" className="login__label">Password</label>
-                {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
-                
-                <button
-                  type="button"
-                  className="toggle-password"
-                  onClick={handleTogglePassword}
-                >
-                  {showPassword ? <RiEyeOffLine /> : <RiEyeLine />}  
-                </button>
+                <label htmlFor="login-pass" className="login__label">Password</label>     
+                {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}          
               </div>
             </div>
+            
           </div>
 
           <div className="login__check">
