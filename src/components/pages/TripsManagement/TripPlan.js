@@ -13,6 +13,10 @@ import {
   FaMoneyBillWave,
 } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function TripPlan() {
   const { id } = useParams();
@@ -94,14 +98,35 @@ function TripPlan() {
     handleCloseEditModal();
   };
 
-  const handleDeleteItem = (id) => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      const updatedItems = itineraryItems.filter((item) => item.id !== id);
-      setItineraryItems(updatedItems);
-      setFilteredItems(updatedItems);
-      handleCloseDetailModal();
+  const handleDeleteItem = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`${url.TRIP.DELETE}`, {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+          data: [id],
+        });
+        const updatedItems = itineraryItems.filter((item) => item.id !== id);
+        setItineraryItems(updatedItems);
+        setFilteredItems(updatedItems);
+        toast.success("Item deleted successfully!");
+        handleCloseDetailModal();
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to delete item. Please try again.");
+      }
     }
   };
+
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -189,8 +214,6 @@ function TripPlan() {
     handleCloseModal();
   };
 
-  console.log("filteredItems", filteredItems);
-
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   const handleNextDay = () => {
@@ -206,12 +229,14 @@ function TripPlan() {
   };
 
   return (
+
     <div
       className="tab-pane fade"
       id="tour-plan"
       role="tabpanel"
       aria-labelledby="tour-plan-tab"
     >
+      <ToastContainer />
       <div className="tab-box tour-plan-tab-box">
         <div className="rb-comment-form"></div>
         <h1 className="display-4 text-center mb-4">Trip Itinerary</h1>
