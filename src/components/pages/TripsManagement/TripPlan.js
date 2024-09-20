@@ -417,7 +417,6 @@ function TripPlan() {
             </Droppable>
           </DragDropContext>
 
-          {/ Detail Modal /}
           <Modal show={detailModalOpen} onHide={handleCloseDetailModal}>
             <Modal.Header closeButton>
               <Modal.Title>Itinerary Details</Modal.Title>
@@ -452,7 +451,6 @@ function TripPlan() {
             </Modal.Footer>
           </Modal>
 
-          {/ Edit Modal /}
           <Modal show={editModalOpen} onHide={handleCloseEditModal}>
             <Modal.Header closeButton>
               <Modal.Title>Edit Itinerary Item</Modal.Title>
@@ -561,7 +559,6 @@ function TripPlan() {
             </Modal.Footer>
           </Modal>
 
-          {/ Create Expense Modal /}
           <Modal show={isModalOpen} onHide={handleCloseModal}>
             <Modal.Header closeButton>
               <Modal.Title>Create New Expense</Modal.Title>
