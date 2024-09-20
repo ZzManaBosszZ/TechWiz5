@@ -139,7 +139,7 @@ button {
   z-index: 1;
 }
 
-.login__box-input {
+.login__box-input  {
   position: relative;
 }
 .login__label {
