@@ -290,7 +290,7 @@ function TripPlan() {
               </select>
               <button
                 className={`sec-btn ${
-                  trip.categories.length === 0 ? "center-btn" : "top-right-btn"
+                  trip.categories.length === 0 ? "" : ""
                 }`}
                 onClick={handleOpenModal}
               >
@@ -379,7 +379,7 @@ function TripPlan() {
                                     </p>
                                   )}
                                 </div>
-                                {/ Edit and Delete Buttons /}
+                                {/* Edit and Delete Buttons */}
                                 <div style={{height:"2.5rem"}} className="ms-auto d-flex gap-2">
                                   <Button
                                   style={{marginRight:"1em"}}
@@ -417,7 +417,7 @@ function TripPlan() {
             </Droppable>
           </DragDropContext>
 
-          {/ Detail Modal /}
+          {/* Detail Modal */}
           <Modal show={detailModalOpen} onHide={handleCloseDetailModal}>
             <Modal.Header closeButton>
               <Modal.Title>Itinerary Details</Modal.Title>
@@ -452,7 +452,7 @@ function TripPlan() {
             </Modal.Footer>
           </Modal>
 
-          {/ Edit Modal /}
+          {/* Edit Modal */}
           <Modal show={editModalOpen} onHide={handleCloseEditModal}>
             <Modal.Header closeButton>
               <Modal.Title>Edit Itinerary Item</Modal.Title>
@@ -561,7 +561,7 @@ function TripPlan() {
             </Modal.Footer>
           </Modal>
 
-          {/ Create Expense Modal /}
+          {/* Create Expense Modal */}
           <Modal show={isModalOpen} onHide={handleCloseModal}>
             <Modal.Header closeButton>
               <Modal.Title>Create New Expense</Modal.Title>
