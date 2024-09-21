@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {
   FaPlane,
   FaUtensils,
@@ -24,7 +23,6 @@ function TripPlan() {
   const [trip, setTrip] = useState({ expenses: [], categories: [] });
   const [newExpense, setNewExpense] = useState({});
   const [filterType, setFilterType] = useState("all");
-  const [sortBy, setSortBy] = useState("date");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedItem, setSelectedItem] = useState(null);
@@ -37,15 +35,28 @@ function TripPlan() {
   const [itineraryItems, setItineraryItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
 
-  const [currency, setCurrency] = useState('USD'); // Giá trị mặc định là USD
-  const currencyOptions = [
-    { code: 'USD', symbol: '$' },
-    { code: 'EUR', symbol: '€' },
-    { code: 'VND', symbol: '₫' },
-    // Thêm các loại tiền tệ khác nếu cần
-  ];
+  const [exchangeRates, setExchangeRates] = useState({});
+  const [currency, setCurrency] = useState('USD');
 
+  const fetchExchangeRates = async () => {
+    try {
+      const response = await api.get('https://v6.exchangerate-api.com/v6/e66fc655a318d26723c9988a/latest/USD'); // Thay URL_API_TY_GIA_HOI_DOAI bằng URL thực tế
+      const rates = response.data.data; // Tùy thuộc vào cấu trúc dữ liệu trả về
+      setExchangeRates(rates);
+    } catch (error) {
+      console.error("Error fetching exchange rates:", error);
+    }
+  };
 
+  useEffect(() => {
+    fetchExchangeRates();
+  }, []);
+
+  const convertCurrency = (amount, currency) => {
+    const rate = exchangeRates[currency] || 1; // Mặc định nếu không có sẽ là 1 (USD)
+    return amount * rate;
+  };
+  
   const loadTrip = useCallback(async () => {
     try {
       const tripDetailRequest = await api.get(url.TRIP.LIST_BY_ID.replace("{}", id), { headers: { Authorization: `Bearer ${getAccessToken()}` } });
@@ -184,17 +195,6 @@ function TripPlan() {
         toast.error("Failed to delete item. Please try again.");
       }
     }
-  };
-
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(filteredItems);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setFilteredItems(items);
-    setItineraryItems(items);
   };
 
   const getIcon = (type) => {

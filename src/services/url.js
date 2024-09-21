@@ -15,7 +15,8 @@ const url = {
     },
 
     EXCHANGERATE:{
-        GET: "convert"
+        GET: "convert",
+        GET_EXCHANGE_RATE: "rate"
     },
 
     EXPENSE: {
