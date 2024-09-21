@@ -19,6 +19,10 @@ const url = {
         GET_EXCHANGE_RATE: "rate"
     },
 
+    NOTIFICATION:{
+        GET: "notifications",
+    },
+
     PHOTO: {
         CREATE: "photo",
     },

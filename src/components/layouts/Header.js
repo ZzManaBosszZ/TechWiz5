@@ -9,6 +9,8 @@ import "../css/style.css";
 function Header() {
   const [profile, setProfile] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
 
   // Function to handle logout
@@ -33,6 +35,26 @@ function Header() {
     };
     loadProfile();
   }, []);
+
+  useEffect(() => {
+    const loadNotifications = async () => {
+      try {
+        const response = await api.get(url.NOTIFICATION.GET, {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        });
+        setNotifications(response.data.data);
+      } catch (error) {
+        console.error("Failed to fetch notifications", error);
+      }
+    };
+    if (isLoggedIn) {
+      loadNotifications();
+    }
+  }, [isLoggedIn]);
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
 
   return (
     <header className="site-header">
@@ -108,6 +130,32 @@ function Header() {
                     <a href={config.routes.create_trip} className="sec-btn" title="Reserve">
                       <span>Begin Your Trip</span>
                     </a>
+                  </div>
+
+                  <div className="search-icon">
+
+                    <div className="notification-icon" onClick={toggleNotifications}>
+                      <i className="fas fa-bell"></i>
+                      {notifications.filter(n => !n.read).length > 0 && (
+                        <span className="notification-count">
+                          {notifications.filter(n => !n.read).length}
+                        </span>
+                      )}
+                    </div>
+
+                    {showNotifications && (
+                      <div className="dropdown-content notifications">
+                        {notifications.length > 0 ? (
+                          notifications.map(notification => (
+                            <div key={notification.id} className="notification-item">
+                              <span>{notification.message}</span>
+                            </div>
+                          ))
+                        ) : (
+                          <div>No notifications</div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="dropdown">
