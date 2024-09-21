@@ -7,13 +7,22 @@ import Chart from "react-apexcharts";
 
 function ExpenseReview() {
     const { id } = useParams();
-
+    
     const [trip, setTrip] = useState({ expenses: [], budget: 0 });
     const [chartData, setChartData] = useState({ labels: [], series: [] });
     const [totalExpenses, setTotalExpense] = useState(0);
     const [remainingBudgets, setRemainingBudget] = useState(0);
+    const [categoryProgress, setCategoryProgress] = useState({
+        Accommodation: 0,
+        Food: 0,
+        Transport: 0,
+        Miscellaneous: 0, // Thêm danh mục linh tinh
+        overall: 0,
+    });
+    const [loading, setLoading] = useState(true);
 
     const loadData = useCallback(async () => {
+        setLoading(true);
         try {
             const tripDetailRequest = await api.get(url.TRIP.LIST_BY_ID.replace("{}", id), {
                 headers: { Authorization: `Bearer ${getAccessToken()}` }
@@ -26,7 +35,7 @@ function ExpenseReview() {
 
             // Tính tổng chi phí và chuẩn bị dữ liệu cho biểu đồ
             const categoryTotals = expenses.reduce((acc, expense) => {
-                const category = expense.expenseCategory || "Unknown";
+                const category = expense.expenseCategory || "Miscellaneous"; // Các chi phí không xác định được sẽ là linh tinh
                 const amount = expense.amountExpense || 0;
                 if (!acc[category]) {
                     acc[category] = 0;
@@ -43,11 +52,22 @@ function ExpenseReview() {
             setTotalExpense(totalExpense);
             setRemainingBudget(remainingBudget);
 
+            // Tính toán tỷ lệ phần trăm cho từng danh mục
+            const totalBudget = tripData.budget || 0;
+            setCategoryProgress({
+                Accommodation: ((categoryTotals.Accommodation || 0) / totalBudget) * 100,
+                Food: ((categoryTotals.Food || 0) / totalBudget) * 100,
+                Transport: ((categoryTotals.Transport || 0) / totalBudget) * 100,
+                Miscellaneous: ((categoryTotals.Miscellaneous || 0) / totalBudget) * 100, // Tính toán cho danh mục linh tinh
+                overall: (totalExpense / totalBudget) * 100,
+            });
+
         } catch (error) {
-            console.log("Error loading data:", error); // Ghi lại lỗi nếu cần
+            console.log("Error loading data:", error);
+        } finally {
+            setLoading(false);
         }
     }, [id]);
-
 
     useEffect(() => {
         loadData();
@@ -77,10 +97,7 @@ function ExpenseReview() {
                         total: {
                             show: true,
                             label: "Total Expense",
-                            formatter: () => {
-                                const total = totalExpenses || 0; // Đảm bảo giá trị không phải là undefined
-                                return `$${total.toFixed(2)}`; // Sử dụng toFixed để định dạng số
-                            }
+                            formatter: () => `$${totalExpenses.toFixed(2)}`,
                         }
                     }
                 }
@@ -88,88 +105,70 @@ function ExpenseReview() {
         },
         tooltip: {
             y: {
-                formatter: (value) => `$${(value || 0).toFixed(2)}` // Sử dụng toFixed để định dạng số
+                formatter: (value) => `$${(value || 0).toFixed(2)}`
             }
         },
     };
 
+    // Xác định nội dung cho phần mặt cười
+    const isHappy = categoryProgress.overall <= 80;
+
     return (
         <>
-            <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-                <div className="tab-box review-tab-box">
-                    <h2 className="h2-title">Tour Review Expense</h2>
-                    <p>This tab summarizes trip expenses, covering major costs like flights, accommodation, and meals, as well as any extra fees.</p>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                    <div className="tab-box review-tab-box">
+                        <h2 className="h2-title">Tour Review Expense</h2>
+                        <p>This tab summarizes trip expenses, covering major costs like flights, accommodation, and meals, as well as any extra fees.</p>
 
-                    {/* Chart */}
-                    <div className="chart-wrapper" style={{ marginTop: "30px", marginBottom: "30px" }}>
-                        <Chart
-                            width={"100%"}
-                            height={320}
-                            options={chartOptions}
-                            series={chartData.series}
-                            type="donut"
-                        />
-                    </div>
-
-                    {/* Existing content */}
-                    <div className="review-breakdown">
-                        <div className="rb-left-side">
-                            <div className="rb-avarage-rating">
-                                <h2 className="h2-title"><span>10.0</span></h2>
-                            </div>
-                            <div className="rb-avarage-verbal-desc">
-                                <i className="fas fa-smile"></i> Superb
-                            </div>
+                        {/* Chart */}
+                        <div className="chart-wrapper" style={{ marginTop: "30px", marginBottom: "30px" }}>
+                            <Chart
+                                width={"100%"}
+                                height={320}
+                                options={chartOptions}
+                                series={chartData.series}
+                                type="donut"
+                            />
                         </div>
-                        <div className="rb-right-side">
-                            <div className="rb-progress-bar">
-                                <div className="progress-bar-item">
-                                    <h4 className="h4-title">Accommodation</h4>
-                                    <div className="progress">
-                                        <div className="progress-bar progress-bar1"></div>
-                                        <span className="progress-value">100%</span>
-                                    </div>
+
+                        {/* Progress Bars */}
+                        <div className="review-breakdown">
+                            <div className="rb-left-side">
+                                <div className="rb-avarage-rating">
+                                    <h2 className="h2-title"><span>{(categoryProgress.overall).toFixed(2)}%</span></h2>
                                 </div>
-                                <div className="progress-bar-item">
-                                    <h4 className="h4-title">Destination</h4>
-                                    <div className="progress">
-                                        <div className="progress-bar progress-bar2"></div>
-                                        <span className="progress-value">100%</span>
-                                    </div>
+                                <div className="rb-avarage-verbal-desc">
+                                    <i className={isHappy ? "fas fa-smile" : "fas fa-frown"}></i>
+                                    {isHappy ? "Superb" : "The Budget is about to run out"}
                                 </div>
-                                <div className="progress-bar-item">
-                                    <h4 className="h4-title">Meals</h4>
-                                    <div className="progress">
-                                        <div className="progress-bar progress-bar3"></div>
-                                        <span className="progress-value">100%</span>
-                                    </div>
-                                </div>
-                                <div className="progress-bar-item">
-                                    <h4 className="h4-title">Transport</h4>
-                                    <div className="progress">
-                                        <div className="progress-bar progress-bar4"></div>
-                                        <span className="progress-value">100%</span>
-                                    </div>
-                                </div>
-                                <div className="progress-bar-item">
-                                    <h4 className="h4-title">Overall</h4>
-                                    <div className="progress">
-                                        <div className="progress-bar progress-bar4"></div>
-                                        <span className="progress-value">100%</span>
-                                    </div>
-                                </div>
-                                <div className="progress-bar-item">
-                                    <h4 className="h4-title">Value for Money</h4>
-                                    <div className="progress">
-                                        <div className="progress-bar progress-bar4"></div>
-                                        <span className="progress-value">100%</span>
+                            </div>
+                            <div className="rb-right-side">
+                                <div className="rb-progress-bar">
+                                    {['Accommodation', 'Food', 'Transport', 'Miscellaneous'].map((category) => (
+                                        <div className="progress-bar-item" key={category}>
+                                            <h4 className="h4-title">{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+                                            <div className="progress">
+                                                <div className="progress-bar" style={{ width: `${categoryProgress[category]}%` }}></div>
+                                                <span className="progress-value">{categoryProgress[category].toFixed(2)}%</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div className="progress-bar-item">
+                                        <h4 className="h4-title">Overall</h4>
+                                        <div className="progress">
+                                            <div className="progress-bar" style={{ width: `${categoryProgress.overall}%` }}></div>
+                                            <span className="progress-value">{categoryProgress.overall.toFixed(2)}%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     );
 }

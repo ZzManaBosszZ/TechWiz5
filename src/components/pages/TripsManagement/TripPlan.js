@@ -35,28 +35,41 @@ function TripPlan() {
   const [itineraryItems, setItineraryItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
 
-  const [exchangeRates, setExchangeRates] = useState({});
+  const exchangeRates = { USD: 1, EUR: 0.85, VND: 23000 }; // Example rates
+
   const [currency, setCurrency] = useState('USD');
+  const predefinedCategories = ["Transport", "Accommodation", "Meal", "Sightseeing", "Miscellaneous"];
 
-  const fetchExchangeRates = async () => {
-    try {
-      const response = await api.get('https://v6.exchangerate-api.com/v6/e66fc655a318d26723c9988a/latest/USD'); // Thay URL_API_TY_GIA_HOI_DOAI bằng URL thực tế
-      const rates = response.data.data; // Tùy thuộc vào cấu trúc dữ liệu trả về
-      setExchangeRates(rates);
-    } catch (error) {
-      console.error("Error fetching exchange rates:", error);
-    }
-  };
+  // const fetchExchangeRates = async () => {
+  //   try {
+  //     const response = await api.get('https://v6.exchangerate-api.com/v6/e66fc655a318d26723c9988a/latest/USD'); // Thay URL_API_TY_GIA_HOI_DOAI bằng URL thực tế
+  //     const rates = response.data.data; // Tùy thuộc vào cấu trúc dữ liệu trả về
+  //     setExchangeRates(rates);
+  //   } catch (error) {
+  //     console.error("Error fetching exchange rates:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchExchangeRates();
-  }, []);
+  // useEffect(() => {
+  //   fetchExchangeRates();
+  // }, []);
 
   const convertCurrency = (amount, currency) => {
-    const rate = exchangeRates[currency] || 1; // Mặc định nếu không có sẽ là 1 (USD)
+    const rate = exchangeRates[currency] || 1;
     return amount * rate;
   };
-  
+
+  const handleCurrencyChange = (e) => {
+    const selectedCurrency = e.target.value;
+    setCurrency(selectedCurrency);
+    // Optionally, update filteredItems to reflect the change in amounts
+    const updatedItems = itineraryItems.map(item => ({
+      ...item,
+      amountExpense: convertCurrency(item.amountExpense, selectedCurrency) // convert amount to selected currency
+    }));
+    setFilteredItems(updatedItems);
+  };
+
   const loadTrip = useCallback(async () => {
     try {
       const tripDetailRequest = await api.get(url.TRIP.LIST_BY_ID.replace("{}", id), { headers: { Authorization: `Bearer ${getAccessToken()}` } });
@@ -201,14 +214,14 @@ function TripPlan() {
     switch (type) {
       case "Transport":
         return <FaPlane className="text-primary" />;
-      case "accommodation":
+      case "Accommodation":
         return <FaBed className="text-success" />;
       case "Food":
         return <FaUtensils className="text-warning" />;
-      case "sightseeing":
+      case "Sightseeing":
         return <FaCamera style={{ color: "#6f42c1" }} />;
       default:
-        return <FaCar className="text-secondary" />;
+        return <FaMoneyBillWave className="text-secondary" />;
     }
   };
 
@@ -284,19 +297,15 @@ function TripPlan() {
                 <option value="expense">Expense</option>
               </select>
               <select
-                style={{
-                  borderRadius: "5px",
-                  margin: "0 15px 10px",
-                  width: "50px",
-                }}
-                className="form-select text-center"
+                style={{ borderRadius: "5px", margin: "0 15px 15px 0" }}
                 value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
+                onChange={handleCurrencyChange}
               >
-                <option value="usd">USD</option>
-                <option value="eur">EUR</option>
-                <option value="vnd">VND</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="VND">VND</option>
               </select>
+
               <button
                 className={`sec-btn ${trip.categories.length === 0 ? "" : ""}`}
                 onClick={handleOpenModal}
@@ -363,7 +372,7 @@ function TripPlan() {
                         <p className="mb-1 text-muted">{item.time}</p>
                         {item.amountExpense > 0 && (
                           <p className="mb-0 text-success fw-semibold">
-                            ${item.amountExpense.toFixed(2)}
+                            <span>{convertCurrency(item.amountExpense, currency).toFixed(2)} {currency}</span>
                           </p>
                         )}
                       </div>
@@ -409,7 +418,7 @@ function TripPlan() {
                 <p><strong>Date:</strong> {new Date(selectedItem.date).toLocaleDateString()}</p>
                 <p><strong>Time:</strong> {new Date(selectedItem.date).toLocaleTimeString() || 'N/A'}</p>
                 <p><strong>Notes:</strong> {selectedItem.note || 'N/A'}</p>
-                <p><strong>Expense:</strong> ${selectedItem.amountExpense ? selectedItem.amountExpense.toFixed(2) : '0.00'}</p>
+                <p><strong>Expense:</strong> {convertCurrency(selectedItem.amountExpense, currency).toFixed(2)} {currency}</p>
               </Modal.Body>
             )}
             <Modal.Footer>
@@ -516,11 +525,17 @@ function TripPlan() {
                 <Form.Group className="mb-3" controlId="formNewExpenseCategory">
                   <Form.Label>Expense Category</Form.Label>
                   <Form.Control
-                    type="text"
-                    placeholder="Enter expense category"
-                    value={newExpense.expenseCategory}
+                    as="select"
+                    value={newExpense.expenseCategory || ""}
                     onChange={(e) => setNewExpense({ ...newExpense, expenseCategory: e.target.value })}
-                  />
+                  >
+                    <option value="">Select a category</option>
+                    {predefinedCategories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formNewNote">
@@ -554,7 +569,6 @@ function TripPlan() {
                     onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
                   />
                 </Form.Group>
-
               </Form>
             </Modal.Body>
             <Modal.Footer>

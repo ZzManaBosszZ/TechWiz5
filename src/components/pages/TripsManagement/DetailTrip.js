@@ -7,6 +7,7 @@ import { getAccessToken } from "../../../utils/auth";
 import Reason from "../../layouts/Reason";
 import TripPlan from "./TripPlan";
 import ExpenseReview from "./ExpenseReview";
+import Gallery from "./Gallery";
 
 function TripDetail() {
 
@@ -141,22 +142,8 @@ function TripDetail() {
                                                     
                                                 </div>
                                             </div>
-                                        </div> */}
-                                        <div className="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-                                            <div className="tab-box gallery-tab-box">
-                                                <h2 className="h2-title">Make Your <span>Own Memories</span></h2>
-                                                <div className="memories-gallery">
-                                                    <div className="row">
-                                                        <div className="col-lg-7">
-                                                            <div className="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image1.jpg" style={{ backgroundImage: "url(/assets/images/memories-gallery-image1.jpg)" }}></div>
-                                                        </div>
-                                                        <div className="col-lg-5">
-                                                            <div className="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image2.jpg" style={{ backgroundImage: "url(/assets/images/memories-gallery-image2.jpg)" }}></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> */}             
+                                        <Gallery />                 
                                         <ExpenseReview />
                                     </div>
                                 </div>
