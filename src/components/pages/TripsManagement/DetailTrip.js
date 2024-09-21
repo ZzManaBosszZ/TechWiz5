@@ -170,7 +170,7 @@ function TripDetail() {
                                                 <div className="col-lg-12">
                                                     <label>Email</label>
                                                     <span className="form-control-span">
-                                                        <span className="icon"><i className="fas fa-user"></i></span>
+                                                        <span className="icon"><i className="fas fa-envelope"></i></span>
                                                         <p className="form-input" style={{fontSize: '80%'}}>
                                                             {TripDetail.user.email ? TripDetail.user.email : 'No Email Available'}
                                                         </p>

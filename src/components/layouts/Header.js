@@ -224,7 +224,7 @@ function Header() {
                                   <a href={config.routes.about_us}>About</a>
                                 </li>
                                 <li className="dropdown-items">
-                                  <a >Your Trip</a>
+                                  <a >My Trip Expense</a>
                                   <ul className="sub-menu">
                                     <li>
                                       <a href={config.routes.trip}>Tour</a>

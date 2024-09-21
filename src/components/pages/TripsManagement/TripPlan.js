@@ -116,6 +116,9 @@ function TripPlan() {
 
       toast.success("Expense created successfully!");
       handleCloseModal();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       console.error(error);
       toast.error("Failed to create expense. Please try again.");
