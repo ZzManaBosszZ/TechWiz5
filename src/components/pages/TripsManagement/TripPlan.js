@@ -40,20 +40,6 @@ function TripPlan() {
   const [currency, setCurrency] = useState('USD');
   const predefinedCategories = ["Transport", "Accommodation", "Meal", "Sightseeing", "Miscellaneous"];
 
-  // const fetchExchangeRates = async () => {
-  //   try {
-  //     const response = await api.get('https://v6.exchangerate-api.com/v6/e66fc655a318d26723c9988a/latest/USD'); // Thay URL_API_TY_GIA_HOI_DOAI bằng URL thực tế
-  //     const rates = response.data.data; // Tùy thuộc vào cấu trúc dữ liệu trả về
-  //     setExchangeRates(rates);
-  //   } catch (error) {
-  //     console.error("Error fetching exchange rates:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchExchangeRates();
-  // }, []);
-
   const convertCurrency = (amount, currency) => {
     const rate = exchangeRates[currency] || 1;
     return amount * rate;
