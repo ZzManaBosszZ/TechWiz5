@@ -21,6 +21,7 @@ const url = {
 
     NOTIFICATION:{
         GET: "notifications",
+        PUT: "notifications/mark-as-read/{id}",
     },
 
     PHOTO: {
