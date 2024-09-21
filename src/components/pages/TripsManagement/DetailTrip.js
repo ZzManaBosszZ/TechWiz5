@@ -115,7 +115,7 @@ function TripDetail() {
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                
+
                                                 <div className="row no-gutters tour-gallery-slider">
                                                     <div className="col-lg-4 p-0">
                                                         <div className="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image1.jpg" style={{ backgroundImage: "url(/assets/images/tour-gallery-slide-image1.jpg)" }}></div>
@@ -132,7 +132,7 @@ function TripDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <TripPlan/>
+                                        <TripPlan />
 
                                         {/* <div className="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
                                             <div className="tab-box location-tab-box">
@@ -157,7 +157,7 @@ function TripDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <ExpenseReview/>
+                                        <ExpenseReview />
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +175,8 @@ function TripDetail() {
                                                     <label>Name</label>
                                                     <span className="form-control-span">
                                                         <span className="icon"><i className="fas fa-user"></i></span>
-                                                        <p className="form-input">
-                                                            {TripDetail.user.email ? TripDetail.user.email.split('@')[0] : 'No Name Available'}
+                                                        <p className="form-input" style={{fontSize: '80%'}}>
+                                                            {TripDetail.user.fullName ? TripDetail.user.fullName : 'No Email Available'}
                                                         </p>
                                                     </span>
                                                 </div>
@@ -184,7 +184,7 @@ function TripDetail() {
                                                     <label>Email</label>
                                                     <span className="form-control-span">
                                                         <span className="icon"><i className="fas fa-user"></i></span>
-                                                        <p className="form-input">
+                                                        <p className="form-input" style={{fontSize: '80%'}}>
                                                             {TripDetail.user.email ? TripDetail.user.email : 'No Email Available'}
                                                         </p>
                                                     </span>

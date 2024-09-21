@@ -228,6 +228,7 @@ function TripPlan() {
       return dateA - dateB;
     });
   }, [itineraryItems]);
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   const groupedDays = useMemo(() => {
     const groupedItems = sortedItems.reduce((groups, item) => {
@@ -246,18 +247,12 @@ function TripPlan() {
     }));
   }, [sortedItems]);
 
-  const [currentDayIndex, setCurrentDayIndex] = useState(0);
-
-  const handleNextDay = () => {
-    if (currentDayIndex < groupedDays.length - 1) {
-      setCurrentDayIndex(currentDayIndex + 1);
-    }
+  const handlePreviousDay = () => {
+    setCurrentDayIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
-  const handlePreviousDay = () => {
-    if (currentDayIndex > 0) {
-      setCurrentDayIndex(currentDayIndex - 1);
-    }
+  const handleNextDay = () => {
+    setCurrentDayIndex((prevIndex) => Math.min(prevIndex + 1, groupedDays.length - 1));
   };
 
   return (
@@ -315,7 +310,6 @@ function TripPlan() {
               >
                 Previous
               </Button>
-              <h2>{groupedDays[currentDayIndex].day}</h2>
               <Button
                 variant="primary"
                 onClick={handleNextDay}
@@ -325,6 +319,7 @@ function TripPlan() {
               </Button>
             </div>
           )}
+          {groupedDays.length === 0 && <h2>No days available</h2>}
 
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="itinerary">
