@@ -4,6 +4,7 @@ import { Modal, Button } from "react-bootstrap"; // React Bootstrap components
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
+import { toast } from "react-toastify";
 
 function Gallery() {
 
@@ -55,6 +56,7 @@ function Gallery() {
             });
 
             // Refresh the gallery after successful upload
+            toast.success("Photos uploaded successfully!");
             loadData();
             setSelectedFiles([]); // Clear selected files
             setShowModal(false); // Close modal

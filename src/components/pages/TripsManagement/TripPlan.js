@@ -8,7 +8,6 @@ import {
   FaUtensils,
   FaCamera,
   FaBed,
-  FaCar,
   FaMoneyBillWave,
 } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -139,6 +138,7 @@ function TripPlan() {
 
       toast.success("Expense updated successfully!");
       handleCloseEditModal();
+      loadTrip();
     } catch (error) {
       console.error(error);
       toast.error("Failed to update expense. Please try again.");
