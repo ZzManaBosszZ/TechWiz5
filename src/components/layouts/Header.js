@@ -17,7 +17,7 @@ function Header() {
   const handleLogout = () => {
     removeAccessToken();
     setIsLoggedIn(false);
-    navigate("/");
+    navigate(config.routes.home);
   };
 
   // Show list data
@@ -224,7 +224,7 @@ function Header() {
                                   <a href={config.routes.about_us}>About</a>
                                 </li>
                                 <li className="dropdown-items">
-                                  <a href={config.routes.trip}>Your Trip</a>
+                                  <a >Your Trip</a>
                                   <ul className="sub-menu">
                                     <li>
                                       <a href={config.routes.trip}>Tour</a>
