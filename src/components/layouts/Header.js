@@ -17,7 +17,7 @@ function Header() {
   const handleLogout = () => {
     removeAccessToken();
     setIsLoggedIn(false);
-    navigate(config.routes.home);
+    navigate("/");
   };
 
   // Show list data
@@ -134,14 +134,14 @@ function Header() {
 
                   <div className="search-icon">
 
-                    <div className="notification-icon" onClick={toggleNotifications}>
+                    {/* <div className="notification-icon" onClick={toggleNotifications}> */}
                       <i className="fas fa-bell"></i>
-                      {notifications.filter(n => !n.read).length > 0 && (
+                      {/* {notifications.filter(n => !n.read).length > 0 && (
                         <span className="notification-count">
                           {notifications.filter(n => !n.read).length}
                         </span>
                       )}
-                    </div>
+                    </div> */}
 
                     {showNotifications && (
                       <div className="dropdown-content notifications">
@@ -165,10 +165,10 @@ function Header() {
                     <div className="dropdown-content">
                       {isLoggedIn ? (
                         <>
-                          <a className="profile-drop" href="/profile">
-                            Profile
+                          <a className="profile-drop" href={config.routes.trip}>
+                            Your Trip
                           </a>
-                          <a className="logout-drop" href="#" onClick={handleLogout}>
+                          <a className="logout-drop" onClick={handleLogout}>
                             Logout
                           </a>
                         </>
