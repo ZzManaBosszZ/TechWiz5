@@ -13,71 +13,19 @@ import {
   FaMoneyBillWave,
 } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function TripPlan() {
   const { id } = useParams();
 
   const [trip, setTrip] = useState({ expenses: [], categories: [] });
-
-  const [itineraryItems, setItineraryItems] = useState([
-    {
-      id: "1",
-      date: "2023-06-01",
-      time: "09:00",
-      activity: "Departure",
-      location: "Airport",
-      type: "transportation",
-      notes: "Check-in 2 hours before flight",
-      expense: 150,
-    },
-    {
-      id: "2",
-      date: "2023-06-01",
-      time: "14:00",
-      activity: "Hotel Check-in",
-      location: "Seaside Resort",
-      type: "accommodation",
-      notes: "Room 301",
-      expense: 200,
-    },
-    {
-      id: "3",
-      date: "2023-06-01",
-      time: "18:00",
-      activity: "Dinner",
-      location: "Beachfront Restaurant",
-      type: "meal",
-      notes: "Reservation under Smith",
-      expense: 80,
-    },
-    {
-      id: "4",
-      date: "2023-06-02",
-      time: "10:00",
-      activity: "City Tour",
-      location: "Downtown",
-      type: "sightseeing",
-      notes: "Meet guide at hotel lobby",
-      expense: 50,
-    },
-    {
-      id: "5",
-      date: "2023-06-02",
-      time: "15:00",
-      activity: "Museum Visit",
-      location: "National Museum",
-      type: "sightseeing",
-      notes: "Audio guide available",
-      expense: 25,
-    },
-  ]);
-
-  const [filteredItems, setFilteredItems] = useState(itineraryItems);
-  // const [searchTerm, setSearchTerm] = useState(""); // Đã bị comment bỏ
+  const [newExpense, setNewExpense] = useState({});
   const [filterType, setFilterType] = useState("all");
   const [sortBy, setSortBy] = useState("date");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newExpense, setNewExpense] = useState({ activity: "", amount: 0 });
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
@@ -85,21 +33,105 @@ function TripPlan() {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
 
-  const loadData = useCallback(async () => {
+
+  const [itineraryItems, setItineraryItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+
+  const [currency, setCurrency] = useState('USD'); // Giá trị mặc định là USD
+  const currencyOptions = [
+    { code: 'USD', symbol: '$' },
+    { code: 'EUR', symbol: '€' },
+    { code: 'VND', symbol: '₫' },
+    // Thêm các loại tiền tệ khác nếu cần
+  ];
+
+
+  const loadTrip = useCallback(async () => {
     try {
-      const tripDetailRequest = await api.get(
-        url.TRIP.LIST_BY_ID.replace("{}", id),
-        { headers: { Authorization: `Bearer ${getAccessToken()}` } }
-      );
-      setTrip(tripDetailRequest.data.data);
+      const tripDetailRequest = await api.get(url.TRIP.LIST_BY_ID.replace("{}", id), { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+      const tripData = tripDetailRequest.data.data;
+
+      // Cập nhật itineraryItems từ dữ liệu API
+      setItineraryItems(tripData.expenses || []);
+      setFilteredItems(tripData.expenses || []);
+      setTrip(tripData);
     } catch (error) {
       console.log(error);
     }
   }, [id]);
 
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    loadTrip();
+  }, [loadTrip]);
+
+  const handleCreateExpense = async () => {
+    try {
+      const response = await api.post(
+        url.EXPENSE.CREATE,  // Thay URL này với URL tạo expense của bạn
+        {
+          tripId: id, // Lấy tripId hiện tại từ useParams
+          expenses: [
+            {
+              tripId: id, // ID chuyến đi
+              expenseCategory: newExpense.expenseCategory,
+              note: newExpense.note,
+              amountExpense: newExpense.amountExpense,
+              date: newExpense.date, // Nếu bạn đã có trường date
+            },
+          ],
+        },
+        {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        }
+      );
+
+      const createdExpenses = response.data.data; // Giả sử API trả về dữ liệu như vậy
+      // Cập nhật lại danh sách expense với expenses vừa tạo
+      setItineraryItems((prevItems) => [...prevItems, ...createdExpenses]);
+      setFilteredItems((prevItems) => [...prevItems, ...createdExpenses]);
+
+      toast.success("Expense created successfully!");
+      handleCloseModal();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to create expense. Please try again.");
+    }
+  };
+
+  const handleEditExpense = async () => {
+    try {
+      const response = await api.put(
+        url.EXPENSE.PUT,  // Thay URL này với URL cập nhật expense của bạn
+        {
+          id: editItem.id, // ID của expense cần cập nhật
+          tripId: id, // ID chuyến đi
+          expenseCategory: editItem.expenseCategory,
+          note: editItem.note,
+          amountExpense: editItem.amountExpense,
+          date: editItem.date, // Ngày tháng đã chỉnh sửa
+        },
+        {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        }
+      );
+
+      const updatedExpense = response.data.data; // Giả sử API trả về dữ liệu đã cập nhật
+      // Cập nhật danh sách expenses với expense đã chỉnh sửa
+      setItineraryItems((prevItems) =>
+        prevItems.map((item) => (item.id === updatedExpense.id ? updatedExpense : item))
+      );
+      setFilteredItems((prevItems) =>
+        prevItems.map((item) => (item.id === updatedExpense.id ? updatedExpense : item))
+      );
+
+      toast.success("Expense updated successfully!");
+      handleCloseEditModal();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update expense. Please try again.");
+    }
+  };
+
 
   const handleOpenDetailModal = (item) => {
     setSelectedItem(item);
@@ -125,29 +157,32 @@ function TripPlan() {
     }
   };
 
-  const handleSaveEdit = () => {
-    if (!editItem.activity) {
-      alert("Activity cannot be empty.");
-      return;
-    }
-    if (editItem.expense <= 0) {
-      alert("Expense must be greater than 0.");
-      return;
-    }
-    const updatedItems = itineraryItems.map((item) =>
-      item.id === editItem.id ? { ...item, ...editItem } : item
-    );
-    setItineraryItems(updatedItems);
-    setFilteredItems(updatedItems);
-    handleCloseEditModal();
-  };
+  const handleDeleteItem = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
 
-  const handleDeleteItem = (id) => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      const updatedItems = itineraryItems.filter((item) => item.id !== id);
-      setItineraryItems(updatedItems);
-      setFilteredItems(updatedItems);
-      handleCloseDetailModal();
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`${url.EXPENSE.DELETE}`, {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+          data: [id],
+        });
+        const updatedItems = itineraryItems.filter((item) => item.id !== id);
+        setItineraryItems(updatedItems);
+        setFilteredItems(updatedItems);
+        toast.success("Item deleted successfully!");
+        handleCloseDetailModal();
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to delete item. Please try again.");
+      }
     }
   };
 
@@ -164,11 +199,11 @@ function TripPlan() {
 
   const getIcon = (type) => {
     switch (type) {
-      case "transportation":
+      case "Transport":
         return <FaPlane className="text-primary" />;
       case "accommodation":
         return <FaBed className="text-success" />;
-      case "meal":
+      case "Food":
         return <FaUtensils className="text-warning" />;
       case "sightseeing":
         return <FaCamera style={{ color: "#6f42c1" }} />;
@@ -193,6 +228,7 @@ function TripPlan() {
       return dateA - dateB;
     });
   }, [itineraryItems]);
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   const groupedDays = useMemo(() => {
     const groupedItems = sortedItems.reduce((groups, item) => {
@@ -211,46 +247,12 @@ function TripPlan() {
     }));
   }, [sortedItems]);
 
-  // Hàm tạo expense mới
-  const handleCreateExpense = () => {
-    if (!newExpense.activity) {
-      alert("Activity cannot be empty.");
-      return;
-    }
-    if (newExpense.amount <= 0) {
-      alert("Amount must be greater than 0.");
-      return;
-    }
-    const newItem = {
-      id: String(itineraryItems.length + 1),
-      date: new Date().toISOString().split("T")[0],
-      time: new Date().toTimeString().split(" ")[0].slice(0, 5),
-      activity: newExpense.activity,
-      location: "Expense",
-      type: "expense",
-      notes: "",
-      expense: parseFloat(newExpense.amount),
-    };
-    const updatedItinerary = [...itineraryItems, newItem];
-    setItineraryItems(updatedItinerary);
-    setFilteredItems(updatedItinerary);
-    handleCloseModal();
+  const handlePreviousDay = () => {
+    setCurrentDayIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
-
-  console.log("filteredItems", filteredItems);
-
-  const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   const handleNextDay = () => {
-    if (currentDayIndex < groupedDays.length - 1) {
-      setCurrentDayIndex(currentDayIndex + 1);
-    }
-  };
-
-  const handlePreviousDay = () => {
-    if (currentDayIndex > 0) {
-      setCurrentDayIndex(currentDayIndex - 1);
-    }
+    setCurrentDayIndex((prevIndex) => Math.min(prevIndex + 1, groupedDays.length - 1));
   };
 
   return (
@@ -260,6 +262,7 @@ function TripPlan() {
       role="tabpanel"
       aria-labelledby="tour-plan-tab"
     >
+      <ToastContainer />
       <div className="tab-box tour-plan-tab-box">
         <div className="rb-comment-form"></div>
         <h1 className="display-4 text-center mb-4">Trip Itinerary</h1>
@@ -289,9 +292,8 @@ function TripPlan() {
                 <option value="activity">Sort by Activity</option>
               </select>
               <button
-                className={`sec-btn ${
-                  trip.categories.length === 0 ? "" : ""
-                }`}
+                className={`sec-btn ${trip.categories.length === 0 ? "" : ""
+                  }`}
                 onClick={handleOpenModal}
               >
                 <span>Create Expense</span>
@@ -308,7 +310,6 @@ function TripPlan() {
               >
                 Previous
               </Button>
-              <h2>{groupedDays[currentDayIndex].day}</h2>
               <Button
                 variant="primary"
                 onClick={handleNextDay}
@@ -318,6 +319,7 @@ function TripPlan() {
               </Button>
             </div>
           )}
+          {groupedDays.length === 0 && <h2>No days available</h2>}
 
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="itinerary">
@@ -347,62 +349,56 @@ function TripPlan() {
                                 <div className="d-flex align-items-center mb-2 mb-md-0">
                                   <div
                                     className="me-3"
-                                    style={{
-                                      fontSize: "1.5rem",
-                                      marginRight: "10px", 
-                                    }}
+                                    style={{ fontSize: "1.5rem", marginRight: "10px" }}
                                   >
+                                    {/* Check if it's an expense and use FaMoneyBillWave or use getIcon with expenseCategory */}
                                     {item.type === "expense" ? (
                                       <FaMoneyBillWave className="text-success" />
                                     ) : (
-                                      getIcon(item.type)
+                                      getIcon(item.expenseCategory) // Use expenseCategory from API data
                                     )}
                                   </div>
                                   <div>
-                                    <h5 className="mb-1">{item.activity}</h5>
-                                    <small className="text-muted">
-                                      {item.location}
-                                    </small>
+                                    <h5 className="mb-1">{item.expenseCategory}</h5>
+                                    <small className="text-muted">{item.location}</small>
                                   </div>
                                 </div>
-                                <div style={{display:"flex"}}>
-                                <div style={{marginRight:"8rem"}}>
-                                  <p className="mb-1">
-                                    <strong>
-                                      {new Date(item.date).toLocaleDateString()}
-                                    </strong>
-                                  </p>
-                                  <p className="mb-1 text-muted">{item.time}</p>
-                                  {item.expense > 0 && (
-                                    <p className="mb-0 text-success fw-semibold">
-                                      ${item.expense.toFixed(2)}
+                                <div style={{ display: "flex" }}>
+                                  <div style={{ marginRight: "8rem" }}>
+                                    <p className="mb-1">
+                                      <strong>{new Date(item.date).toLocaleDateString()}</strong>
                                     </p>
-                                  )}
-                                </div>
-                                {/* Edit and Delete Buttons */}
-                                <div style={{height:"2.5rem"}} className="ms-auto d-flex gap-2">
-                                  <Button
-                                  style={{marginRight:"1em"}}
-                                    variant="outline-primary"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation(); // Prevent triggering the detail modal
-                                      handleOpenEditModal(item);
-                                    }}
-                                  >
-                                    Edit
-                                  </Button>
-                                  <Button
-                                    variant="outline-danger"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation(); // Prevent triggering the detail modal
-                                      handleDeleteItem(item.id);
-                                    }}
-                                  >
-                                    Delete
-                                  </Button>
-                                </div>
+                                    <p className="mb-1 text-muted">{item.time}</p>
+                                    {item.amountExpense > 0 && (
+                                      <p className="mb-0 text-success fw-semibold">
+                                        ${item.amountExpense.toFixed(2)}
+                                      </p>
+                                    )}
+                                  </div>
+                                  {/* Edit and Delete Buttons */}
+                                  <div style={{ height: "2.5rem" }} className="ms-auto d-flex gap-2">
+                                    <Button
+                                      style={{ marginRight: "1em" }}
+                                      variant="outline-primary"
+                                      size="sm"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleOpenEditModal(item);
+                                      }}
+                                    >
+                                      Edit
+                                    </Button>
+                                    <Button
+                                      variant="outline-danger"
+                                      size="sm"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteItem(item.id);
+                                      }}
+                                    >
+                                      Delete
+                                    </Button>
+                                  </div>
                                 </div>
                               </li>
                             )}
@@ -420,17 +416,16 @@ function TripPlan() {
           {/* Detail Modal */}
           <Modal show={detailModalOpen} onHide={handleCloseDetailModal}>
             <Modal.Header closeButton>
-              <Modal.Title>Itinerary Details</Modal.Title>
+              <Modal.Title>Expense Details</Modal.Title>
             </Modal.Header>
             {selectedItem && (
               <Modal.Body>
-                <p><strong>Activity:</strong> {selectedItem.activity}</p>
-                <p><strong>Location:</strong> {selectedItem.location}</p>
+                {/* <p><strong>Activity:</strong> {selectedItem.expenseCategory || 'N/A'}</p> */}
+                {/* <p><strong>Location:</strong> {trip.destination || 'N/A'}</p> */}
                 <p><strong>Date:</strong> {new Date(selectedItem.date).toLocaleDateString()}</p>
-                <p><strong>Time:</strong> {selectedItem.time}</p>
-                <p><strong>Type:</strong> {selectedItem.type}</p>
-                <p><strong>Notes:</strong> {selectedItem.notes}</p>
-                <p><strong>Expense:</strong> ${selectedItem.expense.toFixed(2)}</p>
+                <p><strong>Time:</strong> {new Date(selectedItem.date).toLocaleTimeString() || 'N/A'}</p>
+                <p><strong>Notes:</strong> {selectedItem.note || 'N/A'}</p>
+                <p><strong>Expense:</strong> ${selectedItem.amountExpense ? selectedItem.amountExpense.toFixed(2) : '0.00'}</p>
               </Modal.Body>
             )}
             <Modal.Footer>
@@ -460,27 +455,46 @@ function TripPlan() {
             {editItem && (
               <Modal.Body>
                 <Form>
-                  <Form.Group className="mb-3" controlId="formActivity">
-                    <Form.Label>Activity</Form.Label>
+                  <Form.Group className="mb-3" controlId="formExpenseCategory">
+                    <Form.Label>Expense Category</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter activity"
-                      value={editItem.activity}
+                      name="expenseCategory"
+                      placeholder="Enter expense category"
+                      value={editItem.expenseCategory}
+                      autoFocus
                       onChange={(e) =>
-                        setEditItem({ ...editItem, activity: e.target.value })
+                        setEditItem((prev) => ({ ...prev, expenseCategory: e.target.value }))
                       }
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formLocation">
-                    <Form.Label>Location</Form.Label>
+                  <Form.Group className="mb-3" controlId="formNote">
+                    <Form.Label>Note</Form.Label>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter location"
-                      value={editItem.location}
+                      as="textarea"
+                      name="note"
+                      rows={3}
+                      placeholder="Enter note"
+                      value={editItem.note}
                       onChange={(e) =>
-                        setEditItem({ ...editItem, location: e.target.value })
+                        setEditItem((prev) => ({ ...prev, note: e.target.value }))
                       }
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formAmountExpense">
+                    <Form.Label>Expense Amount</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="amountExpense"
+                      placeholder="Enter expense amount"
+                      value={editItem.amountExpense}
+                      onChange={(e) =>
+                        setEditItem((prev) => ({ ...prev, amountExpense: parseFloat(e.target.value) }))
+                      }
+                      min="0"
+                      step="0.01"
                     />
                   </Form.Group>
 
@@ -488,64 +502,11 @@ function TripPlan() {
                     <Form.Label>Date</Form.Label>
                     <Form.Control
                       type="date"
-                      value={editItem.date}
+                      name="date"
+                      value={new Date(editItem.date).toISOString().split('T')[0]} // Định dạng ngày tháng
                       onChange={(e) =>
-                        setEditItem({ ...editItem, date: e.target.value })
+                        setEditItem((prev) => ({ ...prev, date: new Date(e.target.value) }))
                       }
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formTime">
-                    <Form.Label>Time</Form.Label>
-                    <Form.Control
-                      type="time"
-                      value={editItem.time}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, time: e.target.value })
-                      }
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formType">
-                    <Form.Label>Type</Form.Label>
-                    <Form.Select
-                      value={editItem.type}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, type: e.target.value })
-                      }
-                    >
-                      <option value="transportation">Transportation</option>
-                      <option value="accommodation">Accommodation</option>
-                      <option value="meal">Meal</option>
-                      <option value="sightseeing">Sightseeing</option>
-                      <option value="expense">Expense</option>
-                    </Form.Select>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formNotes">
-                    <Form.Label>Notes</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      placeholder="Enter notes"
-                      value={editItem.notes}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, notes: e.target.value })
-                      }
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formExpense">
-                    <Form.Label>Expense</Form.Label>
-                    <Form.Control
-                      type="number"
-                      placeholder="Enter expense"
-                      value={editItem.expense}
-                      onChange={(e) =>
-                        setEditItem({ ...editItem, expense: parseFloat(e.target.value) })
-                      }
-                      min="0"
-                      step="0.01"
                     />
                   </Form.Group>
                 </Form>
@@ -555,7 +516,7 @@ function TripPlan() {
               <Button variant="secondary" onClick={handleCloseEditModal}>
                 Cancel
               </Button>
-              <Button variant="primary" onClick={handleSaveEdit}>
+              <Button variant="primary" onClick={handleEditExpense}>
                 Save Changes
               </Button>
             </Modal.Footer>
@@ -568,31 +529,48 @@ function TripPlan() {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <Form.Group className="mb-3" controlId="formNewActivity">
-                  <Form.Label>Activity</Form.Label>
+                <Form.Group className="mb-3" controlId="formNewExpenseCategory">
+                  <Form.Label>Expense Category</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Enter activity"
-                    value={newExpense.activity}
-                    onChange={(e) =>
-                      setNewExpense({ ...newExpense, activity: e.target.value })
-                    }
+                    placeholder="Enter expense category"
+                    value={newExpense.expenseCategory}
+                    onChange={(e) => setNewExpense({ ...newExpense, expenseCategory: e.target.value })}
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formNewAmount">
+                <Form.Group className="mb-3" controlId="formNewNote">
+                  <Form.Label>Note</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    placeholder="Enter note"
+                    value={newExpense.note}
+                    onChange={(e) => setNewExpense({ ...newExpense, note: e.target.value })}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formNewAmountExpense">
                   <Form.Label>Amount</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Enter amount"
-                    value={newExpense.amount}
-                    onChange={(e) =>
-                      setNewExpense({ ...newExpense, amount: e.target.value })
-                    }
+                    value={newExpense.amountExpense}
+                    onChange={(e) => setNewExpense({ ...newExpense, amountExpense: e.target.value })}
                     min="0"
                     step="0.01"
                   />
                 </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formNewDate">
+                  <Form.Label>Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={newExpense.date || ""}
+                    onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
+                  />
+                </Form.Group>
+
               </Form>
             </Modal.Body>
             <Modal.Footer>

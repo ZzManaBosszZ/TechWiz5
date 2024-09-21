@@ -14,6 +14,16 @@ const url = {
         UPDATE_PROFILE: "user/update-profile",
     },
 
+    EXCHANGERATE:{
+        GET: "convert"
+    },
+
+    EXPENSE: {
+        CREATE: "expense",
+        PUT: "expense",
+        DELETE: "expense",
+    },
+
     TRIP: {
         LIST_BY_ID: "trip/{}",
         LIST_BY_USER: "trip",

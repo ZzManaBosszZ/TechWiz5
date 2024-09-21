@@ -65,9 +65,6 @@ function TripDetail() {
                                             <a className="nav-link" id="tour-plan-tab" data-toggle="tab" href="#tour-plan" role="tab" aria-controls="tour-plan" aria-selected="false"><i className="fas fa-book-open"></i>Tour Plan</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" id="location-tab" data-toggle="tab" href="#location" role="tab" aria-controls="location" aria-selected="false"><i className="fas fa-map-marker-alt"></i>Location</a>
-                                        </li>
-                                        <li className="nav-item">
                                             <a className="nav-link" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false"><i className="fas fa-camera-retro"></i>Gallery</a>
                                         </li>
                                         <li className="nav-item">
@@ -118,7 +115,7 @@ function TripDetail() {
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                
+
                                                 <div className="row no-gutters tour-gallery-slider">
                                                     <div className="col-lg-4 p-0">
                                                         <div className="tour-gallery-slide-image back-image" data-fancybox data-src="assets/images/tour-gallery-slide-image1.jpg" style={{ backgroundImage: "url(/assets/images/tour-gallery-slide-image1.jpg)" }}></div>
@@ -135,16 +132,16 @@ function TripDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <TripPlan/>
+                                        <TripPlan />
 
-                                        <div className="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                                        {/* <div className="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
                                             <div className="tab-box location-tab-box">
                                                 <h2 className="h2-title"><span>Tour Location</span></h2>
                                                 <div className="tour-location mb-30">
-                                                    {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15280118.507895455!2d73.72914987943841!3d20.771144269653607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1608024603420!5m2!1sen!2sin" width="100" height="450" style={{ border: "none !important;" }}  aria-hidden="false" tabindex="0"></iframe> */}
+                                                    
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
                                             <div className="tab-box gallery-tab-box">
                                                 <h2 className="h2-title">Make Your <span>Own Memories</span></h2>
@@ -160,7 +157,7 @@ function TripDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <ExpenseReview/>
+                                        <ExpenseReview />
                                     </div>
                                 </div>
                             </div>
@@ -178,8 +175,8 @@ function TripDetail() {
                                                     <label>Name</label>
                                                     <span className="form-control-span">
                                                         <span className="icon"><i className="fas fa-user"></i></span>
-                                                        <p className="form-input">
-                                                            {TripDetail.user.email ? TripDetail.user.email.split('@')[0] : 'No Name Available'}
+                                                        <p className="form-input" style={{fontSize: '80%'}}>
+                                                            {TripDetail.user.fullName ? TripDetail.user.fullName : 'No Email Available'}
                                                         </p>
                                                     </span>
                                                 </div>
@@ -187,7 +184,7 @@ function TripDetail() {
                                                     <label>Email</label>
                                                     <span className="form-control-span">
                                                         <span className="icon"><i className="fas fa-user"></i></span>
-                                                        <p className="form-input">
+                                                        <p className="form-input" style={{fontSize: '80%'}}>
                                                             {TripDetail.user.email ? TripDetail.user.email : 'No Email Available'}
                                                         </p>
                                                     </span>
