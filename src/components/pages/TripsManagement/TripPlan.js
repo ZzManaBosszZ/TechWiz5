@@ -76,6 +76,8 @@ function TripPlan() {
   // const [searchTerm, setSearchTerm] = useState(""); // Đã bị comment bỏ
   const [filterType, setFilterType] = useState("all");
   const [sortBy, setSortBy] = useState("date");
+  const [currency, setCurrency] = useState("usd");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newExpense, setNewExpense] = useState({ activity: "", amount: 0 });
 
@@ -280,7 +282,11 @@ function TripPlan() {
                 <option value="expense">Expense</option>
               </select>
               <select
-                style={{ borderRadius: "5px", margin: "0 15px 10px", height: "3.2rem" }}
+                style={{
+                  borderRadius: "5px",
+                  margin: "0 15px 10px",
+                  height: "3.2rem",
+                }}
                 className="form-select text-center"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -288,10 +294,22 @@ function TripPlan() {
                 <option value="date">Sort by Date</option>
                 <option value="activity">Sort by Activity</option>
               </select>
+              <select
+                style={{
+                  borderRadius: "5px",
+                  margin: "0 15px 10px",
+                  width: "50px",
+                }}
+                className="form-select text-center"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+              >
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="vnd">VND</option>
+              </select>
               <button
-                className={`sec-btn ${
-                  trip.categories.length === 0 ? "" : ""
-                }`}
+                className={`sec-btn ${trip.categories.length === 0 ? "" : ""}`}
                 onClick={handleOpenModal}
               >
                 <span>Create Expense</span>
@@ -326,88 +344,101 @@ function TripPlan() {
                   {groupedDays.length > 0 && (
                     <div className="mb-5">
                       <h2 className="mb-3">
-                        {groupedDays[currentDayIndex].day} ({groupedDays[currentDayIndex].date})
+                        {groupedDays[currentDayIndex].day} (
+                        {groupedDays[currentDayIndex].date})
                       </h2>
                       <ul className="list-group">
-                        {groupedDays[currentDayIndex].items.map((item, index) => (
-                          <Draggable
-                            key={item.id}
-                            draggableId={item.id}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <li
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
-                                onClick={() => handleOpenDetailModal(item)}
-                                style={{ cursor: "pointer", position: "relative" }}
-                              >
-                                <div className="d-flex align-items-center mb-2 mb-md-0">
-                                  <div
-                                    className="me-3"
-                                    style={{
-                                      fontSize: "1.5rem",
-                                      marginRight: "10px", 
-                                    }}
-                                  >
-                                    {item.type === "expense" ? (
-                                      <FaMoneyBillWave className="text-success" />
-                                    ) : (
-                                      getIcon(item.type)
-                                    )}
+                        {groupedDays[currentDayIndex].items.map(
+                          (item, index) => (
+                            <Draggable
+                              key={item.id}
+                              draggableId={item.id}
+                              index={index}
+                            >
+                              {(provided) => (
+                                <li
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  className="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
+                                  onClick={() => handleOpenDetailModal(item)}
+                                  style={{
+                                    cursor: "pointer",
+                                    position: "relative",
+                                  }}
+                                >
+                                  <div className="d-flex align-items-center mb-2 mb-md-0">
+                                    <div
+                                      className="me-3"
+                                      style={{
+                                        fontSize: "1.5rem",
+                                        marginRight: "10px",
+                                      }}
+                                    >
+                                      {item.type === "expense" ? (
+                                        <FaMoneyBillWave className="text-success" />
+                                      ) : (
+                                        getIcon(item.type)
+                                      )}
+                                    </div>
+                                    <div>
+                                      <h5 className="mb-1">{item.activity}</h5>
+                                      <small className="text-muted">
+                                        {item.location}
+                                      </small>
+                                    </div>
                                   </div>
-                                  <div>
-                                    <h5 className="mb-1">{item.activity}</h5>
-                                    <small className="text-muted">
-                                      {item.location}
-                                    </small>
+                                  <div style={{ display: "flex" }}>
+                                    <div style={{ marginRight: "8rem" }}>
+                                      <p className="mb-1">
+                                        <strong>
+                                          {new Date(
+                                            item.date
+                                          ).toLocaleDateString()}
+                                        </strong>
+                                      </p>
+                                      <p className="mb-1 text-muted">
+                                        {item.time}
+                                      </p>
+                                      {item.expense > 0 && (
+                                        <p className="mb-0 text-success fw-semibold">
+                                          ${item.expense.toFixed(2)}
+                                        </p>
+                                      )}
+                                    </div>
+                                    {/* Edit and Delete Buttons */}
+                                    <div
+                                      style={{ height: "2.5rem" }}
+                                      className="ms-auto d-flex gap-2"
+                                    >
+                                      <Button
+                                        style={{ marginRight: "1em" }}
+                                        variant="outline-primary"
+                                        size="sm"
+                                        onClick={(e) => {
+                                          e.stopPropagation(); // Prevent triggering the detail modal
+                                          handleOpenEditModal(item);
+                                        }}
+                                      >
+                                        Edit
+                                      </Button>
+                                      <Button
+                                        variant="outline-danger"
+                                        size="sm"
+                                        onClick={(e) => {
+                                          e.stopPropagation(); // Prevent triggering the detail modal
+                                          handleDeleteItem(item.id);
+                                        }}
+                                      >
+                                        Delete
+                                      </Button>
+                                    </div>
                                   </div>
-                                </div>
-                                <div style={{display:"flex"}}>
-                                <div style={{marginRight:"8rem"}}>
-                                  <p className="mb-1">
-                                    <strong>
-                                      {new Date(item.date).toLocaleDateString()}
-                                    </strong>
-                                  </p>
-                                  <p className="mb-1 text-muted">{item.time}</p>
-                                  {item.expense > 0 && (
-                                    <p className="mb-0 text-success fw-semibold">
-                                      ${item.expense.toFixed(2)}
-                                    </p>
-                                  )}
-                                </div>
-                                {/* Edit and Delete Buttons */}
-                                <div style={{height:"2.5rem"}} className="ms-auto d-flex gap-2">
-                                  <Button
-                                  style={{marginRight:"1em"}}
-                                    variant="outline-primary"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation(); // Prevent triggering the detail modal
-                                      handleOpenEditModal(item);
-                                    }}
-                                  >
-                                    Edit
-                                  </Button>
-                                  <Button
-                                    variant="outline-danger"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation(); // Prevent triggering the detail modal
-                                      handleDeleteItem(item.id);
-                                    }}
-                                  >
-                                    Delete
-                                  </Button>
-                                </div>
-                                </div>
-                              </li>
-                            )}
-                          </Draggable>
-                        ))}
+                                </li>
+                              )}
+                            </Draggable>
+                          )
+                        )}
                       </ul>
                     </div>
                   )}
@@ -424,13 +455,28 @@ function TripPlan() {
             </Modal.Header>
             {selectedItem && (
               <Modal.Body>
-                <p><strong>Activity:</strong> {selectedItem.activity}</p>
-                <p><strong>Location:</strong> {selectedItem.location}</p>
-                <p><strong>Date:</strong> {new Date(selectedItem.date).toLocaleDateString()}</p>
-                <p><strong>Time:</strong> {selectedItem.time}</p>
-                <p><strong>Type:</strong> {selectedItem.type}</p>
-                <p><strong>Notes:</strong> {selectedItem.notes}</p>
-                <p><strong>Expense:</strong> ${selectedItem.expense.toFixed(2)}</p>
+                <p>
+                  <strong>Activity:</strong> {selectedItem.activity}
+                </p>
+                <p>
+                  <strong>Location:</strong> {selectedItem.location}
+                </p>
+                <p>
+                  <strong>Date:</strong>{" "}
+                  {new Date(selectedItem.date).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>Time:</strong> {selectedItem.time}
+                </p>
+                <p>
+                  <strong>Type:</strong> {selectedItem.type}
+                </p>
+                <p>
+                  <strong>Notes:</strong> {selectedItem.notes}
+                </p>
+                <p>
+                  <strong>Expense:</strong> ${selectedItem.expense.toFixed(2)}
+                </p>
               </Modal.Body>
             )}
             <Modal.Footer>
@@ -542,7 +588,10 @@ function TripPlan() {
                       placeholder="Enter expense"
                       value={editItem.expense}
                       onChange={(e) =>
-                        setEditItem({ ...editItem, expense: parseFloat(e.target.value) })
+                        setEditItem({
+                          ...editItem,
+                          expense: parseFloat(e.target.value),
+                        })
                       }
                       min="0"
                       step="0.01"
