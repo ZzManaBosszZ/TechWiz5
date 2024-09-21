@@ -133,16 +133,7 @@ function TripDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <TripPlan />
-
-                                        {/* <div className="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
-                                            <div className="tab-box location-tab-box">
-                                                <h2 className="h2-title"><span>Tour Location</span></h2>
-                                                <div className="tour-location mb-30">
-                                                    
-                                                </div>
-                                            </div>
-                                        </div> */}             
+                                        <TripPlan />          
                                         <Gallery />                 
                                         <ExpenseReview />
                                     </div>
