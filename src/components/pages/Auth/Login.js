@@ -103,7 +103,7 @@ function Login() {
       <div className="login">
         <form className="login__form" onSubmit={handleLogin}>
           <image src="assets/images/avatar.png" />
-          <a className="back" href="#">Home</a>
+          <a className="back" href={config.routes.home}>Home</a>
           <h1 className="login__title">Login</h1>
 
           <div className="login__content">

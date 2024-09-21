@@ -8,6 +8,7 @@ import "../../css/register.css";
 
 // Import icons from react-icons
 import { RiUser3Line, RiMailLine, RiLock2Line, RiEyeOffLine, RiEyeLine } from "react-icons/ri"; 
+import config from "../../../config";
 
 function Register() {
    const navigate = useNavigate();
@@ -113,7 +114,7 @@ function Register() {
          <body style={{ backgroundImage: "url(assets/images/destination-detail-banner.jpg)" }}>
             <div className="register">
                <form className="register__form" onSubmit={handleSignUp}>
-                  <a className="return" href="#">Back</a>
+                  <a className="return" href={config.routes.login}>Back</a>
                   <h1 className="register__title">Register</h1>
                   <div className="register__content">
                      
@@ -181,7 +182,7 @@ function Register() {
 
                   <button type="submit" className="register__button" valueSubmit="Login...">Register Now</button>
                   <p className="login__register">
-                     Have an account? <a href="#">Login</a>
+                     Have an account? <a href={config.routes.login}>Login</a>
                   </p>
                </form>
             </div>
