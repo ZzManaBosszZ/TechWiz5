@@ -15,7 +15,17 @@ const url = {
     },
 
     EXCHANGERATE:{
-        GET: "convert"
+        GET: "convert",
+        GET_EXCHANGE_RATE: "rate"
+    },
+
+    NOTIFICATION:{
+        GET: "notifications",
+        PUT: "notifications/mark-as-read/{id}",
+    },
+
+    PHOTO: {
+        CREATE: "photo",
     },
 
     EXPENSE: {

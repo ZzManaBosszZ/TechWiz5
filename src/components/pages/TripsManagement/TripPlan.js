@@ -3,13 +3,11 @@ import { useParams } from "react-router-dom";
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {
   FaPlane,
   FaUtensils,
   FaCamera,
   FaBed,
-  FaCar,
   FaMoneyBillWave,
 } from "react-icons/fa";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -24,7 +22,6 @@ function TripPlan() {
   const [trip, setTrip] = useState({ expenses: [], categories: [] });
   const [newExpense, setNewExpense] = useState({});
   const [filterType, setFilterType] = useState("all");
-  const [sortBy, setSortBy] = useState("date");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedItem, setSelectedItem] = useState(null);
@@ -37,14 +34,26 @@ function TripPlan() {
   const [itineraryItems, setItineraryItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
 
-  const [currency, setCurrency] = useState('USD'); // Giá trị mặc định là USD
-  const currencyOptions = [
-    { code: 'USD', symbol: '$' },
-    { code: 'EUR', symbol: '€' },
-    { code: 'VND', symbol: '₫' },
-    // Thêm các loại tiền tệ khác nếu cần
-  ];
+  const exchangeRates = { USD: 1, EUR: 0.85, VND: 23000 }; // Example rates
 
+  const [currency, setCurrency] = useState('USD');
+  const predefinedCategories = ["Transport", "Accommodation", "Meal", "Sightseeing", "Miscellaneous"];
+
+  const convertCurrency = (amount, currency) => {
+    const rate = exchangeRates[currency] || 1;
+    return amount * rate;
+  };
+
+  const handleCurrencyChange = (e) => {
+    const selectedCurrency = e.target.value;
+    setCurrency(selectedCurrency);
+    // Optionally, update filteredItems to reflect the change in amounts
+    const updatedItems = itineraryItems.map(item => ({
+      ...item,
+      amountExpense: convertCurrency(item.amountExpense, selectedCurrency) // convert amount to selected currency
+    }));
+    setFilteredItems(updatedItems);
+  };
 
   const loadTrip = useCallback(async () => {
     try {
@@ -92,6 +101,9 @@ function TripPlan() {
 
       toast.success("Expense created successfully!");
       handleCloseModal();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       console.error(error);
       toast.error("Failed to create expense. Please try again.");
@@ -126,6 +138,7 @@ function TripPlan() {
 
       toast.success("Expense updated successfully!");
       handleCloseEditModal();
+      loadTrip();
     } catch (error) {
       console.error(error);
       toast.error("Failed to update expense. Please try again.");
@@ -186,29 +199,18 @@ function TripPlan() {
     }
   };
 
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(filteredItems);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setFilteredItems(items);
-    setItineraryItems(items);
-  };
-
   const getIcon = (type) => {
     switch (type) {
       case "Transport":
         return <FaPlane className="text-primary" />;
-      case "accommodation":
+      case "Accommodation":
         return <FaBed className="text-success" />;
       case "Food":
         return <FaUtensils className="text-warning" />;
-      case "sightseeing":
+      case "Sightseeing":
         return <FaCamera style={{ color: "#6f42c1" }} />;
       default:
-        return <FaCar className="text-secondary" />;
+        return <FaMoneyBillWave className="text-secondary" />;
     }
   };
 
@@ -228,6 +230,7 @@ function TripPlan() {
       return dateA - dateB;
     });
   }, [itineraryItems]);
+
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   const groupedDays = useMemo(() => {
@@ -283,17 +286,17 @@ function TripPlan() {
                 <option value="expense">Expense</option>
               </select>
               <select
-                style={{ borderRadius: "5px", margin: "0 15px 10px", height: "3.2rem" }}
-                className="form-select text-center"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
+                style={{ borderRadius: "5px", margin: "0 15px 15px 0" }}
+                value={currency}
+                onChange={handleCurrencyChange}
               >
-                <option value="date">Sort by Date</option>
-                <option value="activity">Sort by Activity</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="VND">VND</option>
               </select>
+
               <button
-                className={`sec-btn ${trip.categories.length === 0 ? "" : ""
-                  }`}
+                className={`sec-btn ${trip.categories.length === 0 ? "" : ""}`}
                 onClick={handleOpenModal}
               >
                 <span>Create Expense</span>
@@ -319,99 +322,78 @@ function TripPlan() {
               </Button>
             </div>
           )}
-          {groupedDays.length === 0 && <h2>No days available</h2>}
 
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="itinerary">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {groupedDays.length > 0 && (
-                    <div className="mb-5">
-                      <h2 className="mb-3">
-                        {groupedDays[currentDayIndex].day} ({groupedDays[currentDayIndex].date})
-                      </h2>
-                      <ul className="list-group">
-                        {groupedDays[currentDayIndex].items.map((item, index) => (
-                          <Draggable
-                            key={item.id}
-                            draggableId={item.id}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <li
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
-                                onClick={() => handleOpenDetailModal(item)}
-                                style={{ cursor: "pointer", position: "relative" }}
-                              >
-                                <div className="d-flex align-items-center mb-2 mb-md-0">
-                                  <div
-                                    className="me-3"
-                                    style={{ fontSize: "1.5rem", marginRight: "10px" }}
-                                  >
-                                    {/* Check if it's an expense and use FaMoneyBillWave or use getIcon with expenseCategory */}
-                                    {item.type === "expense" ? (
-                                      <FaMoneyBillWave className="text-success" />
-                                    ) : (
-                                      getIcon(item.expenseCategory) // Use expenseCategory from API data
-                                    )}
-                                  </div>
-                                  <div>
-                                    <h5 className="mb-1">{item.expenseCategory}</h5>
-                                    <small className="text-muted">{item.location}</small>
-                                  </div>
-                                </div>
-                                <div style={{ display: "flex" }}>
-                                  <div style={{ marginRight: "8rem" }}>
-                                    <p className="mb-1">
-                                      <strong>{new Date(item.date).toLocaleDateString()}</strong>
-                                    </p>
-                                    <p className="mb-1 text-muted">{item.time}</p>
-                                    {item.amountExpense > 0 && (
-                                      <p className="mb-0 text-success fw-semibold">
-                                        ${item.amountExpense.toFixed(2)}
-                                      </p>
-                                    )}
-                                  </div>
-                                  {/* Edit and Delete Buttons */}
-                                  <div style={{ height: "2.5rem" }} className="ms-auto d-flex gap-2">
-                                    <Button
-                                      style={{ marginRight: "1em" }}
-                                      variant="outline-primary"
-                                      size="sm"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleOpenEditModal(item);
-                                      }}
-                                    >
-                                      Edit
-                                    </Button>
-                                    <Button
-                                      variant="outline-danger"
-                                      size="sm"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDeleteItem(item.id);
-                                      }}
-                                    >
-                                      Delete
-                                    </Button>
-                                  </div>
-                                </div>
-                              </li>
-                            )}
-                          </Draggable>
-                        ))}
-                      </ul>
+          {groupedDays.length === 0 && <h2>No days available</h2>}
+          {groupedDays.length > 0 && currentDayIndex < groupedDays.length && (
+            <div className="mb-5">
+              <h2 className="mb-3">
+                {groupedDays[currentDayIndex].day} ({groupedDays[currentDayIndex].date})
+              </h2>
+              <ul className="list-group">
+                {groupedDays[currentDayIndex].items.map((item, index) => (
+                  <li
+                    key={item.id}
+                    className="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
+                    onClick={() => handleOpenDetailModal(item)}
+                    style={{ cursor: "pointer", position: "relative" }}
+                  >
+                    <div className="d-flex align-items-center mb-2 mb-md-0">
+                      <div
+                        className="me-3"
+                        style={{ fontSize: "1.5rem", marginRight: "10px" }}
+                      >
+                        {item.type === "expense" ? (
+                          <FaMoneyBillWave className="text-success" />
+                        ) : (
+                          getIcon(item.expenseCategory)
+                        )}
+                      </div>
+                      <div>
+                        <h5 className="mb-1">{item.expenseCategory}</h5>
+                        <small className="text-muted">{item.location}</small>
+                      </div>
                     </div>
-                  )}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+                    <div style={{ display: "flex" }}>
+                      <div style={{ marginRight: "8rem" }}>
+                        <p className="mb-1">
+                          <strong>{new Date(item.date).toLocaleDateString()}</strong>
+                        </p>
+                        <p className="mb-1 text-muted">{item.time}</p>
+                        {item.amountExpense > 0 && (
+                          <p className="mb-0 text-success fw-semibold">
+                            <span>{convertCurrency(item.amountExpense, currency).toFixed(2)} {currency}</span>
+                          </p>
+                        )}
+                      </div>
+                      <div style={{ height: "2.5rem" }} className="ms-auto d-flex gap-2">
+                        <Button
+                          style={{ marginRight: "1em" }}
+                          variant="outline-primary"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleOpenEditModal(item);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="outline-danger"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteItem(item.id);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Detail Modal */}
           <Modal show={detailModalOpen} onHide={handleCloseDetailModal}>
@@ -425,7 +407,7 @@ function TripPlan() {
                 <p><strong>Date:</strong> {new Date(selectedItem.date).toLocaleDateString()}</p>
                 <p><strong>Time:</strong> {new Date(selectedItem.date).toLocaleTimeString() || 'N/A'}</p>
                 <p><strong>Notes:</strong> {selectedItem.note || 'N/A'}</p>
-                <p><strong>Expense:</strong> ${selectedItem.amountExpense ? selectedItem.amountExpense.toFixed(2) : '0.00'}</p>
+                <p><strong>Expense:</strong> {convertCurrency(selectedItem.amountExpense, currency).toFixed(2)} {currency}</p>
               </Modal.Body>
             )}
             <Modal.Footer>
@@ -532,11 +514,17 @@ function TripPlan() {
                 <Form.Group className="mb-3" controlId="formNewExpenseCategory">
                   <Form.Label>Expense Category</Form.Label>
                   <Form.Control
-                    type="text"
-                    placeholder="Enter expense category"
-                    value={newExpense.expenseCategory}
+                    as="select"
+                    value={newExpense.expenseCategory || ""}
                     onChange={(e) => setNewExpense({ ...newExpense, expenseCategory: e.target.value })}
-                  />
+                  >
+                    <option value="">Select a category</option>
+                    {predefinedCategories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formNewNote">
@@ -570,7 +558,6 @@ function TripPlan() {
                     onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })}
                   />
                 </Form.Group>
-
               </Form>
             </Modal.Body>
             <Modal.Footer>

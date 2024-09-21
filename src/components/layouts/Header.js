@@ -9,13 +9,15 @@ import "../css/style.css";
 function Header() {
   const [profile, setProfile] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
 
   // Function to handle logout
   const handleLogout = () => {
     removeAccessToken();
     setIsLoggedIn(false);
-    navigate("/login");
+    navigate(config.routes.home);
   };
 
   // Show list data
@@ -33,6 +35,26 @@ function Header() {
     };
     loadProfile();
   }, []);
+
+  useEffect(() => {
+    const loadNotifications = async () => {
+      try {
+        const response = await api.get(url.NOTIFICATION.GET, {
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        });
+        setNotifications(response.data.data);
+      } catch (error) {
+        console.error("Failed to fetch notifications", error);
+      }
+    };
+    if (isLoggedIn) {
+      loadNotifications();
+    }
+  }, [isLoggedIn]);
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
 
   return (
     <header className="site-header">
@@ -105,9 +127,35 @@ function Header() {
               <div className="col-lg-8">
                 <div className="header-menu-side">
                   <div className="header-reserve-btn for-des">
-                    <a href="tour.html" className="sec-btn" title="Reserve">
+                    <a href={config.routes.create_trip} className="sec-btn" title="Reserve">
                       <span>Begin Your Trip</span>
                     </a>
+                  </div>
+
+                  <div className="search-icon">
+
+                    {/* <div className="notification-icon" onClick={toggleNotifications}> */}
+                      <i className="fas fa-bell"></i>
+                      {/* {notifications.filter(n => !n.read).length > 0 && (
+                        <span className="notification-count">
+                          {notifications.filter(n => !n.read).length}
+                        </span>
+                      )}
+                    </div> */}
+
+                    {showNotifications && (
+                      <div className="dropdown-content notifications">
+                        {notifications.length > 0 ? (
+                          notifications.map(notification => (
+                            <div key={notification.id} className="notification-item">
+                              <span>{notification.message}</span>
+                            </div>
+                          ))
+                        ) : (
+                          <div>No notifications</div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="dropdown">
@@ -117,19 +165,19 @@ function Header() {
                     <div className="dropdown-content">
                       {isLoggedIn ? (
                         <>
-                          <a className="profile-drop" href="/profile">
-                            Profile
+                          <a className="profile-drop" href={config.routes.trip}>
+                            Your Trip
                           </a>
-                          <a className="logout-drop" href="#" onClick={handleLogout}>
+                          <a className="logout-drop" onClick={handleLogout}>
                             Logout
                           </a>
                         </>
                       ) : (
                         <>
-                          <a className="login-drop" href="/login">
+                          <a className="login-drop" href={config.routes.login}>
                             Login
                           </a>
-                          <a className="signup-drop" href="/signup">
+                          <a className="signup-drop" href={config.routes.register}>
                             Sign Up
                           </a>
                         </>
@@ -170,48 +218,21 @@ function Header() {
                             <div className="menu-container">
                               <ul>
                                 <li className="active">
-                                  <a href="index-2.html">Home</a>
+                                  <a href={config.routes.home}>Home</a>
                                 </li>
                                 <li>
-                                  <a href="about.html">About</a>
+                                  <a href={config.routes.about_us}>About</a>
                                 </li>
                                 <li className="dropdown-items">
-                                  <a href="javascript:void(0);">Destination</a>
+                                  <a >My Trip Expense</a>
                                   <ul className="sub-menu">
                                     <li>
-                                      <a href="destination.html">Destination</a>
-                                    </li>
-                                    <li>
-                                      <a href="destination-detail.html">
-                                        Destination Detail
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li className="dropdown-items">
-                                  <a href="javascript:void(0);">Tour</a>
-                                  <ul className="sub-menu">
-                                    <li>
-                                      <a href="tour.html">Tour</a>
-                                    </li>
-                                    <li>
-                                      <a href="tour-detail.html">Tour Detail</a>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li className="dropdown-items">
-                                  <a href="javascript:void(0);">Blog</a>
-                                  <ul className="sub-menu">
-                                    <li>
-                                      <a href="blog.html">Blog</a>
-                                    </li>
-                                    <li>
-                                      <a href="blog-detail.html">Blog Detail</a>
+                                      <a href={config.routes.trip}>Tour</a>
                                     </li>
                                   </ul>
                                 </li>
                                 <li>
-                                  <a href="contact.html">Contact us</a>
+                                  <a href={config.routes.contact_us}>Contact us</a>
                                 </li>
                               </ul>
                             </div>

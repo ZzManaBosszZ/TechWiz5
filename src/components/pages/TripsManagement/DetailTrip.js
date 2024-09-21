@@ -7,6 +7,7 @@ import { getAccessToken } from "../../../utils/auth";
 import Reason from "../../layouts/Reason";
 import TripPlan from "./TripPlan";
 import ExpenseReview from "./ExpenseReview";
+import Gallery from "./Gallery";
 
 function TripDetail() {
 
@@ -132,31 +133,8 @@ function TripDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <TripPlan />
-
-                                        {/* <div className="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
-                                            <div className="tab-box location-tab-box">
-                                                <h2 className="h2-title"><span>Tour Location</span></h2>
-                                                <div className="tour-location mb-30">
-                                                    
-                                                </div>
-                                            </div>
-                                        </div> */}
-                                        <div className="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-                                            <div className="tab-box gallery-tab-box">
-                                                <h2 className="h2-title">Make Your <span>Own Memories</span></h2>
-                                                <div className="memories-gallery">
-                                                    <div className="row">
-                                                        <div className="col-lg-7">
-                                                            <div className="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image1.jpg" style={{ backgroundImage: "url(/assets/images/memories-gallery-image1.jpg)" }}></div>
-                                                        </div>
-                                                        <div className="col-lg-5">
-                                                            <div className="memories-gallery-image back-image" data-fancybox data-src="assets/images/memories-gallery-image2.jpg" style={{ backgroundImage: "url(/assets/images/memories-gallery-image2.jpg)" }}></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <TripPlan />          
+                                        <Gallery />                 
                                         <ExpenseReview />
                                     </div>
                                 </div>
@@ -183,7 +161,7 @@ function TripDetail() {
                                                 <div className="col-lg-12">
                                                     <label>Email</label>
                                                     <span className="form-control-span">
-                                                        <span className="icon"><i className="fas fa-user"></i></span>
+                                                        <span className="icon"><i className="fas fa-envelope"></i></span>
                                                         <p className="form-input" style={{fontSize: '80%'}}>
                                                             {TripDetail.user.email ? TripDetail.user.email : 'No Email Available'}
                                                         </p>
