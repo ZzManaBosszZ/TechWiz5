@@ -156,7 +156,7 @@ function Login() {
           <button type="submit" className="login__button">Login</button>
 
           <p className="login__register">
-            Don't have an account? <a href="">Register</a>
+            Don't have an account? <a href={config.routes.register}>Register</a>
           </p>
         </form>
       </div>
