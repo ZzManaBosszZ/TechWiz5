@@ -36,17 +36,7 @@ function ExpenseReview() {
             }, {});
 
             const labels = [...Object.keys(categoryTotals), 'Remaining Budget'];
-            const series = [...Object.values(categoryTotals), remainingBudget].map(value => value || 0); // Đảm bảo không có giá trị undefined
-
-            // // Kiểm tra dữ liệu trước khi cập nhật trạng tháiampp
-            
-            // console.log('Labels:', labels);
-            // console.log('Series:', series);
-            // console.log('Total Expense:', totalExpense);
-            // console.log('Remaining Budget:', remainingBudget);
-            // console.log('Expenses:', expenses);
-            // console.log('Trip:', tripData);
-            // console.log('Category Totals:', categoryTotals);
+            const series = [...Object.values(categoryTotals), remainingBudget].map(value => value || 0);
 
             setChartData({ labels, series });
             setTrip(tripData);
@@ -54,9 +44,10 @@ function ExpenseReview() {
             setRemainingBudget(remainingBudget);
 
         } catch (error) {
-            console.log(error);
+            console.log("Error loading data:", error); // Ghi lại lỗi nếu cần
         }
     }, [id]);
+
 
     useEffect(() => {
         loadData();
@@ -112,11 +103,11 @@ function ExpenseReview() {
                     {/* Chart */}
                     <div className="chart-wrapper" style={{ marginTop: "30px", marginBottom: "30px" }}>
                         <Chart
+                            width={"100%"}
+                            height={320}
                             options={chartOptions}
                             series={chartData.series}
                             type="donut"
-                            width="100%"
-                            height={320}
                         />
                     </div>
 
@@ -133,7 +124,7 @@ function ExpenseReview() {
                         <div className="rb-right-side">
                             <div className="rb-progress-bar">
                                 <div className="progress-bar-item">
-                                    <h4 className="h4-title">Accomodation</h4>
+                                    <h4 className="h4-title">Accommodation</h4>
                                     <div className="progress">
                                         <div className="progress-bar progress-bar1"></div>
                                         <span className="progress-value">100%</span>

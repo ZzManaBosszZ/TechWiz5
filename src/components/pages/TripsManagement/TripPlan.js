@@ -228,6 +228,7 @@ function TripPlan() {
       return dateA - dateB;
     });
   }, [itineraryItems]);
+
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   const groupedDays = useMemo(() => {
@@ -283,17 +284,21 @@ function TripPlan() {
                 <option value="expense">Expense</option>
               </select>
               <select
-                style={{ borderRadius: "5px", margin: "0 15px 10px", height: "3.2rem" }}
+                style={{
+                  borderRadius: "5px",
+                  margin: "0 15px 10px",
+                  width: "50px",
+                }}
                 className="form-select text-center"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
               >
-                <option value="date">Sort by Date</option>
-                <option value="activity">Sort by Activity</option>
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="vnd">VND</option>
               </select>
               <button
-                className={`sec-btn ${trip.categories.length === 0 ? "" : ""
-                  }`}
+                className={`sec-btn ${trip.categories.length === 0 ? "" : ""}`}
                 onClick={handleOpenModal}
               >
                 <span>Create Expense</span>
@@ -319,99 +324,78 @@ function TripPlan() {
               </Button>
             </div>
           )}
-          {groupedDays.length === 0 && <h2>No days available</h2>}
 
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="itinerary">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {groupedDays.length > 0 && (
-                    <div className="mb-5">
-                      <h2 className="mb-3">
-                        {groupedDays[currentDayIndex].day} ({groupedDays[currentDayIndex].date})
-                      </h2>
-                      <ul className="list-group">
-                        {groupedDays[currentDayIndex].items.map((item, index) => (
-                          <Draggable
-                            key={item.id}
-                            draggableId={item.id}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <li
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
-                                onClick={() => handleOpenDetailModal(item)}
-                                style={{ cursor: "pointer", position: "relative" }}
-                              >
-                                <div className="d-flex align-items-center mb-2 mb-md-0">
-                                  <div
-                                    className="me-3"
-                                    style={{ fontSize: "1.5rem", marginRight: "10px" }}
-                                  >
-                                    {/* Check if it's an expense and use FaMoneyBillWave or use getIcon with expenseCategory */}
-                                    {item.type === "expense" ? (
-                                      <FaMoneyBillWave className="text-success" />
-                                    ) : (
-                                      getIcon(item.expenseCategory) // Use expenseCategory from API data
-                                    )}
-                                  </div>
-                                  <div>
-                                    <h5 className="mb-1">{item.expenseCategory}</h5>
-                                    <small className="text-muted">{item.location}</small>
-                                  </div>
-                                </div>
-                                <div style={{ display: "flex" }}>
-                                  <div style={{ marginRight: "8rem" }}>
-                                    <p className="mb-1">
-                                      <strong>{new Date(item.date).toLocaleDateString()}</strong>
-                                    </p>
-                                    <p className="mb-1 text-muted">{item.time}</p>
-                                    {item.amountExpense > 0 && (
-                                      <p className="mb-0 text-success fw-semibold">
-                                        ${item.amountExpense.toFixed(2)}
-                                      </p>
-                                    )}
-                                  </div>
-                                  {/* Edit and Delete Buttons */}
-                                  <div style={{ height: "2.5rem" }} className="ms-auto d-flex gap-2">
-                                    <Button
-                                      style={{ marginRight: "1em" }}
-                                      variant="outline-primary"
-                                      size="sm"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleOpenEditModal(item);
-                                      }}
-                                    >
-                                      Edit
-                                    </Button>
-                                    <Button
-                                      variant="outline-danger"
-                                      size="sm"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDeleteItem(item.id);
-                                      }}
-                                    >
-                                      Delete
-                                    </Button>
-                                  </div>
-                                </div>
-                              </li>
-                            )}
-                          </Draggable>
-                        ))}
-                      </ul>
+          {groupedDays.length === 0 && <h2>No days available</h2>}
+          {groupedDays.length > 0 && currentDayIndex < groupedDays.length && (
+            <div className="mb-5">
+              <h2 className="mb-3">
+                {groupedDays[currentDayIndex].day} ({groupedDays[currentDayIndex].date})
+              </h2>
+              <ul className="list-group">
+                {groupedDays[currentDayIndex].items.map((item, index) => (
+                  <li
+                    key={item.id}
+                    className="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2"
+                    onClick={() => handleOpenDetailModal(item)}
+                    style={{ cursor: "pointer", position: "relative" }}
+                  >
+                    <div className="d-flex align-items-center mb-2 mb-md-0">
+                      <div
+                        className="me-3"
+                        style={{ fontSize: "1.5rem", marginRight: "10px" }}
+                      >
+                        {item.type === "expense" ? (
+                          <FaMoneyBillWave className="text-success" />
+                        ) : (
+                          getIcon(item.expenseCategory)
+                        )}
+                      </div>
+                      <div>
+                        <h5 className="mb-1">{item.expenseCategory}</h5>
+                        <small className="text-muted">{item.location}</small>
+                      </div>
                     </div>
-                  )}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+                    <div style={{ display: "flex" }}>
+                      <div style={{ marginRight: "8rem" }}>
+                        <p className="mb-1">
+                          <strong>{new Date(item.date).toLocaleDateString()}</strong>
+                        </p>
+                        <p className="mb-1 text-muted">{item.time}</p>
+                        {item.amountExpense > 0 && (
+                          <p className="mb-0 text-success fw-semibold">
+                            ${item.amountExpense.toFixed(2)}
+                          </p>
+                        )}
+                      </div>
+                      <div style={{ height: "2.5rem" }} className="ms-auto d-flex gap-2">
+                        <Button
+                          style={{ marginRight: "1em" }}
+                          variant="outline-primary"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleOpenEditModal(item);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="outline-danger"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteItem(item.id);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Detail Modal */}
           <Modal show={detailModalOpen} onHide={handleCloseDetailModal}>
